@@ -1,0 +1,70 @@
+0 verbose cli /data/data/com.termux/files/usr/bin/node /data/data/com.termux/files/usr/bin/npm
+1 info using npm@10.7.0
+2 info using node@v22.2.0
+3 silly config:load:file:/data/data/com.termux/files/usr/lib/node_modules/npm/npmrc
+4 silly config:load:file:/data/data/com.termux/files/home/.npmrc
+5 silly config:load:file:/data/data/com.termux/files/usr/etc/npmrc
+6 verbose title npm publish
+7 verbose argv "publish"
+8 verbose logfile logs-max:10 dir:/data/data/com.termux/files/home/.npm/_logs/2024-06-16T08_51_58_111Z-
+9 verbose logfile /data/data/com.termux/files/home/.npm/_logs/2024-06-16T08_51_58_111Z-debug-0.log
+10 verbose publish [ '.' ]
+11 silly logfile start cleaning logs, removing 1 files
+12 silly logfile done cleaning log files
+13 notice
+14 notice 📦  stylesheets@3.0.0
+15 notice Tarball Contents
+16 notice 251B .bash_history
+16 notice 317.7kB .npm/_cacache/content-v2/sha512/8a/a9/3a4bab18d91a772ddc945184f268b228b89f511a1cde48584fcc85f9a0f8238bf134623aa51367f061b09a871db1285c00422155f77aef7d49f7a420a89b
+16 notice 34.2kB .npm/_cacache/content-v2/sha512/56/18/6ef84e77fd6fbda275dc7750abca96a188603f53c262f32f4acd258032bf83274c0c9c404e65f989402d95acdc9227c41bdb9d58f9fcd476d260acced349
+16 notice 70.7kB .npm/_cacache/content-v2/sha512/b0/ac/98b4a71503b55bca9224b0e1569304be130e454ead240af5d1a866bc9a10e784a85f7778d1b1d85c257bf304e29b065f685019ca2e52fa48069d078650c2
+16 notice 143.0kB .npm/_cacache/content-v2/sha512/b2/2a/9b5696a7ee4bdc2153570a1c7953544bbf0086721fb7599da74c0d14671c9952734654f99401b037b2205445fb9af9590240531ec309a67b1b247dda9309
+16 notice 994B .npm/_cacache/index-v5/e0/f3/563a92774ad5fa62edb9cbc4624c17a784676e377b3852d16ab8dcb28bea
+16 notice 3.3kB .npm/_logs/2024-06-14T07_36_18_617Z-debug-0.log
+16 notice 2.0kB .npm/_logs/2024-06-14T07_38_51_621Z-debug-0.log
+16 notice 703B .npm/_logs/2024-06-14T08_07_08_001Z-debug-0.log
+16 notice 1.2kB .npm/_logs/2024-06-14T08_07_31_598Z-debug-0.log
+16 notice 2.4kB .npm/_logs/2024-06-14T08_08_21_040Z-debug-0.log
+16 notice 2.3kB .npm/_logs/2024-06-16T08_44_16_669Z-debug-0.log
+16 notice 1.2kB .npm/_logs/2024-06-16T08_45_57_059Z-debug-0.log
+16 notice 635B .npm/_logs/2024-06-16T08_49_02_782Z-debug-0.log
+16 notice 2.8kB .npm/_logs/2024-06-16T08_49_14_078Z-debug-0.log
+16 notice 1.2kB .npm/_logs/2024-06-16T08_51_00_879Z-debug-0.log
+16 notice 740B .npm/_logs/2024-06-16T08_51_58_111Z-debug-0.log
+16 notice 4.1kB .termux/termux.properties
+16 notice 92.9kB icon.min.js
+16 notice 92.9kB jquery.min.js
+16 notice 212B package.json
+17 notice Tarball Details
+18 notice name: stylesheets
+19 notice version: 3.0.0
+20 notice filename: stylesheets-3.0.0.tgz
+21 notice package size: 636.3 kB
+22 notice unpacked size: 775.4 kB
+23 notice shasum: 4407657f4aab7765b8e3787e9c2c771e5b470ed6
+24 notice integrity: sha512-6hqwwPcQJHUk3[...]nWxIl0oBBm63w==
+25 notice total files: 21
+26 notice
+27 notice Publishing to https://registry.npmjs.org/ with tag latest and default access
+28 http fetch PUT 403 https://registry.npmjs.org/stylesheets 3524ms
+29 verbose stack HttpErrorGeneral: 403 Forbidden - PUT https://registry.npmjs.org/stylesheets - You do not have permission to publish "stylesheets". Are you logged in as the correct user?
+29 verbose stack     at /data/data/com.termux/files/usr/lib/node_modules/npm/node_modules/npm-registry-fetch/lib/check-response.js:95:15
+29 verbose stack     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+29 verbose stack     at async publish (/data/data/com.termux/files/usr/lib/node_modules/npm/node_modules/libnpmpublish/lib/publish.js:53:15)
+29 verbose stack     at async otplease (/data/data/com.termux/files/usr/lib/node_modules/npm/lib/utils/otplease.js:3:12)
+29 verbose stack     at async Publish.exec (/data/data/com.termux/files/usr/lib/node_modules/npm/lib/commands/publish.js:122:7)
+29 verbose stack     at async module.exports (/data/data/com.termux/files/usr/lib/node_modules/npm/lib/cli/entry.js:67:5)
+30 verbose statusCode 403
+31 verbose pkgid stylesheets@3.0.0
+32 verbose cwd /data/data/com.termux/files/home
+33 verbose Linux 4.14.186-perf-gd11733b714a1
+34 verbose node v22.2.0
+35 verbose npm  v10.7.0
+36 error code E403
+37 error 403 403 Forbidden - PUT https://registry.npmjs.org/stylesheets - You do not have permission to publish "stylesheets". Are you logged in as the correct user?
+38 error 403 In most cases, you or one of your dependencies are requesting
+38 error 403 a package version that is forbidden by your security policy, or
+38 error 403 on a server you do not have access to.
+39 verbose exit 1
+40 verbose code 1
+41 error A complete log of this run can be found in: /data/data/com.termux/files/home/.npm/_logs/2024-06-16T08_51_58_111Z-debug-0.log
