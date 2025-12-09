@@ -1,0 +1,55 @@
+0 verbose cli /data/data/com.termux/files/usr/bin/node /data/data/com.termux/files/usr/bin/npm
+1 info using npm@10.7.0
+2 info using node@v22.2.0
+3 silly config:load:file:/data/data/com.termux/files/usr/lib/node_modules/npm/npmrc
+4 silly config:load:file:/data/data/com.termux/files/home/.npmrc
+5 silly config:load:file:/data/data/com.termux/files/usr/etc/npmrc
+6 verbose title npm publish
+7 verbose argv "publish"
+8 verbose logfile logs-max:10 dir:/data/data/com.termux/files/home/.npm/_logs/2024-06-14T07_36_18_617Z-
+9 verbose logfile /data/data/com.termux/files/home/.npm/_logs/2024-06-14T07_36_18_617Z-debug-0.log
+10 verbose publish [ '.' ]
+11 silly logfile done cleaning log files
+12 notice
+13 notice 📦  footericonss@3.7.1
+14 notice Tarball Contents
+15 notice 828B .npm/_logs/2024-06-14T07_32_34_153Z-debug-0.log
+15 notice 1.9kB .npm/_logs/2024-06-14T07_33_32_260Z-debug-0.log
+15 notice 1.1kB .npm/_logs/2024-06-14T07_34_04_541Z-debug-0.log
+15 notice 685B .npm/_logs/2024-06-14T07_36_18_617Z-debug-0.log
+15 notice 4.1kB .termux/termux.properties
+15 notice 92.9kB icon.min.js
+15 notice 211B package.json
+16 notice Tarball Details
+17 notice name: footericonss
+18 notice version: 3.7.1
+19 notice filename: footericonss-3.7.1.tgz
+20 notice package size: 34.2 kB
+21 notice unpacked size: 101.8 kB
+22 notice shasum: 69d50a526a9b4e588cb424e22407cebce7c95ee6
+23 notice integrity: sha512-Vhhu+E53/W+9o[...]fzUdtJgrM7TSQ==
+24 notice total files: 7
+25 notice
+26 notice Publishing to https://registry.npmjs.org/ with tag latest and default access
+27 http fetch PUT 403 https://registry.npmjs.org/footericonss 937ms
+28 verbose stack HttpErrorGeneral: 403 Forbidden - PUT https://registry.npmjs.org/footericonss - footericonss cannot be republished until 24 hours have passed.
+28 verbose stack     at /data/data/com.termux/files/usr/lib/node_modules/npm/node_modules/npm-registry-fetch/lib/check-response.js:95:15
+28 verbose stack     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+28 verbose stack     at async publish (/data/data/com.termux/files/usr/lib/node_modules/npm/node_modules/libnpmpublish/lib/publish.js:53:15)
+28 verbose stack     at async otplease (/data/data/com.termux/files/usr/lib/node_modules/npm/lib/utils/otplease.js:3:12)
+28 verbose stack     at async Publish.exec (/data/data/com.termux/files/usr/lib/node_modules/npm/lib/commands/publish.js:122:7)
+28 verbose stack     at async module.exports (/data/data/com.termux/files/usr/lib/node_modules/npm/lib/cli/entry.js:67:5)
+29 verbose statusCode 403
+30 verbose pkgid footericonss@3.7.1
+31 verbose cwd /data/data/com.termux/files/home
+32 verbose Linux 4.14.186-perf-gd11733b714a1
+33 verbose node v22.2.0
+34 verbose npm  v10.7.0
+35 error code E403
+36 error 403 403 Forbidden - PUT https://registry.npmjs.org/footericonss - footericonss cannot be republished until 24 hours have passed.
+37 error 403 In most cases, you or one of your dependencies are requesting
+37 error 403 a package version that is forbidden by your security policy, or
+37 error 403 on a server you do not have access to.
+38 verbose exit 1
+39 verbose code 1
+40 error A complete log of this run can be found in: /data/data/com.termux/files/home/.npm/_logs/2024-06-14T07_36_18_617Z-debug-0.log

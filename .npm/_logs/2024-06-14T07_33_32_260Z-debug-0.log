@@ -1,0 +1,31 @@
+0 verbose cli /data/data/com.termux/files/usr/bin/node /data/data/com.termux/files/usr/bin/npm
+1 info using npm@10.7.0
+2 info using node@v22.2.0
+3 silly config:load:file:/data/data/com.termux/files/usr/lib/node_modules/npm/npmrc
+4 silly config:load:file:/data/data/com.termux/files/home/.npmrc
+5 silly config:load:file:/data/data/com.termux/files/usr/etc/npmrc
+6 verbose title npm login
+7 verbose argv "login"
+8 verbose logfile logs-max:10 dir:/data/data/com.termux/files/home/.npm/_logs/2024-06-14T07_33_32_260Z-
+9 verbose logfile /data/data/com.termux/files/home/.npm/_logs/2024-06-14T07_33_32_260Z-debug-0.log
+10 notice Log in on https://registry.npmjs.org/
+11 verbose web login before first POST
+12 silly logfile done cleaning log files
+13 http fetch POST 200 https://registry.npmjs.org/-/v1/login 545ms
+14 verbose web auth got response {
+14 verbose web auth   loginUrl: 'https://www.npmjs.com/login?next=/login/cli/bcd73f52-15d3-452e-825d-ca07d5810e6e',
+14 verbose web auth   doneUrl: 'https://registry.npmjs.org/-/v1/done?sessionId=bcd73f52-15d3-452e-825d-ca07d5810e6e'
+14 verbose web auth }
+15 verbose web auth opening url pair
+16 http fetch GET 202 https://registry.npmjs.org/-/v1/done?sessionId=*** 256ms
+17 http fetch GET 202 https://registry.npmjs.org/-/v1/done?sessionId=*** 273ms
+18 http fetch GET 202 https://registry.npmjs.org/-/v1/done?sessionId=*** 271ms
+19 http fetch GET 202 https://registry.npmjs.org/-/v1/done?sessionId=*** 277ms
+20 http fetch GET 202 https://registry.npmjs.org/-/v1/done?sessionId=*** 273ms
+21 http fetch GET 202 https://registry.npmjs.org/-/v1/done?sessionId=*** 330ms
+22 http fetch GET 202 https://registry.npmjs.org/-/v1/done?sessionId=*** 273ms
+23 http fetch GET 200 https://registry.npmjs.org/-/v1/done?sessionId=*** 295ms
+24 verbose web auth done-check finished
+25 info login Logged in on https://registry.npmjs.org/.
+26 verbose exit 0
+27 info ok

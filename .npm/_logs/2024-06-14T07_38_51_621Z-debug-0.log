@@ -1,0 +1,39 @@
+0 verbose cli /data/data/com.termux/files/usr/bin/node /data/data/com.termux/files/usr/bin/npm
+1 info using npm@10.7.0
+2 info using node@v22.2.0
+3 silly config:load:file:/data/data/com.termux/files/usr/lib/node_modules/npm/npmrc
+4 silly config:load:file:/data/data/com.termux/files/home/.npmrc
+5 silly config:load:file:/data/data/com.termux/files/usr/etc/npmrc
+6 verbose title npm publish
+7 verbose argv "publish"
+8 verbose logfile logs-max:10 dir:/data/data/com.termux/files/home/.npm/_logs/2024-06-14T07_38_51_621Z-
+9 verbose logfile /data/data/com.termux/files/home/.npm/_logs/2024-06-14T07_38_51_621Z-debug-0.log
+10 verbose publish [ '.' ]
+11 silly logfile done cleaning log files
+12 notice
+13 notice 📦  footericonds@3.7.1
+14 notice Tarball Contents
+15 notice 34.2kB .npm/_cacache/content-v2/sha512/56/18/6ef84e77fd6fbda275dc7750abca96a188603f53c262f32f4acd258032bf83274c0c9c404e65f989402d95acdc9227c41bdb9d58f9fcd476d260acced349
+15 notice 248B .npm/_cacache/index-v5/e0/f3/563a92774ad5fa62edb9cbc4624c17a784676e377b3852d16ab8dcb28bea
+15 notice 828B .npm/_logs/2024-06-14T07_32_34_153Z-debug-0.log
+15 notice 1.9kB .npm/_logs/2024-06-14T07_33_32_260Z-debug-0.log
+15 notice 1.1kB .npm/_logs/2024-06-14T07_34_04_541Z-debug-0.log
+15 notice 3.3kB .npm/_logs/2024-06-14T07_36_18_617Z-debug-0.log
+15 notice 685B .npm/_logs/2024-06-14T07_38_51_621Z-debug-0.log
+15 notice 4.1kB .termux/termux.properties
+15 notice 92.9kB icon.min.js
+15 notice 211B package.json
+16 notice Tarball Details
+17 notice name: footericonds
+18 notice version: 3.7.1
+19 notice filename: footericonds-3.7.1.tgz
+20 notice package size: 70.7 kB
+21 notice unpacked size: 139.4 kB
+22 notice shasum: 4c193e4b909650267960011f9acd8792c58daa5a
+23 notice integrity: sha512-sKyYtKcVA7Vby[...]lL6SAadB4ZQwg==
+24 notice total files: 10
+25 notice
+26 notice Publishing to https://registry.npmjs.org/ with tag latest and default access
+27 http fetch PUT 200 https://registry.npmjs.org/footericonds 2355ms
+28 verbose exit 0
+29 info ok

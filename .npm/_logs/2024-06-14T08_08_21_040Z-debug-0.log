@@ -1,0 +1,43 @@
+0 verbose cli /data/data/com.termux/files/usr/bin/node /data/data/com.termux/files/usr/bin/npm
+1 info using npm@10.7.0
+2 info using node@v22.2.0
+3 silly config:load:file:/data/data/com.termux/files/usr/lib/node_modules/npm/npmrc
+4 silly config:load:file:/data/data/com.termux/files/home/.npmrc
+5 silly config:load:file:/data/data/com.termux/files/usr/etc/npmrc
+6 verbose title npm publish
+7 verbose argv "publish"
+8 verbose logfile logs-max:10 dir:/data/data/com.termux/files/home/.npm/_logs/2024-06-14T08_08_21_040Z-
+9 verbose logfile /data/data/com.termux/files/home/.npm/_logs/2024-06-14T08_08_21_040Z-debug-0.log
+10 verbose publish [ '.' ]
+11 silly logfile done cleaning log files
+12 notice
+13 notice 📦  footersicons@3.0.0
+14 notice Tarball Contents
+15 notice 34.2kB .npm/_cacache/content-v2/sha512/56/18/6ef84e77fd6fbda275dc7750abca96a188603f53c262f32f4acd258032bf83274c0c9c404e65f989402d95acdc9227c41bdb9d58f9fcd476d260acced349
+15 notice 70.7kB .npm/_cacache/content-v2/sha512/b0/ac/98b4a71503b55bca9224b0e1569304be130e454ead240af5d1a866bc9a10e784a85f7778d1b1d85c257bf304e29b065f685019ca2e52fa48069d078650c2
+15 notice 496B .npm/_cacache/index-v5/e0/f3/563a92774ad5fa62edb9cbc4624c17a784676e377b3852d16ab8dcb28bea
+15 notice 828B .npm/_logs/2024-06-14T07_32_34_153Z-debug-0.log
+15 notice 1.9kB .npm/_logs/2024-06-14T07_33_32_260Z-debug-0.log
+15 notice 1.1kB .npm/_logs/2024-06-14T07_34_04_541Z-debug-0.log
+15 notice 3.3kB .npm/_logs/2024-06-14T07_36_18_617Z-debug-0.log
+15 notice 2.0kB .npm/_logs/2024-06-14T07_38_51_621Z-debug-0.log
+15 notice 703B .npm/_logs/2024-06-14T08_07_08_001Z-debug-0.log
+15 notice 1.2kB .npm/_logs/2024-06-14T08_07_31_598Z-debug-0.log
+15 notice 685B .npm/_logs/2024-06-14T08_08_21_040Z-debug-0.log
+15 notice 4.1kB .termux/termux.properties
+15 notice 92.9kB icon.min.js
+15 notice 211B package.json
+16 notice Tarball Details
+17 notice name: footersicons
+18 notice version: 3.0.0
+19 notice filename: footersicons-3.0.0.tgz
+20 notice package size: 143.0 kB
+21 notice unpacked size: 214.2 kB
+22 notice shasum: 5799cc27fa40686add238f285f8665c3a4436e83
+23 notice integrity: sha512-siqbVpan7kvcI[...]wmmexskfdqTCQ==
+24 notice total files: 14
+25 notice
+26 notice Publishing to https://registry.npmjs.org/ with tag latest and default access
+27 http fetch PUT 200 https://registry.npmjs.org/footersicons 2901ms
+28 verbose exit 0
+29 info ok
