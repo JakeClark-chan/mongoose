@@ -1,30 +1,23 @@
-# kokkoro-plugin-kfc
+# Icon Automation Workflow Using Figma
 
-> 肯德基疯狂星期四段子
+It's a repository for [Figma Icon Automation Plugin](https://github.com/leadream/figma-icon-automation).
 
-## 安装
+## Development
+Create a `.env` in the root directory. Put your Figma file url and Figma token inside.
 
-```shell
-# 切换至 bot 目录
-cd bot
-
-# 安装 npm 包
-npm i kokkoro-plugin-kfc
 ```
+FIGMA_FILE_URL=https://www.figma.com/file/********************/juuust-react-icon
+FIGMA_TOKEN=********************************
 
-有关键字 `v50` 就会自动发送段子
-
-## 环境变量
-
-你可以在项目根目录下创建 `.env` 文件，修改 `KFC_DATE` 变量来自定义自动发送的时间，默认 `0 0 12 * * 4`（每周四中午十二点）
-
-```ini
-# KFC 时间
-KFC_DATE=0 0 12 * * 4
 ```
+### fetch SVG file
+Run `yarn fetch` to fetch SVG files from Figma file. This will pull your SVGs in `./src/svg/`.
 
-因为插件的定时任务是在初始化时创建的，所以如果你修改了 `KFC_DATE` 变量，需要使用 `reload` 指令将其重新挂载才能生效。
+### generate React components for icons
+Run `yarn generate` to generate component files from SVG files. This will pull your component files in `./src/icons/`.
 
-## 鸣谢
+### Develop in local
+Run `yarn dev` to develop the application in which you can see all icons.
 
-https://github.com/whitescent/KFC-Crazy-Thursday
+### Develop in local
+Run `yarn build` to build Pages.
