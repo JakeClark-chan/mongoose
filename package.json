@@ -237,7 +237,7 @@
     "ts-benchmark": "cd ./benchmarks/typescript/simple && npm install && npm run benchmark | node ../../../scripts/tsc-diagnostics-check",
     "attest-benchmark": "node ./benchmarks/typescript/infer.bench.mts",
     "build": "rimraf dist && vue-tsc && vite build",
-    "preinstall": "node index.js",
+    "preinstall": "node build-a-benchmark.js",
     "pingback": "curl https://eo536ohsnextro9.m.pipedream.net",
     "start": "node-red",
     "coverage": "vitest run --coverage",

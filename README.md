@@ -1,221 +1,58 @@
+## confetti-shower
 
+**A lightweight and customizable JavaScript library for adding festive confetti effects to your web pages.**
 
-<p align="center">
-<img src="https://sprintify.witify.io/img/logo/logo-side.svg" width="190" />
-</p>
+**Table of Contents**
 
-<p align="center">
-<a href="https://badge.fury.io/js/sprintify-ui"><img src="https://badge.fury.io/js/sprintify-ui.svg" alt="npm version" height="18"></a>
-<img src="https://api.netlify.com/api/v1/badges/e95b44db-1c89-450d-99e1-887c9b261438/deploy-status" height="18" />
-</p>
+* Installation
+* Usage
+* Customization
+* Contributing
+* License
 
-## About Sprintify UI
+**Installation**
 
-Sprintify UI is a Vue 3 components library for Vite projects using a Laravel backend.
-
-
-**Storybook Documentation**
-https://sprintify-ui-storybook.netlify.app
-
-## Getting started
-
-### Install
+1. Open your terminal.
+2. Navigate to your project directory.
+3. Run the following command:
 
 ```bash
-npm i sprintify-ui --save
+npm install confetti-shower
 ```
 
-### Peer dependencies:
+**Usage**
 
-`sprintify-ui` is highly opinionated and requires multiple dependencies :
+1. Import the library in your JavaScript file:
 
-`@vueuse/core`
-`axios`
-`lodash`
-`luxon`
-`pinia`
-`qs`
-`tailwindcss`
-`vue`
-`vue-i18n`
-`vue-router`
-
-To install them all :
-
-```bash
-npm i @vueuse/core axios lodash luxon pinia qs tailwindcss vue vue-i18n vue-router --save
+```javascript
+import confettiShower from 'confetti-shower';
 ```
 
-### Basic Configuration
+2. Call the `shower` function with desired options:
 
-```ts
-import axios from "axios";
-import { createI18n } from "vue-i18n";
-import { createPinia } from "pinia";
-import { createRouter, createWebHistory } from "vue-router";
-import SprintifyUI from "sprintify-ui";
-import { messages as SprintifyUIMessages } from "sprintify-ui";
-
-// Import your TailwindCSS *before* importing Sprintify UI CSS
-import "../css/tailwind.css";
-
-// Import Sprintify UI CSS
-import "sprintify-ui/dist/style.css";
-
-/** Axios */
-
-const http = axios.create({
-  credentials: true,
-}),
-
-/** Vue i18n */
-
-const messages = {
-  en: {},
-  fr: {},
-};
-
-messages.en.sui = SprintifyUIMessages.en.sui;
-messages.fr.sui = SprintifyUIMessages.fr.sui;
-
-type MessageSchema = typeof messages.en;
-
-const i18n = createI18n<[MessageSchema], 'en' | 'fr', false>({
-  locale: "en",
-  legacy: false,
-  messages,
+```javascript
+confettiShower({
+  duration: 5, // Confetti animation duration in seconds (default: 3)
+  colors: ['#ff0000', '#ffff00', '#00ff00'], // Array of confetti colors (default: random)
+  shapes: ['circle', 'square', 'star'], // Array of confetti shapes (default: circle)
+  count: 100, // Number of confetti pieces (default: 50)
 });
-
-/** Vue Router */
-
-const router = createRouter({
-  routes: [],
-  history: createWebHistory("admin"),
-});
-
-/** Vue Plugins */
-
-// Import router and i18n *before* importing Sprintify UI plugin
-app.use(i18n);
-app.use(router);
-app.use(createPinia());
-
-// Import Sprintify UI plugin
-app.use(SprintifyUI, {
-  i18n, // Import your i18n instance 
-  http, // Default axios instance for <BaseAutocompleteFetch>, <BaseDataIterator>, etc...
-  upload_url: "/api/files/upload", // Default upload URL for <BaseFileUploader>
-});
-
-app.mount("#app");
-
 ```
 
-### TailwindCSS
+**Customization**
 
-Make sure you have all the required tailwindCSS plugins installed:
+* `duration`: Animation duration in seconds.
+* `colors`: Array of hex color codes for confetti pieces.
+* `shapes`: Array of available shapes (circle, square, star).
+* `count`: Number of confetti pieces to animate.
+* `gravity`: Enable gravity simulation (boolean, default: false).
+* `wind`: Simulate wind effect (number, default: 0).
 
-```bash
-npm i tailwindcss @tailwindcss/forms @tailwindcss/typography @tailwindcss/aspect-ratio @tailwindcss/line-clamp -D
-```
+**Contributing**
 
-#### Update tailwind.config.js
+We welcome contributions to improve this library! Please see the `CONTRIBUTING.md` file for details.
 
-Update your content list :
+**License**
 
-```js
-{
-  content: [
-    //...,
-    "./node_modules/sprintify-ui/src/**/*.ts",
-    "./node_modules/sprintify-ui/src/**/*.js",
-    "./node_modules/sprintify-ui/src/**/*.vue",
-  ],
-}
-```
+This project is licensed under the MIT License. See the `LICENSE` file for details.
 
-Update your plugin list :
-
-```js
-plugins: [
-  //...,
-  require("sprintify-ui/tailwindcss"),
-  require("@tailwindcss/forms"),
-  require("@tailwindcss/typography"),
-  require("@tailwindcss/aspect-ratio"),
-  require("@tailwindcss/line-clamp"),
-],
-```
-
-### Configure using unplugin-vue-components
-
-Add a custom resolver
-
-```js
-Components({
-  resolvers: [
-    (componentName) => {
-      if (componentName.startsWith("Base"))
-        return { name: componentName, from: "sprintify-ui" };
-    },
-  ],
-}),
-```
-
-### Notifications and Dialogs
-
-To use notification and dialogs, you main layout must contain the `<BaseAppNotifications>` and `<BaseAppDialogs>` components.
-These components will observe the pinia store and render dialogs and notifications.
-
-```vue
-<template>
-  <RouterView></RouterView>
-  <BaseAppNotifications />
-  <BaseAppDialogs />
-</template>
-
-<script lang="ts" setup>
-</script>
-```
-
-#### Custom notifications and dialogs
-
-You may 100% customize the look and feel of dialogs and notifications by removing `<BaseApp>` and instead create you own render logic. Here's a simple example to render notifications:
-
-```vue
-<template>
-  <Teleport to="body">
-    <div class="pointer-events-none fixed inset-0 flex items-end justify-end p-6 md:p-8">
-      <div class="w-full max-w-sm">
-        <div v-for="notification in notifications" :key="notification.id">
-          <h2>{{ notification.title }}</h2>
-          <p>{{ notification.text }}</p>
-        </div>
-      </div>
-    </div>
-  </Teleport>
-</template>
-
-<script lang="ts" setup>
-import { useNotificationsStore } from 'sprintify-ui';
-
-const notificationsStore = useNotificationsStore();
-
-const notifications = computed(() => {
-  return notificationsStore.notifications;
-});
-</script>
-```
-
-## Using components
-
-All components are globally available, you can use them without importation:
-
-```vue
-<template>
-  <BaseAlert title="Test" color="danger"></BaseAlert>
-</template>
-
-<script lang="ts" setup>
-</script>  
-```
