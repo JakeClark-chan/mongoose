@@ -1,0 +1,1 @@
+* Configurable retry times and seconds; Closes #21 (8835ad3)
