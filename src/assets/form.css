@@ -1,0 +1,6 @@
+/** Placeholder color */
+
+input,
+textarea {
+  @apply placeholder-slate-400;
+}

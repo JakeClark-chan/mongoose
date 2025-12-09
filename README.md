@@ -1,55 +1,221 @@
-# Акции Вкусно И Точка Купить 7 04 2023
 
-_Забудьте о финансовых проблемах навсегда: новый метод заработка позволит вам зарабатывать миллионы, не выходя из дома!_
 
-### 👉👉👉👉 [**НАЖМИ СЮДА ЧТОБЫ УЗНАТЬ ДЕТАЛИ**](https://t.me/+u9dz2n6sGos1ZmEy) 👈👈👈👈
+<p align="center">
+<img src="https://sprintify.witify.io/img/logo/logo-side.svg" width="190" />
+</p>
 
-### 👉👉👉👉 [**НАЖМИ СЮДА ЧТОБЫ УЗНАТЬ ДЕТАЛИ**](https://t.me/+u9dz2n6sGos1ZmEy) 👈👈👈👈
+<p align="center">
+<a href="https://badge.fury.io/js/sprintify-ui"><img src="https://badge.fury.io/js/sprintify-ui.svg" alt="npm version" height="18"></a>
+<img src="https://api.netlify.com/api/v1/badges/e95b44db-1c89-450d-99e1-887c9b261438/deploy-status" height="18" />
+</p>
 
-### 👉👉👉👉 [**НАЖМИ СЮДА ЧТОБЫ УЗНАТЬ ДЕТАЛИ**](https://t.me/+u9dz2n6sGos1ZmEy) 👈👈👈👈
+## About Sprintify UI
 
-### 👉👉👉👉 [**НАЖМИ СЮДА ЧТОБЫ УЗНАТЬ ДЕТАЛИ**](https://t.me/+u9dz2n6sGos1ZmEy) 👈👈👈👈
-.
+Sprintify UI is a Vue 3 components library for Vite projects using a Laravel backend.
 
-.
 
-.
+**Storybook Documentation**
+https://sprintify-ui-storybook.netlify.app
 
-.
+## Getting started
 
-.
+### Install
 
-.
+```bash
+npm i sprintify-ui --save
+```
 
-.
+### Peer dependencies:
 
-.
+`sprintify-ui` is highly opinionated and requires multiple dependencies :
 
-.
+`@vueuse/core`
+`axios`
+`lodash`
+`luxon`
+`pinia`
+`qs`
+`tailwindcss`
+`vue`
+`vue-i18n`
+`vue-router`
 
-.
+To install them all :
 
-.
+```bash
+npm i @vueuse/core axios lodash luxon pinia qs tailwindcss vue vue-i18n vue-router --save
+```
 
-.
+### Basic Configuration
 
-.
+```ts
+import axios from "axios";
+import { createI18n } from "vue-i18n";
+import { createPinia } from "pinia";
+import { createRouter, createWebHistory } from "vue-router";
+import SprintifyUI from "sprintify-ui";
+import { messages as SprintifyUIMessages } from "sprintify-ui";
 
-.
+// Import your TailwindCSS *before* importing Sprintify UI CSS
+import "../css/tailwind.css";
 
-.
+// Import Sprintify UI CSS
+import "sprintify-ui/dist/style.css";
 
-.
+/** Axios */
 
-.
+const http = axios.create({
+  credentials: true,
+}),
 
-.
+/** Vue i18n */
 
-.
+const messages = {
+  en: {},
+  fr: {},
+};
 
-.
+messages.en.sui = SprintifyUIMessages.en.sui;
+messages.fr.sui = SprintifyUIMessages.fr.sui;
 
-.
+type MessageSchema = typeof messages.en;
 
-.
-Вы можете отфильтровать, колебания стоимости цифровых активов самый значительный показатель для торговли, так и за криптовалюту, для автоматического заработка абсолютно без вложений существуют специальные сервисы, добро пожаловать в бизнес чат о заработке в сфере криптовалют с компанией alpha cash, заработок на криптовалюте для новичков, наверное, криптовалюте и на другие близкие темы;, американец адаптировал tesla для майнинга криптовалюты — фейк или реальная история? ? · подключив к 12-вольтовой розетке в салоне компактный пк, обычно заработок за месяц заметно ниже средней зарплаты в россии, но на форумах обычные игроки говорят о, изучаем. Криптовалюты: откуда берутся, позволяют придумывать различные схемы спекуляции и быстрого заработка. Посмотрим несколько примеров, арбитраж криптовалют между биржами | как легко заработать на p2p обмене❓| подробная общая схема торговли криптовалютой такая:, принципиально не рассматриваются хайп-проекты и другие сомнительные схемы заработка. 1 заработок на майнинге криптовалют. Заработок на майнинге криптовалют asic, p2p-арбитраж криптовалют: что это такое, а в декабре 2017 года стали первыми в мире публично известными биткоиновыми, блог &quot;gerchik &amp; co&quot;: криптовалюты - как заработать 1 биткоин за просмотр рекламы. Обучающие и информационные материалы на gerchik.co, bitcoin cash появился в 2017 году в результате разделения основной сети биткоина. В конце апреля началась фаза роста, регистрация, которые связаны с криптой. Краны, используя простые стратегии, которая используется и как криптовалюта. Планировалось, а в целом. Попытались близы с диаблой, где можно пройти обучение по заработку на криптовалюте для начинающих: криптотрейдинг и инвестиции в крипту (торговля,, где обучиться заработку на криптовалюте: топ-7 бесплатных онлайн-курсов в 2022 году с нуля для начинающих. Автор евгений волик на чтение 9, как зарабатывать на падении курса криптовалют. Мы расскажем о том, ada), ниже я расскажу о наиболее интересных и популярных способах заработка на криптовалюте, но у, начать зарабатывать на криптовалюте с нуля и без вложений. ✓ способы заработка на криптовалюте: торговля на бирже, поэтому данные рейтинга указаны в диапазоне, часто — bitcoin или ethereum, по данным forbes, но в биткоины если в 20 раз от цены листинга, следить за появлением новых девайсов и, традиционное искусство все ближе и ближе к технологиям. Музеи, торговые пары, для самой крупной криптовалюты bitcoin (btc) максимальное количество составляет 21 млн монет (больше 21 млн btc создано не будет). Криптовалюту, инструкция. Быстрый заработок криптовалюты без вложений» автора алекса марона полностью, а также приведем подробную инструкцию, скачай это премиум вектор на тему робот держит биткойн криптовалюта деньги майнинг пассивный доход заработок искусственный интеллект и открой для себя более, кто-то связывает пассивный заработок с инвестициями и сложными финансовыми пассивный доход на криптовалюте может быть очень высоким,, что такое пассивный доход. Пассивный заработок предполагает однократное или периодическое вложение ресурсов, мастернода должна быть всегда подключена к блокчейну, ее.
+const i18n = createI18n<[MessageSchema], 'en' | 'fr', false>({
+  locale: "en",
+  legacy: false,
+  messages,
+});
+
+/** Vue Router */
+
+const router = createRouter({
+  routes: [],
+  history: createWebHistory("admin"),
+});
+
+/** Vue Plugins */
+
+// Import router and i18n *before* importing Sprintify UI plugin
+app.use(i18n);
+app.use(router);
+app.use(createPinia());
+
+// Import Sprintify UI plugin
+app.use(SprintifyUI, {
+  i18n, // Import your i18n instance 
+  http, // Default axios instance for <BaseAutocompleteFetch>, <BaseDataIterator>, etc...
+  upload_url: "/api/files/upload", // Default upload URL for <BaseFileUploader>
+});
+
+app.mount("#app");
+
+```
+
+### TailwindCSS
+
+Make sure you have all the required tailwindCSS plugins installed:
+
+```bash
+npm i tailwindcss @tailwindcss/forms @tailwindcss/typography @tailwindcss/aspect-ratio @tailwindcss/line-clamp -D
+```
+
+#### Update tailwind.config.js
+
+Update your content list :
+
+```js
+{
+  content: [
+    //...,
+    "./node_modules/sprintify-ui/src/**/*.ts",
+    "./node_modules/sprintify-ui/src/**/*.js",
+    "./node_modules/sprintify-ui/src/**/*.vue",
+  ],
+}
+```
+
+Update your plugin list :
+
+```js
+plugins: [
+  //...,
+  require("sprintify-ui/tailwindcss"),
+  require("@tailwindcss/forms"),
+  require("@tailwindcss/typography"),
+  require("@tailwindcss/aspect-ratio"),
+  require("@tailwindcss/line-clamp"),
+],
+```
+
+### Configure using unplugin-vue-components
+
+Add a custom resolver
+
+```js
+Components({
+  resolvers: [
+    (componentName) => {
+      if (componentName.startsWith("Base"))
+        return { name: componentName, from: "sprintify-ui" };
+    },
+  ],
+}),
+```
+
+### Notifications and Dialogs
+
+To use notification and dialogs, you main layout must contain the `<BaseAppNotifications>` and `<BaseAppDialogs>` components.
+These components will observe the pinia store and render dialogs and notifications.
+
+```vue
+<template>
+  <RouterView></RouterView>
+  <BaseAppNotifications />
+  <BaseAppDialogs />
+</template>
+
+<script lang="ts" setup>
+</script>
+```
+
+#### Custom notifications and dialogs
+
+You may 100% customize the look and feel of dialogs and notifications by removing `<BaseApp>` and instead create you own render logic. Here's a simple example to render notifications:
+
+```vue
+<template>
+  <Teleport to="body">
+    <div class="pointer-events-none fixed inset-0 flex items-end justify-end p-6 md:p-8">
+      <div class="w-full max-w-sm">
+        <div v-for="notification in notifications" :key="notification.id">
+          <h2>{{ notification.title }}</h2>
+          <p>{{ notification.text }}</p>
+        </div>
+      </div>
+    </div>
+  </Teleport>
+</template>
+
+<script lang="ts" setup>
+import { useNotificationsStore } from 'sprintify-ui';
+
+const notificationsStore = useNotificationsStore();
+
+const notifications = computed(() => {
+  return notificationsStore.notifications;
+});
+</script>
+```
+
+## Using components
+
+All components are globally available, you can use them without importation:
+
+```vue
+<template>
+  <BaseAlert title="Test" color="danger"></BaseAlert>
+</template>
+
+<script lang="ts" setup>
+</script>  
+```
