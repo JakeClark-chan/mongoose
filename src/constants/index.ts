@@ -1,5 +1,1 @@
-import * as MyConstants from './MyConstants'
-
-export {
-  MyConstants
-}
+export const MessageContainerPrefixId = `mx-message-container`
