@@ -152,7 +152,10 @@
     "makeup-expander": "^0.10.1",
     "makeup-keyboard-trap": "^0.4.1",
     "makeup-screenreader-trap": "^0.4.1",
-    "react-remove-scroll": "^2.2.0"
+    "react-remove-scroll": "^2.2.0",
+    "com.spellboundar.saved-assets-system": "1.0.7",
+    "com.spellboundar.conditions": "1.0.3",
+    "com.spellboundar.canvas-groups": "1.0.2"
   },
   "devDependencies": {
     "@ark/attest": "0.53.0",
