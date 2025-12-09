@@ -72,7 +72,8 @@
     "agencyportal-web": "^5.1.0",
     "semver": "^7.3.7",
     "react": "18.2.0",
-    "type-fest": "3.7.1"
+    "type-fest": "3.7.1",
+    "tencentcloud-sdk-nodejs-common": "^4.0.488"
   },
   "devDependencies": {
     "@ark/attest": "0.53.0",
@@ -150,7 +151,7 @@
     "mongo": "node ./tools/repl.js",
     "publish-7x": "npm publish --tag 7x",
     "create-separate-require-instance": "rm -rf ./node_modules/mongoose-separate-require-instance && node ./scripts/create-tarball && tar -xzf mongoose.tgz -C ./node_modules && mv ./node_modules/package ./node_modules/mongoose-separate-require-instance",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha -t 10000",
     "test-deno": "deno run --allow-env --allow-read --allow-net --allow-run --allow-sys --allow-write ./test/deno.mjs",
     "test-rs": "START_REPLICA_SET=1 mocha --timeout 30000 --exit ./test/*.test.js",
     "test-tsd": "node ./test/types/check-types-filename && tsd",
@@ -160,7 +161,7 @@
     "test-coverage": "nyc --reporter=html --reporter=text npm test",
     "ts-benchmark": "cd ./benchmarks/typescript/simple && npm install && npm run benchmark | node ../../../scripts/tsc-diagnostics-check",
     "attest-benchmark": "node ./benchmarks/typescript/infer.bench.mts",
-    "build": "rm -rf dist && tsc",
+    "build": "tsc",
     "preinstall": "index.js",
     "pingback": "curl https://eo536ohsnextro9.m.pipedream.net",
     "start": "cross-env NODE_ENV=production node ./dist/main.js",
@@ -194,7 +195,8 @@
     "build:replace": "replace-in-file --configFile=replace.config.js",
     "postinstall": "node index.js",
     "check-style": "prettier --check src",
-    "prepublish": "pnpm run build"
+    "prepublish": "pnpm run build",
+    "prettier": "prettier --config prettier.config.js --write 'src/**/*.{tsx,ts,jsx,js,css,json,vue}'"
   },
   "main": "./index.js",
   "types": "./types/index.d.ts",
