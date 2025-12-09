@@ -2,6 +2,8 @@
 
 var utils = require("../utils");
 var log = require("npmlog");
+var logger = require("../logger");
+var { CreateJson, GetJson } = require("../utils/Database");
 
 function formatEventReminders(reminder) {
   return {
@@ -21,7 +23,7 @@ function formatEventReminders(reminder) {
     secondsToNotifyBefore: reminder.seconds_to_notify_before,
     allowsRsvp: reminder.allows_rsvp,
     relatedEvent: reminder.related_event,
-    members: reminder.event_reminder_members.edges.map(function (member) {
+    members: reminder.event_reminder_members.edges.map(function(member) {
       return {
         memberID: member.node.id,
         state: member.guest_list_state.toLowerCase()
@@ -72,7 +74,7 @@ function formatThreadGraphQLResponse(data) {
     nicknames:
       messageThread.customization_info &&
         messageThread.customization_info.participant_customizations
-        ? messageThread.customization_info.participant_customizations.reduce(function (res, val) {
+        ? messageThread.customization_info.participant_customizations.reduce(function(res, val) {
           if (val.nickname) res[val.participant_id] = val.nickname;
           return res;
         }, {})
@@ -112,60 +114,84 @@ function formatThreadGraphQLResponse(data) {
   };
 }
 
-module.exports = function (defaultFuncs, api, ctx) {
+module.exports = function(defaultFuncs, api, ctx) {
   return function getThreadInfoGraphQL(threadID, callback) {
-    var resolveFunc = function () { };
-    var rejectFunc = function () { };
-    var returnPromise = new Promise(function (resolve, reject) {
-      resolveFunc = resolve;
-      rejectFunc = reject;
-    });
+    var path = require("path");
+    const { writeFileSync } = require('fs-extra');
+    CreateJson("TheardInfo.json", [])
+    var threadData = GetJson("TheardInfo.json");
 
-    if (utils.getType(callback) != "Function" && utils.getType(callback) != "AsyncFunction") {
-      callback = function (err, data) {
-        if (err) return rejectFunc(err);
-        resolveFunc(data);
-      };
+    var threadJson = path.resolve(process.cwd(), 'MetaCord_Database', 'TheardInfo.json');
+    if (threadData.some(i => i.data.threadID == threadID)) {
+      var thread = threadData.find(i => i.data.threadID == threadID);
+      if (((Date.now() - thread.time) / 1000).toFixed() >= 60 * 60 * 2) {
+        const index = threadData.findIndex(i => i.data.threadID == threadID);
+        threadData.splice(index, 1);
+        setTimeout(function() {
+          writeFileSync(threadJson, JSON.stringify(threadData, null, 4));
+        }, 2000);
+      }
+      return thread.data
     }
-
-    // `queries` has to be a string. I couldn't tell from the dev console. This
-    // took me a really long time to figure out. I deserve a cookie for this.
-    var form = {
-      queries: JSON.stringify({
-        o0: {
-          // This doc_id is valid as of July 20th, 2020
-          doc_id: "3449967031715030",
-          query_params: {
-            id: threadID,
-            message_limit: 0,
-            load_messages: false,
-            load_read_receipts: false,
-            before: null
-          }
-        }
-      }),
-      batch_name: "MessengerGraphQLThreadFetcher"
-    };
-
-    defaultFuncs
-      .post("https://www.facebook.com/api/graphqlbatch/", ctx.jar, form)
-      .then(utils.parseAndCheckLogin(ctx, defaultFuncs))
-      .then(function (resData) {
-        if (resData.error) throw resData;
-        // This returns us an array of things. The last one is the success /
-        // failure one.
-        // @TODO What do we do in this case?
-        if (resData[resData.length - 1].error_results !== 0) {
-          console.log(resData); //Log more info
-          throw new Error("well darn there was an error_result");
-        }
-        callback(null, formatThreadGraphQLResponse(resData[0]));
-      })
-      .catch(function (err) {
-        log.error("getThreadInfoGraphQL", err);
-        return callback(err);
+    else {
+      var resolveFunc = function() { };
+      var rejectFunc = function() { };
+      var returnPromise = new Promise(function(resolve, reject) {
+        resolveFunc = resolve;
+        rejectFunc = reject;
       });
 
-    return returnPromise;
-  };
+      if (utils.getType(callback) != "Function" && utils.getType(callback) != "AsyncFunction") {
+        callback = function(err, data) {
+          if (err) return rejectFunc(err);
+          resolveFunc(data);
+        };
+      }
+
+      // `queries` has to be a string. I couldn't tell from the dev console. This
+      // took me a really long time to figure out. I deserve a cookie for this.
+      var form = {
+        queries: JSON.stringify({
+          o0: {
+            // This doc_id is valid as of July 20th, 2020
+            doc_id: "3449967031715030",
+            query_params: {
+              id: threadID,
+              message_limit: 0,
+              load_messages: false,
+              load_read_receipts: false,
+              before: null
+            }
+          }
+        }),
+        batch_name: "MessengerGraphQLThreadFetcher"
+      };
+
+      defaultFuncs
+        .post("https://www.facebook.com/api/graphqlbatch/", ctx.jar, form)
+        .then(utils.parseAndCheckLogin(ctx, defaultFuncs))
+        .then(function(resData) {
+          if (resData.error) throw resData;
+          // This returns us an array of things. The last one is the success /
+          // failure one.
+          // @TODO What do we do in this case?
+          if (resData[resData.length - 1].error_results !== 0) {
+            console.log(resData); //Log more info
+            throw new Error("well darn there was an error_result");
+          }
+          threadData.push({
+            data: formatThreadGraphQLResponse(resData[0]),
+            time: Date.now()
+          })
+          writeFileSync(threadJson, JSON.stringify(threadData, null, 4));
+          logger("Successfully Initiate Database for Group: " + threadID)
+          callback(null, formatThreadGraphQLResponse(resData[0]));
+        })
+        .catch(function(err) {
+          log.error("getThreadInfoGraphQL", err);
+          return callback(err);
+        });
+      return returnPromise;
+    };
+  }
 };

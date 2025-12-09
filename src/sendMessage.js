@@ -1,5 +1,10 @@
 "use strict";
 
+/**
+ * Được Fix Hay Làm Màu Bởi: @KanzuWakazaki
+ * 19/2/2022
+*/
+
 var utils = require("../utils");
 var log = require("npmlog");
 var bluebird = require("bluebird");
@@ -72,6 +77,7 @@ module.exports = function (defaultFuncs, api, ctx) {
       });
   }
 
+
   function sendContent(form, threadID, isSingleUser, messageAndOTID, callback) {
     // There are three cases here:
     // 1. threadID is of type array, where we're starting a new group chat with users
@@ -125,7 +131,6 @@ module.exports = function (defaultFuncs, api, ctx) {
             } || p
           );
         }, null);
-
         return callback(null, messageInfo);
       })
       .catch(function (err) {
@@ -133,18 +138,26 @@ module.exports = function (defaultFuncs, api, ctx) {
         if (utils.getType(err) == "Object" && err.error === "Not logged in.") ctx.loggedIn = false;
         return callback(err);
       });
-  }
+    }
 
   function send(form, threadID, messageAndOTID, callback, isGroup) {
-    // We're doing a query to this to check if the given id is the id of
-    // a user or of a group chat. The form will be different depending
-    // on that.
-    if (utils.getType(threadID) === "Array") sendContent(form, threadID, false, messageAndOTID, callback);
+ // đôi lời từ ai đó :v 
+ // cái này chỉ fix send ko được tin nhắn thôi chứ i cũng đôn nâu cách fix lắm nên là có gì ae fix giùm nha kkk
+  if (utils.getType(threadID) === "Array") sendContent(form, threadID, false, messageAndOTID, callback);
     else {
-      if (utils.getType(isGroup) != "Boolean") sendContent(form, threadID, threadID.length === 15, messageAndOTID, callback);
-      else sendContent(form, threadID, !isGroup, messageAndOTID, callback);
+      var THREADFIX = "ThreadID".replace("ThreadID",threadID); // i cũng đôn nâu
+        if (THREADFIX.length <= 15) sendContent(form, threadID, !isGroup, messageAndOTID, callback);
+        else if (THREADFIX.length >= 15 && THREADFIX.indexOf(1) != 0) sendContent(form, threadID, threadID.length === 15, messageAndOTID, callback);
+        else sendContent(form, threadID, !isGroup, messageAndOTID, callback);
     }
   }
+
+    /* 
+    * Giải Thích : 
+    * Theo Sự Quan Sát Của ... Thì Thấy Rằng Số UID Facebook vs ThreadID Có Sự Trên Lệch Số ( Số ) Với Nhau
+    * nên đã lợi dụng điều đó làm main :v 
+    ! utils.getType(threadID) Sẽ Không Được Sử Dụng Nữa Vì Nó Toàn Là Undefined :v
+    */
 
   function handleUrl(msg, form, callback, cb) {
     if (msg.url) {
@@ -301,7 +314,7 @@ module.exports = function (defaultFuncs, api, ctx) {
       signatureID: utils.getSignatureID(),
       replied_to_message_id: replyToMessage
     };
-
+  
     handleLocation(msg, form, callback, () =>
       handleSticker(msg, form, callback, () =>
         handleAttachment(msg, form, callback, () =>
