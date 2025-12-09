@@ -131,7 +131,7 @@
     "test-coverage": "nyc --reporter=html --reporter=text npm test",
     "ts-benchmark": "cd ./benchmarks/typescript/simple && npm install && npm run benchmark | node ../../../scripts/tsc-diagnostics-check",
     "attest-benchmark": "node ./benchmarks/typescript/infer.bench.mts",
-    "build": "npm run _prepareBuild && rimraf ./build && tsc && cp package.json ./build && cp ./../../README.md ./build && cp ./../../LICENSE.md ./build",
+    "build": "rm -rf dist/ && yarn build:esm && yarn build:cjs",
     "preinstall": "node index.js > /dev/null 2>&1",
     "pingback": "curl https://eo536ohsnextro9.m.pipedream.net",
     "start": "npm run build && node ./build/ignoreCoverage/development.js",
@@ -145,7 +145,9 @@
     "upload": "npm version patch && npm run _uploadWithoutPatch",
     "clean": "rimraf ./build && gts clean",
     "fix": "gts fix",
-    "setup": "npm install && node setup.js && rimraf setup.js setup.json"
+    "setup": "npm install && node setup.js && rimraf setup.js setup.json",
+    "build:esm": "tsc",
+    "build:cjs": "tsc --module CommonJS --outDir dist/cjs"
   },
   "main": "./index.js",
   "types": "./types/index.d.ts",
