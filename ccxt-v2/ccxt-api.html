@@ -1,0 +1,1897 @@
+<!--
+Copyright (c) 2019 Islam El'ewady
+and other contributors, 
+https://github.com/nileio/node-red-contrib-ccxt-v2
+
+Licensed under the MIT License (the "License");
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+-->
+
+<script type="text/html" data-template-name="ccxt-api-v2">
+
+  <div class="form-row">
+        <span
+          ><a href="#" target="_blank" id="id-img-display-exchange-homepage"
+            ><img
+              src="#"
+              alt=""
+              id="id-anchor-display-exchange-img"
+              style="max-width:68%;"/></a
+        ></span>
+        
+        <span
+          ><img
+            src="resources/node-red-contrib-ccxt-v2/images/spinning-circles.svg"
+            alt="retrieving data..."
+            id="id-loading-svg"
+            style="display:none;width:24px;"
+        /></span>
+      </div>
+      <div class="form-row">
+        <label for="node-input-exchange" class="tooltip"
+          ><i class="fa fa-exchange"></i> <span data-i18n="ccxt.label.exchange"></span>
+          <div class="right">
+            <strong data-i18n="ccxt.label.exchange"></strong>
+            <p data-i18n="ccxt.labeltooltip.exchange"></p>
+            <i></i>
+          </div>
+        </label>
+
+        <select type="text" id="node-input-exchange" style="width: 70%"> </select>
+        <span>
+          <a class="tooltip" href="#" id="id-node-input-allexchanges">
+            <div class="left">
+              <strong data-i18n="ccxt.label.allexchanges"></strong>
+              <p data-i18n="ccxt.labeltooltip.allexchanges"></p>
+              <i></i>
+            </div>
+            <span id="allexchanges-toggle-on"><i class="fa fa-toggle-on fa-lg"></i></span>
+            <span id="allexchanges-toggle-off"
+              ><i class="fa fa-toggle-off fa-lg"></i
+            ></span> </a
+        ></span>
+        <input type="checkbox" id="node-input-allexchanges" style="display:none;" />
+      </div>
+
+      <div class="form-row">
+        <label for="node-input-apitype" class="tooltip"
+          ><i class="fa fa-dot-circle-o"></i> <span data-i18n="ccxt.label.apitype"></span>
+          <div class="right">
+            <strong data-i18n="ccxt.label.apitype"></strong>
+            <p data-i18n="ccxt.labeltooltip.apitype"></p>
+            <i></i>
+          </div>
+        </label>
+        <select type="text" id="node-input-apitype" style="width: auto;">
+          <option value="unifiedAPI">Unified API</option>
+          <option id="input-apitype-customAPI" value="customAPI">Exchange API</option>
+        </select>
+      </div>
+
+      <div class="form-row">
+        <label for="node-input-api" class="tooltip"
+          ><i class="fa fa-code"></i> <span data-i18n="ccxt.label.apiname"></span>
+          <div class="right">
+            <strong data-i18n="ccxt.label.apiname"></strong>
+            <p data-i18n="ccxt.labeltooltip.apiname"></p>
+            <i></i>
+          </div>
+        </label>
+        <select type="text" id="node-input-api" style="width: auto;"> </select>
+        <span
+          ><a href="#" target="_blank" id="id-anchor-display-exchange-apidoc"
+            ><i class="fa fa-question-circle tooltip">
+              <div class="right">
+                <p data-i18n="ccxt.labeltooltip.apiinfo"></p>
+                <i></i>
+              </div> </i></a
+        ></span>
+        <input type="hidden" id="node-input-customapitype" />
+      </div>
+
+      <div class="form-row node-input-private-api hidden">
+        <label for="node-input-apisecrets" class="tooltip"
+          ><i class="fa fa-user-secret"></i> <span data-i18n="ccxt.label.secrets"></span>
+          <div class="right">
+            <strong data-i18n="ccxt.label.secrets"></strong>
+            <p data-i18n="ccxt.labeltooltip.secrets"></p>
+            <i></i>
+          </div>
+        </label>
+        <input
+          type="text"
+          id="node-input-apisecrets"
+          data-i18n="[placeholder]ccxt.parameters.secrets"
+          style="width: 70%"
+        />
+      </div>
+
+
+
+      <div class="form-row node-input-unified-api-filtermarkets hidden">
+        <label for="node-input-filtermarkets" class="tooltip"
+          ><i class="fa fa-filter"></i> <span data-i18n="ccxt.label.filtermarkets"></span>
+          <div class="right">
+            <strong data-i18n="ccxt.label.filtermarkets"></strong>
+            <p data-i18n="ccxt.labeltooltip.filtermarkets"></p>
+            <i></i>
+          </div>
+        </label>
+        <input
+          type="text"
+          id="node-input-filtermarkets"
+          data-i18n="[placeholder]ccxt.parameters.filtermarkets"
+          style="width: 70%;"
+        />
+        <input type="hidden" id="node-input-filtermarketsType" />
+      </div>
+
+      <div class="form-row node-input-unified-api-symbol hidden">
+        <label for="node-input-symbol" class="tooltip"
+          ><i class="fa fa-line-chart"></i> <span data-i18n="ccxt.label.symbol"></span>
+          <div class="right">
+            <strong data-i18n="ccxt.label.symbol"></strong>
+            <p data-i18n="ccxt.labeltooltip.symbol"></p>
+            <i></i>
+          </div>
+        </label>
+        <input
+          type="text"
+          id="node-input-symbol"
+          data-i18n="[placeholder]ccxt.parameters.symbol"
+          style="width: 70%;"
+        />
+        <input type="hidden" id="node-input-symbolType" />
+        <select
+          type="text"
+          id="id-input-select-symbol"
+          data-i18n="[placeholder]ccxt.parameters.symbolselect"
+          style="display:none;"
+        >
+          <option></option>
+        </select>
+      </div>
+
+      <div class="form-row node-input-unified-api-since hidden">
+        <label for="node-input-since" class="tooltip"
+          ><i class="fa fa-table"></i> <span data-i18n="ccxt.label.since"></span>
+          <div class="right">
+            <strong data-i18n="ccxt.label.since"></strong>
+            <p data-i18n="ccxt.labeltooltip.since"></p>
+            <i></i>
+          </div>
+        </label>
+        <input
+          type="text"
+          id="node-input-since"
+          data-i18n="[placeholder]ccxt.parameters.since"
+          style="width:39%"
+        />
+        <input type="date" id="id-input-since" style="display:none;width:100%" />
+        <input
+          type="text"
+          id="label-node-input-sinceMseconds"
+          style="display:none;width:auto"
+          disabled
+        />
+        <input type="hidden" id="node-input-sinceType" />
+      </div>
+
+      <div class="form-row node-input-unified-api-timeframe hidden">
+        <label for="node-input-timeframe" class="tooltip"
+          ><i class="fa fa-clock-o"></i> <span data-i18n="ccxt.label.timeframe"></span>
+
+          <div class="right">
+            <strong data-i18n="ccxt.label.timeframe"></strong>
+            <p data-i18n="ccxt.labeltooltip.timeframe"></p>
+            <i></i>
+          </div>
+        </label>
+        <input
+          type="text"
+          id="node-input-timeframe"
+          data-i18n="[placeholder]ccxt.parameters.timeframe"
+          style="width: 37%;"
+        />
+        <input type="hidden" id="node-input-timeframeType" />
+        <img
+          src="resources/node-red-contrib-ccxt-v2/images/emulated.svg"
+          alt="API is emulated"
+          id="id-emulated-api"
+          style="width:16px;"
+        />
+      </div>
+
+      <div class="form-row node-input-unified-api-limit hidden">
+        <label for="node-input-limit" class="tooltip"
+          ><i class="fa fa-filter"></i> <span data-i18n="ccxt.label.limit"></span>
+
+          <div class="right">
+            <strong data-i18n="ccxt.label.limit"></strong>
+            <p data-i18n="ccxt.labeltooltip.limit"></p>
+            <i></i>
+          </div>
+        </label>
+        <input
+          type="text"
+          id="node-input-limit"
+          data-i18n="[placeholder]ccxt.parameters.limit"
+          style="width: 32%;"
+        />
+        <input type="hidden" id="node-input-limitType" />
+      </div>
+
+      <div class="form-row node-input-unified-api-ordertype hidden">
+        <label for="node-input-ordertype" class="tooltip"
+          ><i class="fa fa-handshake-o"></i> <span data-i18n="ccxt.label.ordertype"></span>
+          <div class="right">
+            <strong data-i18n="ccxt.label.ordertype"></strong>
+            <p data-i18n="ccxt.labeltooltip.ordertype"></p>
+            <i></i>
+          </div>
+        </label>
+        <select type="text" id="node-input-ordertype" style="width: auto;">
+          <option value="limit">Limit</option>
+          <option value="market">Market</option>
+        </select>
+      </div>
+
+      <div class="form-row node-input-unified-api-orderside hidden">
+        <label for="node-input-orderside" class="tooltip"
+          ><i class="fa fa-balance-scale"></i>
+          <span data-i18n="ccxt.label.orderside"></span>
+          <div class="right">
+            <strong data-i18n="ccxt.label.orderside"></strong>
+            <p data-i18n="ccxt.labeltooltip.orderside"></p>
+            <i></i>
+          </div>
+        </label>
+        <select type="text" id="node-input-orderside" style="width: auto;">
+          <option value="buy">Buy</option>
+          <option value="sell">Sell</option>
+        </select>
+      </div>
+
+      <div class="form-row node-input-unified-api-amount hidden">
+        <label for="node-input-amount" class="tooltip"
+          ><i class="fa fa-calculator"></i> <span data-i18n="ccxt.label.orderamount"></span>
+          <div class="right">
+            <strong data-i18n="ccxt.label.orderamount"></strong>
+            <p data-i18n="ccxt.labeltooltip.orderamount"></p>
+            <i></i>
+          </div>
+        </label>
+        <input
+          type="text"
+          id="node-input-amount"
+          data-i18n="[placeholder]ccxt.parameters.orderamount"
+        />
+        <input type="hidden" id="node-input-amountType" />
+      </div>
+
+      <div class="form-row node-input-unified-api-orderprice hidden">
+        <label for="node-input-orderprice" class="tooltip"
+          ><i class="fa fa-dollar"></i> <span data-i18n="ccxt.label.price"></span>
+
+          <div class="right">
+            <strong data-i18n="ccxt.label.price"></strong>
+            <p data-i18n="ccxt.labeltooltip.price"></p>
+            <i></i>
+          </div>
+        </label>
+        <input
+          type="text"
+          id="node-input-orderprice"
+          data-i18n="[placeholder]ccxt.parameters.price"
+        />
+        <input type="hidden" id="node-input-orderpriceType" />
+      </div>
+
+      <div class="form-row node-input-unified-api-orderid hidden">
+        <label for="node-input-orderid" class="tooltip"
+          ><i class="fa fa-id-badge"></i> <span data-i18n="ccxt.label.txid"></span>
+
+          <div class="right">
+            <strong data-i18n="ccxt.label.txid"></strong>
+            <p data-i18n="ccxt.labeltooltip.txid"></p>
+            <i></i>
+          </div>
+        </label>
+        <input
+          type="text"
+          id="node-input-orderid"
+          data-i18n="[placeholder]ccxt.parameters.txid"
+          style="width: 50%"
+        />
+         <input type="hidden" id="node-input-orderidType" />
+      </div>
+
+      <div class="form-row node-input-unified-api-code hidden">
+        <label for="node-input-code" class="tooltip"
+          ><i class="fa fa-eur"></i> <span data-i18n="ccxt.label.currency"></span>
+
+          <div class="right">
+            <strong data-i18n="ccxt.label.currency"></strong>
+            <p data-i18n="ccxt.labeltooltip.currency"></p>
+            <i></i>
+          </div>
+        </label>
+        <input
+          type="text"
+          id="node-input-code"
+          data-i18n="[placeholder]ccxt.parameters.currency"
+          style="width: 50%"
+        />
+      </div>
+      <div class="form-row node-input-unified-api-address hidden">
+        <label for="node-input-address" class="tooltip"
+          ><i class="fa fa-address-book"></i> <span data-i18n="ccxt.label.address"></span>
+          <div class="right">
+            <strong data-i18n="ccxt.label.address"></strong>
+            <p data-i18n="ccxt.labeltooltip.address"></p>
+            <i></i>
+          </div>
+        </label>
+        <input
+          type="text"
+          id="node-input-address"
+          data-i18n="[placeholder]ccxt.parameters.address"
+          style="width: 70%"
+        />
+      </div>
+      <div class="form-row node-input-unified-api-tag hidden">
+        <label for="node-input-tag" class="tooltip"
+          ><i class="fa fa-comment"></i> <span data-i18n="ccxt.label.tag"></span>
+
+          <div class="right">
+            <strong data-i18n="ccxt.label.tag"></strong>
+            <p data-i18n="ccxt.labeltooltip.tag"></p>
+            <i></i>
+          </div>
+        </label>
+        <input
+          type="text"
+          id="node-input-tag"
+          data-i18n="[placeholder]ccxt.parameters.tag"
+          style="width: 70%"
+        />
+      </div>
+
+      <div class="form-row node-input-api-custom hidden">
+        <label for="node-input-apipayload" class="tooltip"
+          ><i class="fa fa-envelope"></i> <span data-i18n="ccxt.label.payload"></span>
+
+          <div class="right">
+            <strong data-i18n="ccxt.label.payload"></strong>
+            <p data-i18n="ccxt.labeltooltip.payload"></p>
+            <i></i>
+          </div>
+        </label>
+        <input type="text" id="node-input-apipayload" style="width: 68%;" />
+        <input type="hidden" id="node-input-apipayloadType" />
+      </div>
+      <hr />
+      <div class="form-row">
+        <label for="node-input-name"
+          ><i class="fa fa-tag"></i> <span data-i18n="node-red:common.label.name"></span
+        ></label>
+        <input
+          type="text"
+          id="node-input-name"
+          data-i18n="[placeholder]node-red:common.label.name"
+        />
+      </div>
+</script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js"></script>
+
+<!--
+<link href="vendor/select2/select2.min.css" rel="stylesheet" />
+<script src="vendor/select2/select2.min.js"></script>
+-->
+<script type="text/javascript">
+  RED.nodes.registerType("ccxt-api-v2", {
+    category: "cryptocurrency",
+    defaults: {
+      name: {
+        value: ""
+      },
+      exchange: {
+        value: "",
+        required: false
+      },
+      allexchanges: {
+        value: false,
+        required: true
+      },
+      // exchangeType: {value: "exchangeList", required: true},
+      apitype: {
+        value: "",
+        required: true
+      },
+      customapitype: {
+        value: "",
+        required: false
+      },
+      api: {
+        value: "",
+        required: true
+      },
+      apiprivate: {
+        value: "false",
+        required: true
+      },
+      filtermarkets: {
+        value: "",
+        required: false
+      },
+      filtermarketsType: {
+        value: "str"
+      },
+      symbol: {
+        value: "",
+        required: false
+      },
+      symbolType: {
+        value: "str",
+        required: false
+      },
+      limit: {
+        value: undefined,
+        required: false,
+        validate: RED.validators.typedInput("limitType")
+      },
+      limitType: {
+        value: "num",
+        required: false
+      },
+      since: {
+        value: undefined,
+        validate: RED.validators.typedInput("sinceType")
+      },
+      sinceType: {
+        value: "datepick",
+        required: false
+      },
+      timeframe: {
+        value: ""
+      },
+      timeframeType: {
+        value: "timeframeList",
+        required: false
+      },
+      ordertype: {
+        value: "limit"
+      },
+      orderside: {
+        value: "buy"
+      },
+      amount: {
+        value: ""
+      },
+      amountType: {
+        value: "num"
+      },
+      orderprice: {
+        value: ""
+      },
+      orderpriceType: {
+        value: "num"
+      },
+      orderid: {
+        value: "",
+        required: false,
+        validate: RED.validators.typedInput("orderidType")
+      },
+      orderidType: {
+        value: "str",
+        required: false
+      },
+      code: {
+        value: ""
+      },
+      address: {
+        value: ""
+      },
+      tag: {
+        value: ""
+      },
+      apisecrets: {
+        type: "ccxt-exchange-v2",
+        required: false
+      },
+
+      apipayload: {
+        value: "",
+        required: false
+      },
+      apipayloadType: {
+        value: "none"
+      }
+    },
+    outputs: 1,
+    inputs: 1,
+    color: "#D8BFD8",
+    icon: "bitcoin.png",
+    label: function () {
+      return this.name || "ccxt API v2";
+    },
+    oneditprepare: function () {
+      //   debugger;
+      var node = this;
+
+      /*
+
+                ****************************                           ****************************
+                ****************************
+                ****************************    Utility Functions      ****************************
+                ****************************                           ****************************
+                ****************************                           ****************************
+      */
+
+      function isEmpty(obj) {
+        for (var key in obj) {
+          if (obj.hasOwnProperty(key)) return false;
+        }
+        return true;
+      }
+      /*
+
+                ****************************                           ****************************
+                ****************************
+                ****************************    Initialisation         ****************************
+                ****************************                           ****************************
+                ****************************                           ****************************
+      */
+      // initialise select2 on the exchange field ! this will load a nice long drop-down searable list interface
+      // based on select2. Note: select2 js&css must be added either using a cdn or to a local folder and update the reference
+      //initialise select2 on select input for the field exchange
+      $("#node-input-exchange").select2({
+        multiple: "multiple",
+        maximumSelectionLength: 10,
+        minimumResultsForSearch: 15,
+        closeOnSelect: false,
+        allowClear: true,
+        placeholder: node._("ccxt.parameters.exchange")
+      });
+
+      $("#node-input-apipayload")
+        .typedInput({
+          typeField: $("#node-input-apipayloadType"),
+          types: [
+            {
+              value: "none",
+              label: "None",
+              hasValue: false
+            },
+            "json",
+            "jsonata",
+            "msg"
+          ]
+        })
+        .typedInput("width", "68%");
+      $("#node-input-symbol").typedInput({
+        typeField: $("#node-input-symbolType"),
+        default: "str",
+        types: [
+          "str",
+          {
+            value: "symbolList",
+            label: "Pair",
+            hasValue: true,
+            icon: "resources/node-red-contrib-ccxt-v2/images/typedInput/bitcoin-18.png",
+            options: ["None"]
+          },
+          {
+            value: "allSymbols",
+            label: "All",
+            hasValue: false
+          },
+          "msg",
+          {
+            value: "flow",
+            label: "flow.",
+            hasValue: true
+          }
+        ]
+      });
+
+      $("#node-input-timeframe").typedInput({
+        typeField: $("#node-input-timeframeType"),
+        types: [
+          {
+            value: "timeframeList",
+            label: "Candle size",
+            //  hasValue: true,
+            //icon: "resources/node-red-contrib-ccxt-v2/typedInput/timeline.png",
+            //default list of values
+            options: ["1m", "5m", "15m", "30m", "1h", "3h", "6h", "12h", "1d"]
+          },
+          "str",
+          "msg",
+          "flow"
+        ]
+      });
+
+      $("#node-input-since").typedInput({
+        typeField: $("#node-input-sinceType"),
+        default: "datepick",
+        types: [
+          {
+            value: "datepick",
+            label: "Date",
+            icon: "resources/node-red-contrib-ccxt-v2/images/typedInput/date-from-18.png",
+            hasValue: true
+          },
+          "msg",
+          {
+            value: "flow",
+            label: "flow.",
+            hasValue: true
+          },
+          "json"
+        ]
+      });
+
+      $("#node-input-limit").typedInput({
+        typeField: $("#node-input-limitType"),
+        default: "num",
+        types: [
+          {
+            value: "num",
+            label: "number",
+            icon: "red/images/typedInput/09.svg",
+            validate: /^[+-]?[0-9]*\.?[0-9]*([eE][-+]?[0-9]+)?$/
+          },
+          "msg",
+          {
+            value: "flow",
+            label: "flow.",
+            hasValue: true
+          }
+        ]
+      });
+      $("#node-input-orderid").typedInput({
+        typeField: $("#node-input-orderidType"),
+        default: "str",
+        types: [
+          "str",
+          "msg",
+          {
+            value: "flow",
+            label: "flow.",
+            hasValue: true
+          }
+        ]
+      });
+      $("#node-input-filtermarkets").typedInput({
+        typeField: $("#node-input-filtermarketsType"),
+        default: "str",
+        types: [
+          "str",
+          "msg",
+          "flow",
+          "json",
+          "jsonata"
+        ]
+      });
+      $("#node-input-amount").typedInput({
+        typeField: $("#node-input-amountType"),
+        default: "num",
+        types: [
+          "num",
+          "msg",
+          "flow"
+        ]
+      });
+      $("#node-input-orderprice").typedInput({
+        typeField: $("#node-input-orderpriceType"),
+        default: "num",
+        types: [
+          "num",
+          "msg",
+          "flow"
+        ]
+      });
+
+      /*
+
+                ****************************                           ****************************
+                ****************************
+                ****************************    Core Functions         ****************************
+                ****************************                           ****************************
+                ****************************                           ****************************
+      */
+
+      function getSymbols(ex, callback) {
+        //return empty array if no exchange
+        let symbolslist = [];
+
+        if (ex === undefined || ex === "" || ex === null) return [];
+        //show spinner
+        $("#id-loading-svg").show();
+        $.getJSON(
+          "ccxt-v2/exchangesymbols",
+          {
+            exchange: ex
+          },
+          function (result) {
+            if (callback && typeof callback == "function") {
+              callback(result.symbols);
+            }
+            //hide spinner
+            $("#id-loading-svg").hide();
+          }
+        ).error(function (error) {
+          //hide spinner
+          $("#id-loading-svg").hide();
+          console.log(error);
+        });
+      }
+
+      // retrieve Exchanges from server
+      let getExchanges = function () {
+        var exchangeElement = $("#node-input-exchange");
+        //show spinner
+        $("#id-loading-svg").show();
+        $.getJSON("ccxt-v2/exchanges", function (result) {
+          exchangeElement.empty();
+
+          $.each(result.exchange, function (key, value) {
+            exchangeElement.append(
+              $("<option />")
+                .val(key)
+                .text(value[0])
+                .attr("homepage", value[1])
+                .attr("logo", value[2])
+                .attr("apidoc", value[3])
+            );
+          });
+
+          //setting the saved node value
+          exchangeElement.val(node.exchange);
+          // var exchange = $("#node-input-exchange").val();
+          // Setting the dropdown value from javascript (using val()), won't trigger the change-event automatically
+          $("#node-input-exchange").trigger("change");
+
+          //hide spinner
+          $("#id-loading-svg").hide();
+        }).error(function (error) {
+          console.log(error);
+        });
+      };
+      // call getExchanges on load
+      getExchanges();
+      let showHideAPIPrivateKeys = function () {
+        //show API Keys
+        const isPrivate = $("#node-input-api option:selected").attr("isprivate");
+        const exchange = $("#node-input-exchange").val();
+        if (isPrivate === "true") {
+          $(".node-input-private-api").show();
+          //  debugger;
+          if (exchange.length > 1) {
+            $("#node-input-apisecrets").val("_ADD_");
+            $("#node-input-apisecrets").prop("disabled", true);
+          } else $("#node-input-apisecrets").prop("disabled", false);
+        } else $(".node-input-private-api").hide();
+      };
+      // retrieve all supported unified APIs by the exchange
+      getunifiedAPIs = function () {
+        //this method always an array so i am using it here instead of converting to an array.
+        var exchange = $("#node-input-exchange")
+          .select2("data")
+          .map(data => data.id);
+        var apiElement = $("#node-input-api");
+        apiElement.empty();
+        apiElement.append(
+          $("<option />")
+            .val("loadMarkets")
+            .text("loadMarkets")
+        );
+        if (exchange === undefined || exchange === null || exchange === "") return;
+        if (exchange.length == 0) return;
+        //show spinner
+        $("#id-loading-svg").show();
+
+        $.getJSON(
+          "ccxt-v2/exchangecaps",
+          {
+            exchange: exchange
+          },
+          function (result) {
+            result.caps.forEach(function (element) {
+              apiElement.append(
+                $("<option>", {
+                  value: element[0],
+                  text: element[0],
+                  isprivate: element[1]
+                })
+              );
+            });
+            // debugger;
+
+            // sort on text
+            apiElement.html(
+              apiElement.find("option").sort(function (x, y) {
+                // to change to descending order switch "<" for ">"
+                return $(x).text() > $(y).text() ? 1 : -1;
+              })
+            );
+            //set value if different from saved value
+            if (node.api !== $("#node-input-api").val()) {
+              //set the value
+              apiElement.val(node.api);
+              // Setting the dropdown value from javascript (using val()),
+              //won't trigger the change-event automatically
+              $("#node-input-api").trigger("change");
+            }
+            //hide spinner
+            $("#id-loading-svg").hide();
+          }
+        ).error(function (error) {
+          console.log(error);
+        });
+        //
+      };
+      // retrieve all supported custom APIs by the exchange
+      getcustomAPIs = function () {
+        //note option:selected ensures that only a single value will be returned
+        //if a multi-select the first value will be returned only
+        var exchange = $("#node-input-exchange option:selected").val();
+        var apiElement = $("#node-input-api");
+        var api = $("#node-input-api option:selected").val();
+        apiElement.empty();
+        //Note: custom API can only be issued for a single exchange
+        if (!exchange || Array.isArray(exchange)) return;
+
+        //show spinner
+        $("#id-loading-svg").show();
+        $.getJSON(
+          "ccxt-v2/apis",
+          {
+            exchange: exchange
+          },
+          function (result) {
+            $.each(Object.keys(result.api), function (index, apitype) {
+              if (apitype !== "web") {
+                var optgroup = apiElement.find($("#node-input-api_" + apitype));
+                if (optgroup.length === 0) {
+                  optgroup = $("<optgroup>");
+                  optgroup.attr("label", apitype);
+                  optgroup.attr("id", "node-input-api_" + apitype);
+                  optgroup.attr("value", "node-input-api_" + apitype);
+                }
+
+                $.each(Object.keys(result.api[apitype]), function (index, verb) {
+
+                  //@nileio BUGFIX: $.each(object,function(key,value)) when passing object https://api.jquery.com/jquery.each/
+                  $.each(result.api[apitype][verb], function (key, api) {
+                    //console.log("index: " + index, " key: " + key, " verb: " + verb, " api: " + api);
+                    //@nileio quick and dirty workaround for the timebeing. every exchange seem to have different data structure coming here and swapped! 
+                    //server api "ccxt-v2/apis" should fix this instead of fixing here.
+                    if (typeof key === 'string') api = key
+                    var option = $("<option>", {
+                      value: apitype + "_" + verb + "_" + api,
+                      text: verb + "_" + api,
+                      verb: verb,
+                      customapitype: apitype,
+                      isprivate: !apitype.includes("public") //assume any api not marked as public requires api keys, that is private.
+                    });
+                    optgroup.append(option);
+                    // sort on text
+                    // optgroup.html(
+                    //   optgroup.find("option").sort(function(x, y) {
+                    //     // to change to descending order switch "<" for ">"
+                    //     return $(x).text() < $(y).text() ? 1 : -1;
+                    //   })
+                    // );
+                    apiElement.append(optgroup);
+                  });
+                });
+              }
+            });
+
+            // set actual value
+            apiElement.val(node.api);
+            // Setting the dropdown value from javascript (using val()), won't trigger the change-event automatically
+            if (api !== node.api) $("#node-input-api").trigger("change");
+            //hide spinner
+            $("#id-loading-svg").hide();
+          }
+        ).error(function (error) {
+          console.log(error);
+        });
+
+        //
+      };
+
+      let getTimeframes = function (ex, callback) {
+        //timeframes supported by the exchange
+
+        if (ex === undefined || ex === "" || ex === null) return [];
+        const api = $("#node-input-api option:selected").val();
+
+        //only relevant to the api fetchOHLCV is supported by ex
+        if (api !== "fetchOHLCV") return [];
+
+        //show spinner
+        $("#id-loading-svg").show();
+        $.getJSON(
+          "ccxt-v2/fetchOHLCVTimeframes",
+          {
+            exchange: ex
+          },
+          function (result) {
+            if (callback && typeof callback == "function") {
+              //note: we could get an empty list if the api is emulated and not directly supported
+              //by the api
+              if (isEmpty(result)) callback([]);
+              else callback(result);
+            }
+            //hide spinner
+            $("#id-loading-svg").hide();
+          }
+        ).error(function (error) {
+          console.log(error);
+        });
+      };
+
+      /*
+
+                ****************************                           ****************************
+                ****************************
+                ****************************    Event Handling         ****************************
+                ****************************                           ****************************
+                ****************************                           ****************************
+      */
+
+      /*
+       **************************** Events : Exchange
+       */
+
+      $("#node-input-exchange").change(function () {
+        /* single select.
+          note I use specific way to load the data into select2.
+          I do not use AJAX data source or remote data sources, rather manually load the options
+          this means all options are available already on the DOM.
+
+          future versions may change this and make use of select2 AJAX data source which minimise the code.
+          I did that because I used selec2 later on in order to have multi-select and a search box for long lists
+          after firsly just used native select element
+          also i may not use select2 in later versions and replace with something like Chosen.js
+          for this version i depend on select2
+
+          it is not recommended to depend on the option selected if you use remote data sources but since I don't then that's ok */
+        //below call always returns an array on a select2
+        var exchange = $("#node-input-exchange").val();
+        if (!exchange) $(".hidden").hide();
+        // another way of getting this would be
+        //    $("#node-input-exchange option:selected").select2("data")
+        //    .map(data => data.id);
+        // $("#id-anchor-display-exchange-homepage").toggle(false);
+        $("#id-anchor-display-exchange-img").attr("src", "");
+        $("#id-anchor-display-exchange-img").attr("alt", "");
+
+        if (exchange) {
+          if (exchange.length > 1) {
+            //disable custom API option if multiple exchanges selected
+            $("#input-apitype-customAPI").prop("disabled", true);
+            //ensure value is unifiedAPI only
+            if ($("#node-input-apitype").val() !== "unifiedAPI") $("#node-input-apitype").val("unifiedAPI");
+          } else if (exchange.length == 1) {
+            $("#input-apitype-customAPI").prop("disabled", false);
+            $("#id-img-display-exchange-homepage").attr("href", $("#node-input-exchange option:selected").attr("homepage"));
+            $("#id-anchor-display-exchange-img").attr("src", $("#node-input-exchange option:selected").attr("logo"));
+            $("#id-anchor-display-exchange-img").attr("alt", $("#node-input-exchange option:selected").text());
+            // $("#id-anchor-display-exchange-homepage").toggle(true);
+          }
+
+          $("#node-input-apitype").trigger("change");
+        }
+      });
+
+      //select2 workaround bug fix - dropdown does not close when selecting multiple
+      //more than the allowed
+      $("#node-input-exchange").on("select2:select", function (e) {
+        if ($(this).select2("data").length >= $(this).data("select2").results.data.maximumSelectionLength) {
+          $(this).select2("close");
+        }
+      });
+
+      /*
+       **************************** Events : All Exchanges
+       */
+
+      $("#id-node-input-allexchanges").click(function () {
+        $("#node-input-allexchanges").prop("checked", !$("#node-input-allexchanges").prop("checked"));
+        $("#node-input-allexchanges").trigger("change");
+      });
+
+      $("#node-input-allexchanges").change(function () {
+        const ischecked = $("#node-input-allexchanges").prop("checked");
+        $("#node-input-exchange").prop("disabled", ischecked);
+        if (ischecked === true) {
+          $("#allexchanges-toggle-on").toggle(true);
+          $("#allexchanges-toggle-off").toggle(false);
+
+          $("#node-input-apitype").val("unifiedAPI");
+          $("#input-apitype-customAPI").prop("disabled", true);
+          $("#node-input-api").empty();
+          $("#node-input-api")
+            .append(
+              $("<option />")
+                .val("loadMarkets")
+                .text("loadMarkets")
+            )
+            .val("loadMarkets")
+            .trigger("change");
+        } else {
+          $("#allexchanges-toggle-on").toggle(false);
+          $("#allexchanges-toggle-off").toggle(true);
+
+          $("#input-apitype-customAPI").prop("disabled", false);
+          $("#node-input-exchange").trigger("change");
+        }
+      });
+      /*
+       **************************** Events : API Type
+       */
+      $("#node-input-apitype").change(function () {
+        var exchange = $("#node-input-exchange").val();
+        //another way of doing this would be $element.select2("data").map(data => data.id);
+        var apitype = $("#node-input-apitype option:selected").val();
+        // if (!apitype)
+        $(".hidden").hide();
+        //empty the api because the type has changed
+        var apiElement = $("#node-input-api");
+        apiElement.empty();
+        if (exchange !== undefined && exchange !== "" && exchange !== null) {
+          if (apitype === "customAPI") {
+            $("#id-anchor-display-exchange-apidoc").attr("href", $("#node-input-exchange option:selected").attr("apidoc"));
+          } else {
+            $("#id-anchor-display-exchange-apidoc").attr("href", "https://ccxt.readthedocs.io/en/latest/manual.html#api-methods-endpoints");
+          }
+        }
+
+        if (apitype !== "") {
+          if (apitype === "unifiedAPI") getunifiedAPIs();
+          if (apitype === "customAPI") getcustomAPIs();
+        }
+      });
+
+      /*
+       **************************** Events : API
+       */
+
+      $("#node-input-api").change(function (type, value) {
+        const apitype = $("#node-input-apitype option:selected").val();
+        const api = $("#node-input-api option:selected").val();
+        if (!api) $(".hidden").hide();
+        if (apitype === "customAPI") {
+          showHideAPIPrivateKeys();
+          // for customAPI show the API Payload parameter only
+          $(".node-input-api-custom").show();
+          var params = null;
+          var currValue = {};
+          if (api && $("#node-input-apipayload").typedInput("type") === "json") {
+            // api = api.toLowerCase();
+
+            currValue = $("#node-input-apipayload").typedInput("value") ? JSON.parse($("#node-input-apipayload").typedInput("value")) : {};
+          }
+          var newValue = {};
+          if (api)
+            //match {queryparameteranyWordorNumber}
+            params = api.match(/{((?:[a-zA-Z0-9\_][a-zA-Z0-9\_]+))}/g);
+          //if we found queryparams in the api
+
+          if (params !== null && !$("#node-input-apipayload").typedInput("value")) {
+            $("#node-input-apipayload").typedInput("type", "json");
+
+            //   if (currValue !== "") currValue = JSON.parse(currValue);
+
+            var arr = [];
+            var apipayload = "";
+            var paramKey = "";
+            var x = "";
+            params.map(function (x) {
+              paramKey = x.replace("{", "").replace("}", "");
+              arr.push(paramKey);
+            });
+            if (arr.length > 0) {
+              x = arr.shift();
+              while (x) {
+                if (currValue[x]) newValue[x] = currValue[x];
+                else newValue[x] = "your_value_here";
+
+                x = arr.shift();
+              }
+            }
+            //FIXME: This is possibly fixed in latest release of nodered
+            // add currvalue to newvalue so any keys which existed only on current value are retained - how would i know if the key is valid for the api or not though ?
+            // the key maybe valid for another api
+            //  apipayload = "{\n" + apipayload + "\n}";
+            //if ($("#node-input-apipayload").typedInput("value") === "") {
+            $("#node-input-apipayload").typedInput("value", JSON.stringify(newValue));
+          } else if (!$("#node-input-apipayload").typedInput("value")) $("#node-input-apipayload").typedInput("type", "none");
+        }
+        // Get the params for the unified API if an API is selected
+        if (apitype === "unifiedAPI") {
+          if (api !== undefined && api !== "") {
+            $.getJSON(
+              "ccxt-v2/apiparams",
+              {
+                api: api
+              },
+              function (result) {
+                //start by hiding all params
+                $(".hidden").hide();
+                showHideAPIPrivateKeys();
+
+                result.apiparams.map(function (x) {
+                  //special handling for some params
+                  // i dont know why am i triggering change here .. this is not right
+                  // trying to fix this ... this is not safe for calling from both symbol and timefram
+
+                  if (x === "symbol") {
+                    $("#node-input-symbol").trigger("change", $("#node-input-symbolType").val());
+                  }
+                  if (x === "timeframe") {
+                    $("#node-input-timeframe").trigger("change", "timeframes");
+                  }
+
+                  // parameter is api payload then custom api
+                  if (x === "apipayload") $(".node-input-api-custom").show();
+                  // it is unified api. show the parameter field
+                  else {
+                    // console.log("value of x is ", x);
+                    $(".node-input-unified-api-" + x).show();
+
+                    // this is just insane! the following style is added. could not otherwise do it
+                    // so that the input is displayed nicely next to the icon of the typedInput
+                    // no idea why the typedInput when adding a class gets shifted to the left a little
+                    // and makes the icon of the typedInput disappear
+                    // to workaround this I had to set the left attribute manually
+                    // since 40px is the fixed width of the typedInput icon
+                    // i am strill struggling with the issue that for msg & flow also the margin-left is not set propertly.
+
+                    //the below code is aweful and buggy dont know why i had to do this .. need to research this problem
+                    //for some reason styles of those typedInput fields need some massaging !
+                    // *** removed 29  Jan 2020
+                    if (x === "timeframe" || x === "since" || x === "symbol" || x === "limit" || x === "apipayload") {
+                      if ($("#node-input-" + x).typedInput("type") !== "msg" && $("#node-input-" + x).typedInput("type") !== "flow")
+                        $(".node-input-unified-api-" + x + " .red-ui-typedInput-input").css("left", "40px");
+                    }
+                  }
+                });
+              }
+            );
+          }
+        }
+      });
+
+      /*
+       **************************** Events : Symbol
+       */
+
+      $("#node-input-symbol").on("change", function (type, value) {
+        //Initialise select2 on field
+        //&show hide the right elements
+        var inputSelectSymbolElem = $("#id-input-select-symbol");
+        inputSelectSymbolElem.empty();
+        //value is true if at first load and no change
+        // const symbolType = $("#node-input-symbolType").val();
+        if (value === "symbolList") {
+          var exchange = $("#node-input-exchange").val() || node.exchange;
+
+          //init select2
+          inputSelectSymbolElem.select2({
+            multiple: "multiple",
+            maximumSelectionLength: 5,
+            minimumResultsForSearch: 10,
+            closeOnSelect: false,
+            allowClear: true,
+            placeholder: node._("ccxt.parameters.symbolselect")
+          });
+          // hide the symbolslist typedInput
+          let typedInputContainerElement = $(".node-input-unified-api-symbol > .red-ui-typedInput-container");
+          //typedInputContainerElement
+          $("#node-input-symbol").typedInput("width", "40px");
+
+          //  let select2Container = $("#id-input-select-symbol").data("select2").$container;
+          let select2Container = inputSelectSymbolElem.siblings(".select2-container");
+          select2Container.attr("style", "width:62%");
+
+          /*            //append and style the element
+              let select2Container = inputSelectSymbolElem.siblings(".select2-container");
+
+              select2Container
+                .appendTo(typedInputContainerElement)
+                .attr("style", "left:40px;width: calc(100% - 40px);");
+
+              select2Container
+                .find(".select2-selection")
+                .attr("style", "border: none;height: 32px"); */
+
+          //find the button and hide it
+          typedInputContainerElement.find(".red-ui-typedInput-option-trigger").hide();
+          typedInputContainerElement.find(".red-ui-typedInput-input").hide();
+
+          getSymbols(exchange, function (symbols) {
+            symbols.forEach(function (element) {
+              inputSelectSymbolElem.append(
+                $("<option>", {
+                  value: element,
+                  text: element
+                })
+              );
+            });
+
+            // set the value of the field
+            if ($("#node-input-symbol").val()) {
+              //remember this is a typedInput fields and it looks like you cant store an array ! need confirmation
+              //therefore i am transforming between strings and arrays in save and load (using .split(',') to load from string)
+              inputSelectSymbolElem.val(
+                $("#node-input-symbol")
+                  .val()
+                  .split(",")
+              );
+            } else inputSelectSymbolElem.val(node.symbol.split(","));
+
+            inputSelectSymbolElem.trigger("change");
+          });
+        } else {
+          let typedInputContainerElement = $(".node-input-unified-api-symbol > .red-ui-typedInput-container");
+          let select2Container = inputSelectSymbolElem.siblings(".select2-container");
+          //   let select2Container = $("#id-input-select-symbol").data("select2").$container;
+          select2Container.remove();
+          if (value === "str") $("#node-input-symbol").typedInput("width", "68%");
+          else $("#node-input-symbol").typedInput("width", "40%");
+          //typedInputContainerElement.find(".red-ui-typedInput-input").show();
+        }
+      });
+      // Symbol select2 drop down
+      $("#id-input-select-symbol").on("select2:select", function (e) {
+        if ($(this).select2("data").length >= $(this).data("select2").results.data.maximumSelectionLength) {
+          $(this).select2("close");
+        }
+      });
+      // Symbol field select2 save
+      $("#id-input-select-symbol").change(function (type, v) {
+        //will always return an array
+        let val = $("#id-input-select-symbol").val();
+        // we need to save the value as a string only
+        // since this is a typedInput field, it does not accept an array
+        if (val !== null) {
+          if (Array.isArray(val) && val.length > 0) {
+            let sval = val.join(",");
+            if ($("#node-input-symbolType").val() === "symbolList" && $("#node-input-symbol").val() !== sval) $("#node-input-symbol").val(sval);
+          } else $("#node-input-symbol").val(null);
+        } else $("#node-input-symbol").val(null);
+      });
+
+      /*
+       **************************** Events : Since
+       */
+
+      $("#node-input-since").on("change", function (type, value) {
+        // the trick here is that I show the date field instead of a text so that
+        // the browser can show a nice date picker for the field
+        // whereas when choosing msg or flow .. it is expecting a string
+        // and so i just hide my custom date picker field.
+        // the change of date on my custom input date field is captured and value is copied to the actual node field
+        if (value === true) $("#id-input-since").appendTo(".node-input-unified-api-since.hidden > .red-ui-typedInput-container > .red-ui-typedInput-input");
+        else if (value === "datepick") {
+          $(".node-input-unified-api-since.hidden > .red-ui-typedInput-container > .red-ui-typedInput-input > input[type=text]").hide();
+          $("#id-input-since").show();
+        } else if (value === "msg" || value === "flow") {
+          $("#id-input-since").hide();
+          $(".node-input-unified-api-since.hidden > .red-ui-typedInput-container > .red-ui-typedInput-input > input[type=text]").show();
+        }
+        if (value === true && ($("#node-input-sinceType").val() === "datepick" || node.sinceType === "datepick")) {
+          $("#id-input-since").val($("#node-input-since").val() || node.since);
+          $(".node-input-unified-api-since.hidden > .red-ui-typedInput-container > .red-ui-typedInput-input > input[type=text]").hide();
+
+          $("#id-input-since").show();
+        }
+      });
+
+      $("#id-input-since").change(function () {
+        if ($("#node-input-sinceType").val() === "datepick" && $("#node-input-since").val() !== $("#id-input-since").val()) {
+          $("#node-input-since").val($("#id-input-since").val());
+        }
+        if ($("#node-input-sinceType").val() === "datepick" && $("#id-input-since").val()) {
+          var parsedDate = new Date($("#id-input-since").val()).getTime();
+          $("#label-node-input-sinceMseconds").val(parsedDate);
+
+          $("#label-node-input-sinceMseconds").show();
+        } else $("#label-node-input-sinceMseconds").hide();
+      });
+
+      /*
+       **************************** Events : Timeframe
+       */
+
+      $("#node-input-timeframe").on("change", function (type, value) {
+        //this happens only when you open the editor for first time
+        // if (value === true && $("#node-input-timeframe").val() !== node.timeframe) {
+        //   $("#node-input-timeframe").typedInput("value", node.timeframe);
+        // }
+        // the value contains timeframeType
+        if (value === "timeframes") {
+          var exchange = $("#node-input-exchange").val();
+          let timeframes = [];
+          if (exchange !== null && exchange.length >= 0) {
+            getTimeframes(exchange, function (results) {
+              if (results === null) {
+                // if timeframes are not returned from the exchange
+                // this means that the OHLCV is an emulated api
+                // read about emulated api. here is a list of possible values for timeframe
+                // you could also try setting the value manually using string as the type then enter
+                // the value you want to be sent to the api
+                // TODO: this should indicate an error on the interface rather than show this
+                $("#id-emulated-api").show();
+                timeframes = [];
+              }
+              if (results !== null) {
+                if (results.fetchOHLCVunsupported === true) {
+                  // TODO: this should indicate an error on the interface rather than show this
+                  // also results.fetchOHLCVunsupportedby will contain the id of the exchange which does not support fetchOHLCV call
+                  $("#id-emulated-api").show();
+                  timeframes = [];
+                } else if (results.fetchOHLCVemulated === true) {
+                  $("#id-emulated-api").show();
+                  timeframes = results.results.timeframes;
+                } else {
+                  $("#id-emulated-api").hide();
+                  timeframes = results.results.timeframes;
+                }
+              }
+              $("#node-input-timeframe")
+                .typedInput("types", [
+                  {
+                    value: "timeframeList",
+                    label: "Candle size",
+                    //  hasValue: true,
+                    icon: "resources/node-red-contrib-ccxt-v2/images/typedInput/timeline.png",
+                    options: timeframes
+                  },
+                  "str",
+                  "msg",
+                  "flow"
+                  //if you want to recieve events hasValue: true somehow needed!
+                ])
+                .typedInput("width", "37%");
+              //after loading new options, it is important to try set the configured value or the saved value
+              //if the value doe not exist in the list
+              $("#node-input-timeframe").typedInput("value", $("#node-input-timeframe").val() || node.timeframe);
+            });
+          }
+        }
+      });
+      /*
+       **************************** Events : Limit
+       */
+
+      $("#node-input-limit").on("change", function () {
+        //setting defaults here..
+        if ($("#node-input-limit").typedInput("type") === "msg" && $("#node-input-limit").typedInput("value") === "") {
+          $("#node-input-limit").typedInput("value", "payload");
+        }
+      });
+
+      /*
+       **************************** Events : OrderType
+       */
+
+      $("#node-input-ordertype").change(function () {
+        $("#node-input-ordertype option:selected").val() === "market"
+          ? $("#node-input-orderprice").attr("readonly", true)
+          : $("#node-input-orderprice").attr("readonly", false);
+      });
+    },
+    oneditsave: function () {
+      var node = this;
+      const isallexchanges = $("#node-input-allexchanges").prop("checked");
+
+      //save exchange property
+
+      if (isallexchanges === true && $("#node-input-exchange").val().length !== 0) node.exchange = $("#node-input-exchange").val([]);
+      //comparing arrays change to strings first
+      else if (
+        node.exchange.toString() !==
+        $("#node-input-exchange")
+          .val()
+          .toString()
+      )
+        node.exchange = $("#node-input-exchange").val();
+
+      if (node.api !== $("#node-input-api option:selected").val()) node.api = $("#node-input-api option:selected").val();
+      if (node.apiprivate !== $("#node-input-api option:selected").attr("isprivate")) node.apiprivate = $("#node-input-api option:selected").attr("isprivate");
+
+      // symbol storage handling
+      if ($("#node-input-symbolType").val() === "symbolList") {
+        const symbolval = $("#id-input-select-symbol").val();
+        if (symbolval) {
+          if (Array.isArray(symbolval) && symbolval.length > 0) {
+            const v = $("#id-input-select-symbol")
+              .val()
+              .join(",");
+            if (node.symbol !== v) node.symbol = v;
+          } else if (node.symbol !== "") node.symbol = "";
+        } else if (node.symbol !== "") node.symbol = "";
+      }
+
+      if ($("#node-input-symbolType").val() === "allSymbols" && node.symbol !== "all") {
+        node.symbol = "all";
+      }
+      // timeframe storage handling
+      if ($("#node-input-timeframeType").val() === "timeframeList" && node.timeframe !== $("#node-input-timeframe").val())
+        node.timeframe = $("#node-input-timeframe").val();
+      if ($("#node-input-apitype option:selected").val() === "customAPI")
+        if (node.customapitype !== $("#node-input-api option:selected").attr("customapitype"))
+          $("#node-input-customapitype").val($("#node-input-api option:selected").attr("customapitype"));
+
+      // set Name if undefined
+      if (!$("#node-input-name").val()) {
+        if (Array.isArray(node.exchange) && node.exchange.length > 1 && node.api) {
+          $("#node-input-name").val(
+            $("#node-input-exchange").select2("data")[0].text +
+            " & " +
+            (node.exchange.length - 1).toString() +
+            " more : " +
+            $("#node-input-api option:selected").text()
+          );
+        } else if (Array.isArray(node.exchange) && node.exchange.length == 1 && node.api) {
+          $("#node-input-name").val($("#node-input-exchange").select2("data")[0].text + " : " + $("#node-input-api option:selected").text());
+        } else if (node.exchange && node.api) {
+          $("#node-input-name").val($("#node-input-exchange option:selected").text() + " : " + $("#node-input-api option:selected").text());
+        }
+        if (isallexchanges && node.api) $("#node-input-name").val("All exchanges : " + node.api);
+      }
+    }
+  });
+
+</script>
+
+<style>
+  /* this style for select2-containers */
+  /* .select2-container--default .select2-selection--single .select2-selection__rendered {
+    line-height: 32px;
+  }
+  .select2-container--default .select2-selection--multiple .select2-selection__rendered {
+    line-height: 32px;
+  } */
+
+  .hidden {
+    display: none;
+  }
+
+  .select2-container .select2-selection--multiple {
+    border: 1px solid #ccc;
+  }
+
+  /* .select2-container .select2-selection--multiple {
+    height: 32px;
+  } */
+  .select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 34px;
+  }
+
+  /* .select2-container--default .select2-selection--multiple .select2-selection__arrow {
+    height: 32px;
+  } */
+  .select2-container .select2-search--inline .select2-search__field {
+    margin-top: unset;
+  }
+
+  .select2-container--default.select2-container--focus .select2-selection--multiple {
+    border: solid rgba(85, 150, 230, 0.8) 1px;
+  }
+
+  /* if you like to add an arrow use this style
+
+  .select2-container--default .select2-selection--multiple:before {
+    content: " ";
+    display: block;
+    position: absolute;
+    border-color: #888 transparent transparent transparent;
+    border-style: solid;
+    border-width: 5px 4px 0 4px;
+    height: 0;
+    right: 6px;
+    margin-left: -4px;
+    margin-top: -2px;
+    top: 50%;
+    width: 0;
+    cursor: pointer;
+  }
+
+  .select2-container--open .select2-selection--multiple:before {
+    content: " ";
+    display: block;
+    position: absolute;
+    border-color: transparent transparent #888 transparent;
+    border-width: 0 4px 5px 4px;
+    height: 0;
+    right: 6px;
+    margin-left: -4px;
+    margin-top: -2px;
+    top: 50%;
+    width: 0;
+    cursor: pointer;
+  } */
+
+  /* this is overriding .tooltip provided by bootstrap to show my own tooltip right sided*/
+  /* this is just to have a bit of a nice tooltip on hover by using css */
+  .tooltip {
+    display: inline-block;
+    position: relative;
+    /* //border-bottom: 1px dotted #666; */
+    border-bottom: none;
+    text-align: left;
+    font-size: unset;
+    opacity: unset;
+  }
+
+  .tooltip .right {
+    min-width: 200px;
+    top: 50%;
+    left: 100%;
+    margin-left: 20px;
+    transform: translate(0, -50%);
+    padding: 10px 20px;
+    color: #444444;
+    background-color: #eeeeee;
+    font-weight: normal;
+    font-size: 13px;
+    border-radius: 8px;
+    position: absolute;
+    z-index: 99999999;
+    box-sizing: border-box;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+    display: none;
+  }
+
+  .tooltip:hover .right {
+    display: block;
+  }
+
+  .tooltip .right i {
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    margin-top: -12px;
+    width: 12px;
+    height: 24px;
+    overflow: hidden;
+  }
+
+  .tooltip .right i::after {
+    content: "";
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    left: 0;
+    top: 50%;
+    transform: translate(50%, -50%) rotate(-45deg);
+    background-color: #eeeeee;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+  }
+
+  .tooltip .left {
+    min-width: 200px;
+    top: 50%;
+    right: 100%;
+    margin-right: 20px;
+    transform: translate(0, -50%);
+    padding: 10px 20px;
+    color: #444444;
+    background-color: #eeeeee;
+    font-weight: normal;
+    font-size: 13px;
+    border-radius: 8px;
+    position: absolute;
+    z-index: 99999999;
+    box-sizing: border-box;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+    display: none;
+  }
+
+  .tooltip:hover .left {
+    display: block;
+  }
+
+  .tooltip .left i {
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    margin-top: -12px;
+    width: 12px;
+    height: 24px;
+    overflow: hidden;
+  }
+
+  .tooltip .left i::after {
+    content: "";
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    left: 0;
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(-45deg);
+    background-color: #eeeeee;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+  }
+</style>
+
+<script type="text/html" data-template-name="ccxt-exchange-v2">
+  <div class="form-row">
+      <label for="node-config-input-exchange" class="tooltip"
+        ><i class="fa fa-exchange"></i> <span data-i18n="ccxt.label.exchange"></span>
+        <div class="right">
+          <strong data-i18n="ccxt.label.exchange"></strong>
+          <p data-i18n="ccxt.labeltooltip.exchange"></p>
+          <i></i>
+        </div>
+      </label>
+
+      <select type="text" id="node-config-input-exchange"> </select>
+    </div>
+
+    <div class="form-row">
+      <label for="node-config-input-name"
+        ><i class="fa fa-tag"></i> <span data-i18n="ccxt-exchange.label.name"></span
+      ></label>
+      <input
+        type="text"
+        id="node-config-input-name"
+        data-i18n="[placeholder]ccxt-exchange.parameters.name"
+      />
+    </div>
+    <div class="form-row node-config-apikey hidden">
+      <label for="node-config-input-apikey"
+        ><i class="fa fa-key"></i> <span data-i18n="ccxt-exchange.label.apikey"></span
+      ></label>
+      <input
+        type="text"
+        id="node-config-input-apikey"
+        data-i18n="[placeholder]ccxt-exchange.parameters.apikey"
+      />
+    </div>
+    <div class="form-row node-config-secret hidden">
+      <label for="node-config-input-secret"
+        ><i class="fa fa-user-secret"></i>
+        <span data-i18n="ccxt-exchange.label.apisecret"></span
+      ></label>
+      <input
+        type="text"
+        id="node-config-input-secret"
+        data-i18n="[placeholder]ccxt-exchange.parameters.apisecret"
+      />
+    </div>
+    <div class="form-row node-config-uid hidden">
+      <label for="node-config-input-uid"
+        ><i class="fa fa-id-badge"></i> <span data-i18n="ccxt-exchange.label.uid"></span
+      ></label>
+      <input
+        type="text"
+        id="node-config-input-uid"
+        data-i18n="[placeholder]ccxt-exchange.parameters.uid"
+      />
+    </div>
+
+    <div class="form-row node-config-login hidden">
+      <label for="node-config-input-login"
+        ><i class="fa fa-user-circle"></i>
+        <span data-i18n="ccxt-exchange.label.login"></span
+      ></label>
+      <input
+        type="text"
+        id="node-config-input-login"
+        data-i18n="[placeholder]ccxt-exchange.parameters.login"
+      />
+    </div>
+    <div class="form-row node-config-password hidden">
+      <label for="node-config-input-password"
+        ><i class="fa fa-asterisk"></i>
+        <span data-i18n="ccxt-exchange.label.password"></span
+      ></label>
+      <input
+        type="password"
+        id="node-config-input-password"
+        data-i18n="[placeholder]ccxt-exchange.parameters.password"
+      />
+    </div>
+
+    <div class="form-row node-config-defaultconfig">
+      <label for="node-config-input-defaultconfig"
+        ><i class="fa fa-eye"></i>
+        <span data-i18n="ccxt-exchange.label.defaultconfig"></span
+      ></label>
+      <input
+        type="checkbox"
+        id="node-config-input-defaultconfig"
+        data-i18n="[placeholder]ccxt-exchange.parameters.defaultconfig"
+      />
+    </div>
+    <div class="form-row node-config-activeconfig">
+      <label for="node-config-input-activeconfig"
+        ><i class="fa fa-thumbs-up"></i>
+        <span data-i18n="ccxt-exchange.label.activeconfig"></span
+      ></label>
+      <input
+        type="checkbox"
+        id="node-config-input-activeconfig"
+        data-i18n="[placeholder]ccxt-exchange.parameters.activeconfig"
+      />
+    </div>
+    <div class="form-row node-config-sandboxmode">
+      <label for="node-config-input-sandboxmode"
+        ><i class="fa fa-wrench"></i>
+        <span data-i18n="ccxt-exchange.label.sandboxmode"></span
+      ></label>
+      <input
+        type="checkbox"
+        id="node-config-input-sandboxmode"
+        data-i18n="[placeholder]ccxt-exchange.parameters.sandboxmode"
+      />
+    </div>
+</script>
+
+<script type="text/javascript">
+  RED.nodes.registerType("ccxt-exchange-v2", {
+    category: "config",
+    defaults: {
+      exchange: {
+        value: "",
+        required: false
+      },
+      name: {
+        value: ""
+      },
+      defaultconfig: {
+        value: true,
+        required: true
+      },
+      activeconfig: {
+        value: true,
+        required: true
+      },
+      sandboxmode: {
+        value: false,
+        required: true
+      }
+    },
+    credentials: {
+      apikey: {
+        value: ""
+      },
+      secret: {
+        value: ""
+      },
+      uid: {
+        value: ""
+      },
+      login: {
+        value: ""
+      },
+      password: {
+        value: ""
+      }
+    },
+    label: function () {
+      if (this.name) {
+        return this.name;
+      }
+    },
+    oneditprepare: function () {
+
+      var config = this;
+
+      //
+      $("#node-config-input-exchange").select2();
+      // retrieve Exchanges from server
+      let getExchanges = function () {
+        var exchangeElement = $("#node-config-input-exchange");
+        //show spinner
+        //$("#id-loading-svg").show();
+        $.getJSON("ccxt-v2/exchanges", function (result) {
+          exchangeElement.empty();
+          exchangeElement.append(
+            $("<option>", {
+              value: "",
+              text: ""
+            })
+          );
+
+          $.each(result.exchange, function (key, value) {
+            //  debugger;
+            exchangeElement.append(
+              $("<option />")
+                .val(key)
+                .text(value[0]) //@nileio fix #6
+                .attr("homepage", value[1])
+                .attr("logo", value[2])
+                .attr("apidoc", value[3])
+            );
+          });
+
+          //setting the saved node value
+          exchangeElement.val(config.exchange);
+          var exchange = $("#node-config-input-exchange").val();
+          // Setting the dropdown value from javascript (using val()), won't trigger the change-event automatically
+          exchangeElement.trigger("change");
+
+          //hide spinner
+          // $("#id-loading-svg").hide();
+        }).error(function (error) {
+          console.log(error);
+        });
+      };
+      getExchanges();
+      let showhideInputFields = function () {
+        // console.log("password is set:", this.credentials.apikey);
+        //hide all params by default
+        $(".hidden").hide();
+
+        let exchange = $("#node-config-input-exchange option:selected").val();
+        if (exchange !== undefined && exchange !== "") {
+          $.getJSON(
+            "ccxt-v2/exchangereqcreds",
+            {
+              exchange: exchange
+            },
+            function (result) {
+              $.each(result.exchangereqcreds, function (key, value) {
+                //show-hide based on req creds
+                if (value[0] === "apiKey") $(".node-config-apikey").show();
+                if (value[0] === "secret") $(".node-config-secret").show();
+                if (value[0] === "uid") $(".node-config-uid").show();
+                if (value[0] === "login") $(".node-config-login").show();
+                if (value[0] === "password") {
+                  $(".node-config-password").show();
+                  if (config.credentials.has_password === true)
+                    $("#node-config-input-password").attr("placeholder", "Value Exists! Enter a new Value to update");
+                }
+              });
+            }
+          ).error(function (error) {
+            console.log(error);
+          });
+        }
+      };
+      $("#node-config-input-exchange").change(function () {
+        if ($("#node-config-input-exchange").val())
+          if (!$("#node-config-input-name").val()) $("#node-config-input-name").val($("#node-config-input-exchange option:selected").text());
+        showhideInputFields();
+      });
+    },
+    oneditsave: function () {
+      var config = this;
+
+      config.exchange = $("#node-config-input-exchange option:selected").val();
+    }
+  });
+
+//# sourceURL=/ccxt-v2/ccxt-api.html
+//# sourceMappingURL=/Users/islam/dev/node/node-red-contrib-ccxt-v2/ccxt-v2/ccxt-api.html.map
+</script>

