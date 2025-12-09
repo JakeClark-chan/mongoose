@@ -1,0 +1,37 @@
+import { InputHTMLAttributes, SyntheticEvent, FC, ChangeEvent } from 'react';
+import { IconProps } from '../../../icons/Icon/interfaces';
+export declare type FieldSize = 'XXL' | 'XL' | 'L' | 'M' | 'S';
+export interface FieldProps extends InputHTMLAttributes<HTMLInputElement> {
+    adviceMsg?: string;
+    autoComplete?: string;
+    className?: string;
+    disabled?: boolean;
+    errorMsg?: string;
+    fieldSize?: FieldSize;
+    fullChangeControl?: boolean;
+    iconLeft?: FC<IconProps>;
+    iconRight?: FC<IconProps>;
+    id: string;
+    isAdviceButton?: boolean;
+    isAutocompleteAllowed?: boolean;
+    isError?: boolean;
+    isRequired?: boolean;
+    keepLabel?: boolean;
+    label: string;
+    labelClassName?: string;
+    mask?: string;
+    maskChar?: string;
+    name?: string;
+    onBlur?: (e: SyntheticEvent) => any;
+    onChange: (value: string | ChangeEvent<HTMLInputElement>) => any;
+    onFocus?: (e: SyntheticEvent) => any;
+    onKeyDown?: (e: SyntheticEvent) => any;
+    onKeyPress?: (e: SyntheticEvent) => any;
+    onKeyUp?: (e: SyntheticEvent) => any;
+    successMsg?: string;
+    type?: string;
+    value?: string;
+    version?: string;
+    warningMsg?: string;
+    wrapperClassName?: string;
+}

@@ -1,0 +1,1 @@
+{"version":3,"file":"generateNewId.js","sources":["../../src/utils/generateNewId.ts"],"sourcesContent":["let lastId = 0\n\nexport const generateNewId = (): number => lastId++\n"],"names":["lastId"],"mappings":"oEAAA,IAAIA,EAAS,wBAEgB,IAAcA"}

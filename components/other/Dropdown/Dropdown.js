@@ -1,0 +1,2 @@
+"use strict";var e=require("tslib"),t=require("react"),r=require("./Details.js"),a=require("./Button.js"),s=require("./Menu.js");function u(e){return e&&"object"==typeof e&&"default"in e?e:{default:e}}var n=u(t);const i=t=>{var{children:a,className:s}=t,u=e.__rest(t,["children","className"]);return n.default.createElement(r,Object.assign({className:s},u),a)};(i.Button=a).displayName="Dropdown.Button",(i.Menu=s.default).displayName="Dropdown.Menu",(i.Item=s.MenuItem).displayName="Dropdown.Item",module.exports=i;
+//# sourceMappingURL=Dropdown.js.map

@@ -1,0 +1,2 @@
+"use strict";var e=require("tslib"),t=require("react"),a=require("clsx");function r(e){return e&&"object"==typeof e&&"default"in e?e:{default:e}}var i=r(t),l=r(a);module.exports=t=>{var{className:a="",icon:r,disabled:s=!1,onClick:c}=t,n=e.__rest(t,["className","icon","disabled","onClick"]);return i.default.createElement("button",Object.assign({},n,{className:l.default("IconButton",a),disabled:s,onClick:s?void 0:c}),r)};
+//# sourceMappingURL=IconButton.js.map

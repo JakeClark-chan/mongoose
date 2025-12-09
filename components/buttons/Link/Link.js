@@ -1,0 +1,2 @@
+"use strict";var e=require("react"),t=require("clsx"),a=require("../../other/Typography/Typography.js");function r(e){return e&&"object"==typeof e&&"default"in e?e:{default:e}}require("../../icons/Loading/Loading.js");var i=r(e),l=r(t);module.exports=({text:e,size:t="L",onClick:r,className:n})=>i.default.createElement("button",{className:l.default("LinkNext",n),onClick:r},i.default.createElement(a,{className:l.default("LinkNext-Text","LinkNext-Text_"+t),text:e}));
+//# sourceMappingURL=Link.js.map

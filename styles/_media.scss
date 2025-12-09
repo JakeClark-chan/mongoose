@@ -1,0 +1,38 @@
+@mixin only-hover {
+    @media (hover: hover), // for all modern browsers, except IE and FireFox
+        (min-width: 0\0), // IE suppot
+        (min--moz-device-pixel-ratio:0) // FireFox suppot
+        {
+            @content;
+        }
+}
+
+@mixin only-touch {
+    @media only screen and (max-width: 1280px) and (pointer: coarse) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media (min-width: 1281px) {
+        @content;
+    }
+}
+
+@mixin tablet {
+    @media only screen and (max-width: 1280px) and (min-width: 481px) {
+        @content;
+    }
+}
+
+@mixin mobile {
+    @media only screen and (max-width: 480px) {
+        @content;
+    }
+}
+
+@mixin mobileAndTablet {
+    @media only screen and (max-width: 1280px) {
+        @content
+    }
+}
