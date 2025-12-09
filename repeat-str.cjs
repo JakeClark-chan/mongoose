@@ -1,0 +1,1 @@
+function repeatStr(r=1,e=" "){if("number"!=typeof r||!Number.isInteger(r))throw TypeError("The first argument must be a number.");if(!Array.isArray(e)&&"string"!=typeof e)throw TypeError("The second argument must be a string or an array.");return Array.isArray(e)?e.map(e=>e.repeat(r)):e.repeat(r)}module.exports=repeatStr
