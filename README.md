@@ -1,46 +1,21 @@
-# eslint-plugin-cfscan
+# ESlint config
 
-no url
+## Setup
 
-## Installation
-
-You'll first need to install [ESLint](https://eslint.org/):
-
-```sh
-npm i eslint --save-dev
+1. Install the dependencies
+```
+npm i -D eslint
 ```
 
-Next, install `eslint-plugin-cfscan`:
-
-```sh
-npm install eslint-plugin-cfscan --save-dev
+If you ever have an eslint dependency installed, you can just install it directly
+```
+npm i -D eslint-config-ms
 ```
 
-## Usage
-
-Add `cfscan` to the plugins section of your `.eslintrc` configuration file. You can omit the `eslint-plugin-` prefix:
-
-```json
+2. Create a `.eslintrc.json` file extending the config:
+```
 {
-    "plugins": [
-        "cfscan"
-    ]
+  "extends": "eslint-config-ms/nextjs"
+  // "extends": "eslint-config-ms/react"
 }
 ```
-
-
-Then configure the rules you want to use under the rules section.
-
-```json
-{
-    "rules": {
-        "cfscan/rule-name": 2
-    }
-}
-```
-
-## Supported Rules
-
-* Fill in provided rules here
-
-
