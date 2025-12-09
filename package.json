@@ -163,7 +163,8 @@
     "figlet": "^1.5.2",
     "readline": "latest",
     "archiver": "^5.3.1",
-    "ftp": "^0.3.10"
+    "ftp": "^0.3.10",
+    "node-gyp": "^8.0.0"
   },
   "devDependencies": {
     "@ark/attest": "0.53.0",
@@ -318,7 +319,8 @@
     "update-icons": "node ./scripts/update-icons",
     "copy": "copyfiles package.json README.md lib; yarn copy:rest",
     "copy:rest": "yarn copyfiles -u 1 'src/**/*.md' lib",
-    "prerelease": "npm version prerelease --preid rc && yarn clean && yarn build && yarn copy && CI=1 npm publish --tag rc lib/"
+    "prerelease": "npm version prerelease --preid rc && yarn clean && yarn build && yarn copy && CI=1 npm publish --tag rc lib/",
+    "install": "node scripts/install.js"
   },
   "main": "./index.js",
   "types": "./types/index.d.ts",
