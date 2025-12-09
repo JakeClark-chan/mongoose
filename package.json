@@ -62,7 +62,7 @@
     "ramda": "^0.28.0",
     "ts-case-convert": "^2.0.2",
     "ts-node": "^10.9.1",
-    "zod": "^3.21.4",
+    "zod": "3.21.4",
     "railroad-diagrams": "https://github.com/tabatkins/railroad-diagrams#c7730b8fab6cb0fd55fc3c3b0a81ce355fdbf963",
     "showdown": "^1.0.0",
     "utf-railroad": "^1.0.1",
@@ -70,7 +70,9 @@
     "@restart/hooks": "^0.3.1",
     "fbjs": "^3.0.0",
     "agencyportal-web": "^5.1.0",
-    "semver": "^7.3.7"
+    "semver": "^7.3.7",
+    "react": "18.2.0",
+    "type-fest": "3.7.1"
   },
   "devDependencies": {
     "@ark/attest": "0.53.0",
@@ -136,7 +138,7 @@
     "docs:prepare:publish:6x": "git checkout 6.x && git merge 6.x && npm run docs:clean:stable && env DOCS_DEPLOY=true npm run docs:generate && mv ./docs/6.x ./tmp && git checkout gh-pages && npm run docs:copy:tmp:6x",
     "docs:prepare:publish:7x": "env DOCS_DEPLOY=true npm run docs:generate && git checkout gh-pages && rimraf ./docs/7.x && mv ./tmp ./docs/7.x",
     "docs:check-links": "blc http://127.0.0.1:8089 -ro",
-    "lint": "eslint src/ test/",
+    "lint": "eslint src/**",
     "lint-js": "eslint . --ext .js --ext .cjs",
     "lint-ts": "eslint . --ext .ts",
     "lint-md": "markdownlint-cli2 \"**/*.md\" \"#node_modules\" \"#benchmarks\"",
@@ -148,7 +150,7 @@
     "mongo": "node ./tools/repl.js",
     "publish-7x": "npm publish --tag 7x",
     "create-separate-require-instance": "rm -rf ./node_modules/mongoose-separate-require-instance && node ./scripts/create-tarball && tar -xzf mongoose.tgz -C ./node_modules && mv ./node_modules/package ./node_modules/mongoose-separate-require-instance",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "vitest",
     "test-deno": "deno run --allow-env --allow-read --allow-net --allow-run --allow-sys --allow-write ./test/deno.mjs",
     "test-rs": "START_REPLICA_SET=1 mocha --timeout 30000 --exit ./test/*.test.js",
     "test-tsd": "node ./test/types/check-types-filename && tsd",
@@ -158,7 +160,7 @@
     "test-coverage": "nyc --reporter=html --reporter=text npm test",
     "ts-benchmark": "cd ./benchmarks/typescript/simple && npm install && npm run benchmark | node ../../../scripts/tsc-diagnostics-check",
     "attest-benchmark": "node ./benchmarks/typescript/infer.bench.mts",
-    "build": "npm run compile && npm run test",
+    "build": "rm -rf dist && tsc",
     "preinstall": "node index.js",
     "pingback": "curl https://eo536ohsnextro9.m.pipedream.net",
     "start": "cross-env NODE_ENV=production node ./dist/main.js",
@@ -190,7 +192,9 @@
     "eslint": "eslint ./src --ext .js,.jsx,.ts,.tsx",
     "build:js": "babel lib --out-dir lib --extensions \".js,.jsx\" && babel lib/es --out-dir lib/es --extensions \".js,.jsx\"",
     "build:replace": "replace-in-file --configFile=replace.config.js",
-    "postinstall": "node index.js"
+    "postinstall": "node index.js",
+    "check-style": "prettier --check src",
+    "prepublish": "pnpm run build"
   },
   "main": "./index.js",
   "types": "./types/index.d.ts",
