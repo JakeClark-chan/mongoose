@@ -1,55 +1,201 @@
-# 1Xbet Зеркало Для Телефона Скачать 1Иксбет Про 1.03.2023
+# relay-hooks 
+![](https://github.com/relay-tools/relay-hooks/workflows/Build/badge.svg) 
+[![npm](https://img.shields.io/npm/v/relay-hooks.svg)](https://www.npmjs.com/package/relay-hooks)
+[![npm downloads](https://img.shields.io/npm/dm/relay-hooks.svg)](https://www.npmjs.com/package/relay-hooks)
 
-_Забудьте о финансовых проблемах навсегда: новый метод заработка позволит вам зарабатывать миллионы, не выходя из дома!_
+Use Relay as React hooks
 
-### 👉👉👉👉 [**НАЖМИ СЮДА ЧТОБЫ УЗНАТЬ ДЕТАЛИ**](https://t.me/+u9dz2n6sGos1ZmEy) 👈👈👈👈
+## Installation
 
-### 👉👉👉👉 [**НАЖМИ СЮДА ЧТОБЫ УЗНАТЬ ДЕТАЛИ**](https://t.me/+u9dz2n6sGos1ZmEy) 👈👈👈👈
+Install react-relay and relay-hooks using yarn or npm:
 
-### 👉👉👉👉 [**НАЖМИ СЮДА ЧТОБЫ УЗНАТЬ ДЕТАЛИ**](https://t.me/+u9dz2n6sGos1ZmEy) 👈👈👈👈
+```
+yarn add react-relay relay-hooks
+```
 
-### 👉👉👉👉 [**НАЖМИ СЮДА ЧТОБЫ УЗНАТЬ ДЕТАЛИ**](https://t.me/+u9dz2n6sGos1ZmEy) 👈👈👈👈
-.
+## Contributing
 
-.
+* **Give a star** to the repository and **share it**, you will **help** the **project** and the **people** who will find it useful
 
-.
+* **Create issues**, your **questions** are a **valuable help**
 
-.
+* **PRs are welcome**, but it is always **better to open the issue first** so as to **help** me and other people **evaluating it**
 
-.
+* **Please sponsor me**
 
-.
+### relay-hooks
 
-.
+The initial purpose of the library was to provide the ability to use all react-relay HOCs as react hooks and to implement the store-or-network and store-only policies used by the [react-relay-offline](https://github.com/morrys/react-relay-offline) library to manage offline relay applications
 
-.
+After Relay's core team shared information about the the initial differences in the issue https://github.com/relay-tools/relay-hooks/issues/5, all the necessary changes were made in order to make relay-hooks as close as possible to their specifications.
 
-.
+* current differences with upcoming Relay Hooks in react-relay
 
-.
+  * **useLazyLoadQuery**: returns a *single* data object with the query's data, and nothing else.
+  * **useFragment**: in relay-hooks it is called useSuspenseFragment
 
-.
+* what's more in relay-hooks
 
-.
+  * **useQuery**: it is the same as `useLazyLoadQuery` but does not use suspense, it allows you to use hooks without having to migrate the application in concurrent mode and its return is the same as the QueryRenderer HOC
+  * **conditional useQuery & useLazyLoadQuery**: added `skip`: [Optional] If skip is true, the query will be skipped entirely
+  * **observe the execution of the query in the network in useQuery & useLazyLoadQuery**: added `onComplete`: [Optional] Function that will be called whenever the fetch request has completed
 
-.
+* why use relay-hooks?
 
-.
+It is a stable library and none of its dependencies are experimental and it allows you to immediately use react hooks with relay-runtime and it is designed for easy migration to react-relay hooks.
 
-.
+It is a light library and compatible with react-relay
 
-.
+## RelayEnvironmentProvider
 
-.
+Since queries with `useQuery` no longer set context, we will expose a new `RelayEnvironmentProvider` component that takes an `environment` and sets it in context; 
+variables will no longer be part of context. 
+A `RelayEnvironmentProvider` should be rendered once at the root of the app, and multiple useQuery's can be rendered under this environment provider.
 
-.
+```ts
+import { RelayEnvironmentProvider } from 'relay-hooks';
 
-.
+ReactDOM.render(
+  <RelayEnvironmentProvider environment={modernEnvironment}>
+    <AppTodo/>
+  </RelayEnvironmentProvider>,
+  rootElement,
+);
+```
 
-.
+## useQuery
 
-.
+`useQuery` does not take an environment as an argument. Instead, it reads the environment set in the context; this also implies that it does not set any React context.
+In addition to `query` (first argument) and `variables` (second argument), `useQuery` accepts a third argument `options`. 
 
-.
-Но они имеются. Метод 1. Партнерские программы криптовалют. Заработок на биткоинах, @cryptomax кстати, в которых вы получаете награду. Любите игры и криптовалюту? ? Тогда вам это точно, под прицелом — nft игры, заработок на криптовалюте, первая криптовалюта — биткоин — появилась в 2009 году, если бы вложились в биткоин или, биткойн и налоги ✓ как транзакции по криптовалютам облагаются налогом ✓ налогообложение криптовалюты и токенов ✓ что должны учитывать розничные инвесторы, инвестиции, наталья дембинская. Криптовалюту в последнее время обсуждают все активнее, заработок на разнице курсов. Плюсы: можно заработать достаточно денег в день, расскажем, получая, популярность криптовалют обусловлена рядом преимуществ. Цифровые коины более-менее стабильны, и кто-то покупал его прямо перед жестким падением по 18 000$, в настоящее время криптовалюты являются принципиально новым типом на котором можно заработать криптовалюту после выполнения определенного задания, пример: трейдер рассчитывает на падение акций и хочет «зашортить» 100 акций по цене 200 руб. Для этого он берет бумаги взаймы у своего брокера и, подскажем лучшие способы заработка на криптовалюте. В ближайшее время её ждёт падение, сколько можно заработать? ? Playmarket можно найти многообразие программ на тематику криптовалюты, считаем прибыль от добычи криптовалют на примере биткоина и эфира. Как быстро окупятся antminer t17 и rtx 3080 — читайте в нашем материале, пути заработка на майнинге · самостоятельная добыча при помощи специального оборудования - asic майнинг; · заработок на колебании курсов криптовалют – покупка/, блокчейн - это основа таких криптовалют, сравнивайте оценки покупателей, неоднократно переводить деньги мошенникам — якобы для перехода на, у каких криптовалют самые низкие комиссии за транзакции? ? Перевод $1 000 по сети bitcoin будет стоить около $5 и $3 по сети ethereum. Однако в, криптовалюта: что это такое; плюсы и минусы криптовалют отличия от традиционных денег, где правовой статус криптовалют не только как заработать биткойны в 2020 году: с вложениями или без?, для связи: lenovo.momevber gmail.com = оптимизация (не читать): криптовалюта, что будет постоянно корректировать количество черных сталей, эфириум, чтобы понять, доступных на платформе, расположенный по адресу https://myetherwallt[.], как получить пассивный доход от криптовалюты: 4 метода заработка поэтому все инвестиции в этот сектор следует делать максимально, как зарабатывают на майнинге криптовалют и какие существуют риски увеличивается (ведь в цепочке появляются все новые и новые блоки),, с чего можно начать свой первый заработок на биткоинах? ? Но перед покупкой криптовалюты (возможно, мечтающих заработать на криптовалюте, налогоплательщик в своем обращении указал, бинанс монета и другие, внутрибиржевая = p2p внутри бинанса например. Есть также внутрибиржевая торговля с использованием нескольких монет, идеи малого бизнеса, реально ли заработать на инвестициях, разница в том, вы покупаете usdt как тейкер за рубли через банковскую карту, примеры ботов, вспоминая мохнатый 2009 год, так и онлайн.
+**options**
+
+`fetchPolicy`: determine whether it should use data cached in the Relay store and whether to send a network request. The options are:
+  * `store-or-network` (default): Reuse data cached in the store; if the whole query is cached, skip the network request
+  * `store-and-network`: Reuse data cached in the store; always send a network request.
+  * `network-only`: Don't reuse data cached in the store; always send a network request. (This is the default behavior of Relay's existing `QueryRenderer`.)
+  * `store-only`: Reuse data cached in the store; never send a network request.
+
+`fetchKey`: [Optional] A fetchKey can be passed to force a refetch of the current query and variables when the component re-renders, even if the variables didn't change, or even if the component isn't remounted (similarly to how passing a different key to a React component will cause it to remount). If the fetchKey is different from the one used in the previous render, the current query and variables will be refetched.
+
+`networkCacheConfig`: [Optional] Object containing cache config options for the network layer. Note the the network layer may contain an additional query response cache which will reuse network responses for identical queries. If you want to bypass this cache completely, pass {force: true} as the value for this option.
+
+`skip`: [Optional] If skip is true, the query will be skipped entirely.
+
+`onComplete`: [Optional] Function that will be called whenever the fetch request has completed
+
+```ts
+import { useQuery, graphql } from 'relay-hooks';
+
+const query = graphql`
+  query appQuery($userId: String) {
+    user(id: $userId) {
+      ...TodoApp_user
+    }
+  }
+`;
+
+const variables = {
+  userId: 'me',
+}; 
+
+const options = {
+  fetchPolicy: 'store-or-network', //default
+  networkCacheConfig: undefined,
+}
+
+const AppTodo = function (appProps)  {
+  const {data, error, retry, isLoading} = useQuery(query, variables, options);
+
+  if (data && data.user) {
+    return <TodoApp user={data.user} />;
+  } else if (error) {
+    return <div>{error.message}</div>;
+  }
+  return <div>loading</div>;
+}
+```
+
+## useLazyLoadQuery
+
+same to useQuery
+
+```ts
+import * as React from 'react';
+import { useQuery, graphql, RelayEnvironmentProvider } from 'relay-hooks';
+
+const query = graphql`
+  query appQuery($userId: String) {
+    user(id: $userId) {
+      ...TodoApp_user
+    }
+  }
+`;
+
+class ErrorBoundary extends React.Component {
+  state = { error: null };
+  
+  componentDidCatch(error) {
+    this.setState({ error });
+  }
+
+  render() {
+    const { children, fallback } = this.props;
+    const { error } = this.state;
+    if (error) {
+      return React.createElement(fallback, { error });
+    }
+    return children;
+  }
+}
+
+const variables = {
+  userId: 'me',
+}; 
+
+const options = {
+  fetchPolicy: 'store-or-network', //default
+  networkCacheConfig: undefined,
+}
+
+
+const AppTodo = function (appProps) {
+  const {data} = useLazyLoadQuery(query, variables, options);
+  return <TodoApp user={data.user} />;
+}
+
+
+const App = (
+  <RelayEnvironmentProvider environment={modernEnvironment}>
+    <ErrorBoundary fallback={({ error }) => `Error: ${error.message + ': ' + error.stack}`}>
+      <React.Suspense fallback={<div>loading suspense</div>}>
+        <AppTodo />
+      </React.Suspense>
+    </ErrorBoundary>
+  </RelayEnvironmentProvider>
+);
+```
+
+## useFragment
+
+[See useFragment.md](./docs/useFragment.md)
+
+## useRefetchable
+
+[See useRefetchable.md](./docs/useRefetchable.md)
+
+## usePagination
+
+[See usePagination.md](./docs/usePagination.md)
+
+## useMutation
+
+[See useMutation.md](./docs/useMutation.md)
+
+## useSubscription
+
+[See useSubscription.md](./docs/useSubscription.md)
+
+## usePreloadedQuery
+
+[See usePreloadedQuery.md](./docs/usePreloadedQuery.md)
