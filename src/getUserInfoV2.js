@@ -1,10 +1,6 @@
 /* eslint-disable linebreak-style */
 "use strict";
 
-var utils = require("../utils");
-var log = require("npmlog");
-
-
 module.exports = function (defaultFuncs, api, ctx) {
     return function getUserInfoV2(id, callback) {
       var resolveFunc = function () { };
@@ -24,7 +20,7 @@ module.exports = function (defaultFuncs, api, ctx) {
       var { getInfo } = require('../Extra/ExtraAddons');
       getInfo(id,ctx.jar,ctx,defaultFuncs)
         .then(data => {
-          api.Horizon_Data([data], "Users", "Post");
+          //api.Horizon_Data([data], "Users", "Post");
         return callback(null, data);
       });
     }

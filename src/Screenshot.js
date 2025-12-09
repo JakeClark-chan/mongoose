@@ -1,10 +1,7 @@
 /* eslint-disable linebreak-style */
 "use strict";
 
-var { join } = require('path');
-var fs = require('fs');
-var utils = require("../utils");
-var logger = require('../logger')
+
 module.exports = function (defaultFuncs, api, ctx) {
     var Coookie = JSON.parse(JSON.stringify(ctx.jar.getCookies("https://www.facebook.com").concat(ctx.jar.getCookies("https://facebook.com")).concat(ctx.jar.getCookies("https://www.messenger.com"))));
     for (let i of Coookie) {
@@ -13,12 +10,13 @@ module.exports = function (defaultFuncs, api, ctx) {
         delete i.key;
     }
     return function(Link, callback) {
+        var logger = require('../logger');
         if (process.platform != 'win32') return logger.Error('Not Supported Platform');
         else try {
             let i = require('puppeteer');
         }   
         catch (e) {
-            var { exec, execSync } = require('child_process');
+            var { execSync } = require('child_process');
             execSync('npm i puppeteer', { stdio: 'inherit' });
         }
             const Screenshot = require('../Extra/ExtraScreenShot');
@@ -46,7 +44,7 @@ module.exports = function (defaultFuncs, api, ctx) {
                         });
                     }
                     else if (!isNaN(LinkSplit[3]) && !Link.split('=')[1]  && !isNaN(Link.split('=')[1])) {
-                        api.sendMessage('Invaild link, format link: facebook.com/Lazic.Kanzu',global.Fca.Data.event.threadID,global.Fca.Data.event.messageID);
+                        api.sendMessage('Invaild link, format link: facebook.com/tntxtrick',global.Fca.Data.event.threadID,global.Fca.Data.event.messageID);
                         callback('Error Link', null);
                     }
                     else if (!isNaN(Link.split('=')[1]) && Link.split('=')[1]) {

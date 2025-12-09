@@ -147,8 +147,9 @@ function formatThreadGraphQLResponse(data) {
 
 module.exports = function(defaultFuncs, api, ctx) {
 
-  var { createData,getData,hasData,alreadyUpdate,setLastRun,updateData, getAll } = require('../Extra/ExtraGetThread');
+  var { createData,getData,hasData,setLastRun,updateData, getAll } = require('../Extra/ExtraGetThread');
   var { capture } = require('../Extra/Src/Last-Run');
+  var Database = require('../Extra/Database');
   global.Fca.Data.Userinfo = [];
   
   return function getThreadInfoGraphQL(threadID, callback) {
@@ -173,25 +174,63 @@ module.exports = function(defaultFuncs, api, ctx) {
       // đã áp dụng vào fca mới(cloud - fca(private)) vào cuối tháng 8/2022 bởi @IteralingCode(Hidden Member( always :) )) - Synthetic 4 - @Horizon Team
       //cập nhật dự án bị bỏ rơi này vào ngày 19/11/2022 bởi @KanzuWakazaki(Owner) - Synthetic 1  - @Horizon Team nhằm đáp ứng nhu cầu của client !
 
-      var time = new Date().toLocaleDateString('vi-VN',  {minute: 'numeric' }).split(',')[0]
-
       if (utils.getType(threadID) !== "Array") threadID = [threadID];
 
 
     var SpecialMethod = function(TID) {
-      var All = getAll();
-      var AllofThread = []
-      if (All.length < 1) {
-        return DefaultMethod(TID);
-      } else if (All.length > 1) {
-        for (let i of All) {
-            if (i.data.threadID != undefined) {
-              AllofThread.push(i.data.threadID);
-            } else continue;
+      const All = getAll();
+      const Real = [];
+      const Average = [];
+      for (let i of All) {
+        if (i.data.threadID != undefined) {
+          if (i.data.TimeCreate + 900 * 1000 <= Date.now()) {
+            Real.push(i.data.threadID);
+          }
+          else {
+            Average.push({
+              threadID: i.data.threadID,
+              TimeCreate: i.data.TimeCreate
+            });
+            continue;
+          }
+        } else continue;
+      }
+    const AllofThread = [];
+    if (Average.length > 0) {
+      var Time = 0;
+      for (let i of Average) {
+        Time += i.TimeCreate;
+      }
+      Time = Time / Average.length;
+      if (Time + 900 * 1000 <= Date.now()) {
+        for (let i of Average) {
+          Real.push(i.threadID);
         }
-        var Form = {};
-        var ThreadInfo = [];
-  
+      } //can't =))
+      else {
+        setTimeout(function () {
+          SpecialMethod(TID);
+        }, Time + 900 * 1000 - Date.now());
+      }
+    }
+    else {
+      setTimeout(function () {
+        SpecialMethod(TID);
+      }, 900 * 1000);
+    }
+    if (Real.length == 0) return;
+    else if (Real.length == 1) {
+      return DefaultMethod(TID);
+    } 
+    else if (All.length > 1) {
+      for (let i of All) {
+        if (i.data.threadID != undefined) {
+          AllofThread.push(i.data.threadID);
+        } else continue;
+      }
+      var Form = {};
+      var ThreadInfo = [];
+        
         AllofThread.map(function (x,y) {
           Form["o" + y] = {
             doc_id: "3449967031715030",
@@ -215,34 +254,51 @@ module.exports = function(defaultFuncs, api, ctx) {
           .then(utils.parseAndCheckLogin(ctx, defaultFuncs))
           .then(function(resData) {
           if (resData.error) {
-            throw "Lỗi: getThreadInfoGraphQL Có Thể Do Bạn Spam Quá Nhiều"
+            throw "Lỗi: getThreadInfoGraphQL Có Thể Do Bạn Spam Quá Nhiều";
           }
           if (resData[resData.length - 1].error_results !== 0) {
-            throw "Lỗi: getThreadInfoGraphQL Có Thể Do Bạn Spam Quá Nhiều"
+            throw "Lỗi: getThreadInfoGraphQL Có Thể Do Bạn Spam Quá Nhiều";
           }
           resData = resData.splice(0, resData.length - 1);
           resData.sort((a, b) => { return Object.keys(a)[0].localeCompare(Object.keys(b)[0]); });
           resData.map(function (x,y) {
             ThreadInfo.push(formatThreadGraphQLResponse(x["o"+y].data));
           });
-          global.Fca.Data.Userinfo = []
-          if (process.env.HalzionVersion == 1973) {
+            try {
             if (Object.keys(resData).length == 1) {
               updateData(threadID,ThreadInfo[0]);	
-              global.Fca.Data.Userinfo.push(ThreadInfo[0].userInfo);
+              if (utils.getType(ThreadInfo[0].userInfo) == "Array") {
+                for (let i of ThreadInfo[0].userInfo) {
+                  if (global.Fca.Data.Userinfo.some(ii => ii.id == i.id)) {
+                    global.Fca.Data.Userinfo.splice(global.Fca.Data.Userinfo.findIndex(ii => ii.id == i.id), 1);
+                  }
+                  global.Fca.Data.Userinfo.push(i);
+                }
+              }
             } else {
               for (let i of ThreadInfo) {
                 updateData(i.threadID,i);
-                global.Fca.Data.Userinfo.push(i.userInfo);
+                if (utils.getType(i.userInfo) == "Array") {
+                  for (let ii of i.userInfo) {
+                    if (global.Fca.Data.Userinfo.some(iii => iii.id == ii.id)) {
+                      global.Fca.Data.Userinfo.splice(global.Fca.Data.Userinfo.findIndex(iii => iii.id == ii.id), 1);
+                    }
+                    global.Fca.Data.Userinfo.push(ii);
+                  }
+                }
               }
             }
           }
+        catch (e) {
+          console.log(e);
+        }
         })
         .catch(function(err){
-          throw "Lỗi: getThreadInfoGraphQL Có Thể Do Bạn Spam Quá Nhiều"
+          throw "Lỗi: getThreadInfoGraphQL Có Thể Do Bạn Spam Quá Nhiều";
         });
       }
-    }
+    };
+
     var DefaultMethod = function(TID) { 
       var ThreadInfo = [];
       for (let i of TID) {
@@ -250,16 +306,30 @@ module.exports = function(defaultFuncs, api, ctx) {
       }
       if (ThreadInfo.length == 1) {
         callback(null,ThreadInfo[0]);
-        global.Fca.Data.Userinfo.push(ThreadInfo[0].userInfo);
+        if (utils.getType(ThreadInfo[0].userInfo) == "Array") {
+          for (let i of ThreadInfo[0].userInfo) {
+            if (global.Fca.Data.Userinfo.some(ii => ii.id == i.id)) {
+              global.Fca.Data.Userinfo.splice(global.Fca.Data.Userinfo.findIndex(ii => ii.id == i.id), 1);
+            }
+            global.Fca.Data.Userinfo.push(i);
+          }
       } else {
         for (let i of ThreadInfo) {
-          global.Fca.Data.Userinfo.push(i.userInfo);
+          if (utils.getType(i.userInfo) == "Array") {
+            for (let ii of i.userInfo) {
+              if (global.Fca.Data.Userinfo.some(iii => iii.id == ii.id)) {
+                global.Fca.Data.Userinfo.splice(global.Fca.Data.Userinfo.findIndex(iii => iii.id == ii.id), 1);
+              }
+              global.Fca.Data.Userinfo.push(ii);
+            }
+          }
         }
         callback(null,ThreadInfo);
       }
     }
+  };
     var CreateMethod = function(TID) { 
-      var Form = {}
+      var Form = {};
       var ThreadInfo = [];
 
       TID.map(function (x,y) {
@@ -285,64 +355,71 @@ module.exports = function(defaultFuncs, api, ctx) {
         .then(utils.parseAndCheckLogin(ctx, defaultFuncs))
         .then(function(resData) {
         if (resData.error) {
-          callback(null,{threadID:"5011501735554963",threadName:"TempThreadInfo",participantIDs:["100042817150429","100077059530660"],userInfo:[{id:"100042817150429",name:"Nguyễn Th\xe1i Hảo",firstName:"Hảo",vanity:"Lazic.Kanzu",thumbSrc:"https://scontent.fsgn5-10.fna.fbcdn.net/v/t39.30808-1/311136459_774539707316594_357342861145224378_n.jpg?stp=cp0_dst-jpg_p60x60&_nc_cat=101&ccb=1-7&_nc_sid=f67be1&_nc_ohc=0y9pN1XSiVIAX8HS5P6&_nc_ht=scontent.fsgn5-10.fna&oh=00_AfCBYmeKDgLZLWDMRBmBZj8zRLboVA096bkbsC4a1Q0DUQ&oe=637E5939",profileUrl:"https://scontent.fsgn5-10.fna.fbcdn.net/v/t39.30808-1/311136459_774539707316594_357342861145224378_n.jpg?stp=cp0_dst-jpg_p60x60&_nc_cat=101&ccb=1-7&_nc_sid=f67be1&_nc_ohc=0y9pN1XSiVIAX8HS5P6&_nc_ht=scontent.fsgn5-10.fna&oh=00_AfCBYmeKDgLZLWDMRBmBZj8zRLboVA096bkbsC4a1Q0DUQ&oe=637E5939",gender:"MALE",type:"User",isFriend:!0,isBirthday:!1},{id:"100077059530660",name:"Lucius Hori",firstName:"Lucius",vanity:"Horizon.Lucius.Synthesis.III",thumbSrc:"https://scontent.fsgn5-3.fna.fbcdn.net/v/t39.30808-1/309709623_179304871314830_1479186956574752444_n.jpg?stp=cp0_dst-jpg_p60x60&_nc_cat=104&ccb=1-7&_nc_sid=7206a8&_nc_ohc=rXiLw0_ID7MAX-q4wYv&_nc_ht=scontent.fsgn5-3.fna&oh=00_AfD8Wl_EQLLBCZOWxmBdcIP9Nc1iyLQY9qsMTIN4Sf5H8w&oe=637D35E0",profileUrl:"https://scontent.fsgn5-3.fna.fbcdn.net/v/t39.30808-1/309709623_179304871314830_1479186956574752444_n.jpg?stp=cp0_dst-jpg_p60x60&_nc_cat=104&ccb=1-7&_nc_sid=7206a8&_nc_ohc=rXiLw0_ID7MAX-q4wYv&_nc_ht=scontent.fsgn5-3.fna&oh=00_AfD8Wl_EQLLBCZOWxmBdcIP9Nc1iyLQY9qsMTIN4Sf5H8w&oe=637D35E0",gender:"MALE",type:"User",isFriend:!1,isBirthday:!1}],unreadCount:38357,messageCount:39288,timestamp:"1668862170994",muteUntil:null,isGroup:!0,isSubscribed:!0,isArchived:!1,folder:"INBOX",cannotReplyReason:null,eventReminders:[],emoji:"\uD83D\uDE0F",color:"DD8800",nicknames:{"100042817150429":"Bla bla"},adminIDs:[{id:"100042817150429"}],approvalMode:!0,approvalQueue:[],reactionsMuteMode:"reactions_not_muted",mentionsMuteMode:"mentions_not_muted",isPinProtected:!1,relatedPageThread:null,name:"Temp ThreadInfo GraphQL",snippet:"/getthreadtest",snippetSender:"100042817150429",snippetAttachments:[],serverTimestamp:"1668862170994",imageSrc:"https://scontent.fsgn5-10.fna.fbcdn.net/v/t1.15752-9/278020824_345766417524223_6790288127531819759_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=02e273&_nc_ohc=kOr9K5TWwDMAX-4qPH1&_nc_ht=scontent.fsgn5-10.fna&oh=03_AdRQSwLyIGJ-zrgyQj1IIQAFO3IC-4_Qq_qMd58ZtMCI0A&oe=63A02D7A",isCanonicalUser:!1,isCanonical:!1,recipientsLoadable:!0,hasEmailParticipant:!1,readOnly:!1,canReply:!0,lastMessageType:"message",lastReadTimestamp:"1649756873571",threadType:2,TimeCreate:1668862173440,TimeUpdate:1668862173440});
-          throw "Lỗi: getThreadInfoGraphQL Có Thể Do Bạn Spam Quá Nhiều, Thay thế bằng temp threadInfo =)) !"
+          throw resData.error;
         }
         if (resData[resData.length - 1].error_results !== 0) {
-          callback(null,{threadID:"5011501735554963",threadName:"TempThreadInfo",participantIDs:["100042817150429","100077059530660"],userInfo:[{id:"100042817150429",name:"Nguyễn Th\xe1i Hảo",firstName:"Hảo",vanity:"Lazic.Kanzu",thumbSrc:"https://scontent.fsgn5-10.fna.fbcdn.net/v/t39.30808-1/311136459_774539707316594_357342861145224378_n.jpg?stp=cp0_dst-jpg_p60x60&_nc_cat=101&ccb=1-7&_nc_sid=f67be1&_nc_ohc=0y9pN1XSiVIAX8HS5P6&_nc_ht=scontent.fsgn5-10.fna&oh=00_AfCBYmeKDgLZLWDMRBmBZj8zRLboVA096bkbsC4a1Q0DUQ&oe=637E5939",profileUrl:"https://scontent.fsgn5-10.fna.fbcdn.net/v/t39.30808-1/311136459_774539707316594_357342861145224378_n.jpg?stp=cp0_dst-jpg_p60x60&_nc_cat=101&ccb=1-7&_nc_sid=f67be1&_nc_ohc=0y9pN1XSiVIAX8HS5P6&_nc_ht=scontent.fsgn5-10.fna&oh=00_AfCBYmeKDgLZLWDMRBmBZj8zRLboVA096bkbsC4a1Q0DUQ&oe=637E5939",gender:"MALE",type:"User",isFriend:!0,isBirthday:!1},{id:"100077059530660",name:"Lucius Hori",firstName:"Lucius",vanity:"Horizon.Lucius.Synthesis.III",thumbSrc:"https://scontent.fsgn5-3.fna.fbcdn.net/v/t39.30808-1/309709623_179304871314830_1479186956574752444_n.jpg?stp=cp0_dst-jpg_p60x60&_nc_cat=104&ccb=1-7&_nc_sid=7206a8&_nc_ohc=rXiLw0_ID7MAX-q4wYv&_nc_ht=scontent.fsgn5-3.fna&oh=00_AfD8Wl_EQLLBCZOWxmBdcIP9Nc1iyLQY9qsMTIN4Sf5H8w&oe=637D35E0",profileUrl:"https://scontent.fsgn5-3.fna.fbcdn.net/v/t39.30808-1/309709623_179304871314830_1479186956574752444_n.jpg?stp=cp0_dst-jpg_p60x60&_nc_cat=104&ccb=1-7&_nc_sid=7206a8&_nc_ohc=rXiLw0_ID7MAX-q4wYv&_nc_ht=scontent.fsgn5-3.fna&oh=00_AfD8Wl_EQLLBCZOWxmBdcIP9Nc1iyLQY9qsMTIN4Sf5H8w&oe=637D35E0",gender:"MALE",type:"User",isFriend:!1,isBirthday:!1}],unreadCount:38357,messageCount:39288,timestamp:"1668862170994",muteUntil:null,isGroup:!0,isSubscribed:!0,isArchived:!1,folder:"INBOX",cannotReplyReason:null,eventReminders:[],emoji:"\uD83D\uDE0F",color:"DD8800",nicknames:{"100042817150429":"Bla bla"},adminIDs:[{id:"100042817150429"}],approvalMode:!0,approvalQueue:[],reactionsMuteMode:"reactions_not_muted",mentionsMuteMode:"mentions_not_muted",isPinProtected:!1,relatedPageThread:null,name:"Temp ThreadInfo GraphQL",snippet:"/getthreadtest",snippetSender:"100042817150429",snippetAttachments:[],serverTimestamp:"1668862170994",imageSrc:"https://scontent.fsgn5-10.fna.fbcdn.net/v/t1.15752-9/278020824_345766417524223_6790288127531819759_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=02e273&_nc_ohc=kOr9K5TWwDMAX-4qPH1&_nc_ht=scontent.fsgn5-10.fna&oh=03_AdRQSwLyIGJ-zrgyQj1IIQAFO3IC-4_Qq_qMd58ZtMCI0A&oe=63A02D7A",isCanonicalUser:!1,isCanonical:!1,recipientsLoadable:!0,hasEmailParticipant:!1,readOnly:!1,canReply:!0,lastMessageType:"message",lastReadTimestamp:"1649756873571",threadType:2,TimeCreate:1668862173440,TimeUpdate:1668862173440});
-          throw "Lỗi: getThreadInfoGraphQL Có Thể Do Bạn Spam Quá Nhiều, Thay thế bằng temp threadInfo =)) !"
+          throw resData.error;
         }
         resData = resData.splice(0, resData.length - 1);
         resData.sort((a, b) => { return Object.keys(a)[0].localeCompare(Object.keys(b)[0]); });
         resData.map(function (x,y) {
           ThreadInfo.push(formatThreadGraphQLResponse(x["o"+y].data));
         });
-        if (process.env.HalzionVersion == 1973) {
-          if (Object.keys(resData).length == 1) {
-            api.Horizon_Data([ThreadInfo], "Threads", "Post");
-            createData(threadID,ThreadInfo[0]);	
-            callback(null, ThreadInfo[0]);
-            capture(callback);
-            setLastRun('LastUpdate', callback);
-          } else {
-            api.Horizon_Data([ThreadInfo], "Threads", "Post");
-            for (let i of ThreadInfo) {
-              createData(i.threadID,i);
-              global.Fca.Data.Userinfo.push(i.userInfo);
+        if (Object.keys(resData).length == 1) {
+          createData(threadID,ThreadInfo[0]);	
+          callback(null, ThreadInfo[0]);
+          capture(callback);
+          setLastRun('LastUpdate', callback);
+          if (utils.getType(ThreadInfo[0].userInfo) == "Array") {
+            for (let i of ThreadInfo[0].userInfo) {
+              if (global.Fca.Data.Userinfo.some(ii => ii.id == i.id)) {
+                global.Fca.Data.Userinfo.splice(global.Fca.Data.Userinfo.findIndex(ii => ii.id == i.id), 1);
+              }
+              global.Fca.Data.Userinfo.push(i);
             }
-            callback(null, ThreadInfo);
           }
+        } else {
+          // api.Horizon_Data([ThreadInfo], "Threads", "Post");
+          for (let i of ThreadInfo) {
+            createData(i.threadID,i);
+            if (utils.getType(i.userInfo) == "Array") {
+              for (let ii of i.userInfo) {
+                if (global.Fca.Data.Userinfo.some(iii => iii.id == ii.id)) {
+                  global.Fca.Data.Userinfo.splice(global.Fca.Data.Userinfo.findIndex(iii => iii.id == ii.id), 1);
+                }
+                global.Fca.Data.Userinfo.push(ii);
+              }
+            }
+          }
+          callback(null, ThreadInfo);
         }
-          else {
-            callback(null, ThreadInfo[0]);
-            global.Fca.Data.Userinfo.push(ThreadInfo[0].userInfo);
-          }
       })
       .catch(function(err){
-        callback(null,{threadID:"5011501735554963",threadName:"TempThreadInfo",participantIDs:["100042817150429","100077059530660"],userInfo:[{id:"100042817150429",name:"Nguyễn Th\xe1i Hảo",firstName:"Hảo",vanity:"Lazic.Kanzu",thumbSrc:"https://scontent.fsgn5-10.fna.fbcdn.net/v/t39.30808-1/311136459_774539707316594_357342861145224378_n.jpg?stp=cp0_dst-jpg_p60x60&_nc_cat=101&ccb=1-7&_nc_sid=f67be1&_nc_ohc=0y9pN1XSiVIAX8HS5P6&_nc_ht=scontent.fsgn5-10.fna&oh=00_AfCBYmeKDgLZLWDMRBmBZj8zRLboVA096bkbsC4a1Q0DUQ&oe=637E5939",profileUrl:"https://scontent.fsgn5-10.fna.fbcdn.net/v/t39.30808-1/311136459_774539707316594_357342861145224378_n.jpg?stp=cp0_dst-jpg_p60x60&_nc_cat=101&ccb=1-7&_nc_sid=f67be1&_nc_ohc=0y9pN1XSiVIAX8HS5P6&_nc_ht=scontent.fsgn5-10.fna&oh=00_AfCBYmeKDgLZLWDMRBmBZj8zRLboVA096bkbsC4a1Q0DUQ&oe=637E5939",gender:"MALE",type:"User",isFriend:!0,isBirthday:!1},{id:"100077059530660",name:"Lucius Hori",firstName:"Lucius",vanity:"Horizon.Lucius.Synthesis.III",thumbSrc:"https://scontent.fsgn5-3.fna.fbcdn.net/v/t39.30808-1/309709623_179304871314830_1479186956574752444_n.jpg?stp=cp0_dst-jpg_p60x60&_nc_cat=104&ccb=1-7&_nc_sid=7206a8&_nc_ohc=rXiLw0_ID7MAX-q4wYv&_nc_ht=scontent.fsgn5-3.fna&oh=00_AfD8Wl_EQLLBCZOWxmBdcIP9Nc1iyLQY9qsMTIN4Sf5H8w&oe=637D35E0",profileUrl:"https://scontent.fsgn5-3.fna.fbcdn.net/v/t39.30808-1/309709623_179304871314830_1479186956574752444_n.jpg?stp=cp0_dst-jpg_p60x60&_nc_cat=104&ccb=1-7&_nc_sid=7206a8&_nc_ohc=rXiLw0_ID7MAX-q4wYv&_nc_ht=scontent.fsgn5-3.fna&oh=00_AfD8Wl_EQLLBCZOWxmBdcIP9Nc1iyLQY9qsMTIN4Sf5H8w&oe=637D35E0",gender:"MALE",type:"User",isFriend:!1,isBirthday:!1}],unreadCount:38357,messageCount:39288,timestamp:"1668862170994",muteUntil:null,isGroup:!0,isSubscribed:!0,isArchived:!1,folder:"INBOX",cannotReplyReason:null,eventReminders:[],emoji:"\uD83D\uDE0F",color:"DD8800",nicknames:{"100042817150429":"Bla bla"},adminIDs:[{id:"100042817150429"}],approvalMode:!0,approvalQueue:[],reactionsMuteMode:"reactions_not_muted",mentionsMuteMode:"mentions_not_muted",isPinProtected:!1,relatedPageThread:null,name:"Temp ThreadInfo GraphQL",snippet:"/getthreadtest",snippetSender:"100042817150429",snippetAttachments:[],serverTimestamp:"1668862170994",imageSrc:"https://scontent.fsgn5-10.fna.fbcdn.net/v/t1.15752-9/278020824_345766417524223_6790288127531819759_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=02e273&_nc_ohc=kOr9K5TWwDMAX-4qPH1&_nc_ht=scontent.fsgn5-10.fna&oh=03_AdRQSwLyIGJ-zrgyQj1IIQAFO3IC-4_Qq_qMd58ZtMCI0A&oe=63A02D7A",isCanonicalUser:!1,isCanonical:!1,recipientsLoadable:!0,hasEmailParticipant:!1,readOnly:!1,canReply:!0,lastMessageType:"message",lastReadTimestamp:"1649756873571",threadType:2,TimeCreate:1668862173440,TimeUpdate:1668862173440});
-        throw "Lỗi: getThreadInfoGraphQL Có Thể Do Bạn Spam Quá Nhiều, Thay thế bằng temp threadInfo =)) !"
+        throw err;
       });
-    }
-    if (global.Fca.Data.Already != true) SpecialMethod(threadID); 
-    global.Fca.Data.Already = true;
+    };
+    if (global.Fca.Data.Already != true) { SpecialMethod(threadID); global.Fca.Data.Already = true; } 
+    
 
 
-    setInterval(function(){
-      SpecialMethod(threadID);
-    }, 900 * 1000);
-
-    for (let i of threadID) {
-      switch (hasData(i)) {
-          case true: {     
-            DefaultMethod(threadID);
+    setInterval(function(){Database(true).set('UserInfo', global.Fca.Data.Userinfo);global.Fca.Data.Userinfo = [];}, 900 * 1000);
+    try {
+      for (let i of threadID) {
+        switch (hasData(i)) {
+            case true: {     
+              DefaultMethod(threadID);
+              break;
+            }
+          case false: {
+            CreateMethod(threadID);
             break;
           }
-        case false: {
-          CreateMethod(threadID);
-          break;
         }
       }
     }
+    catch (err) {
+      console.log(err);
+    }
     return returnPromise;
-  }
+  };
 };

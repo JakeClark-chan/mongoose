@@ -1,12 +1,25 @@
+
+[![Socket Badge](https://socket.dev/api/badge/npm/package/fca-horizon-remastered)](https://socket.dev/npm/package/fca-horizon-remastered)
+
+## Important !
+
+<img width="517" alt="Reason" src="">
+This project is no longer being developed because the project owner lacks high security capabilities, leading to potential security vulnerabilities. Therefore, the project will be permanently suspended.
+
+Special Thanks: 
+![image](https://github.com/TNTxTrick/fca-project/assets/125113101/0a455054-b7f4-499d-b4b6-c91fd0569ce4)
+
+This package require NodeJS 14.17.0 to work properly.
+
 ## Notification !
 
-Lưu Ý! Đây Là Sản Phẩm Được Horizon Remake Chính Bởi [Facebook-Chat-Api](https://github.com/Schmavery/facebook-chat-api)(Mod của: Fca-Xuyen-Get(bị xóa) bao gồm tác giả [UIRI](https://github.com/BadAimWeeb) từ trước và Tác giả chính: [Schmavery](https://github.com/Schmavery), Tác Giả Hiện Tại Không Chịu Trách Nghiệm Nào ! ), Nếu Có Lỗi Hãy Thử Sử Dụng Sang Sản Phẩm Khác !
++ We will have Example Video on Channel "Nguyễn Thái Hảo Official"
 
-## ABOUT
+Original Project(Deprecated): https://github.com/Schmavery/facebook-chat-api
 
-Đây là fca-jiser-remake thay thế cho fca-horizon-remake(Nghe nói bị phốt có keylog nên delete rồi) được publish bởi Jiser(Vu Tien Dung)
+Chúc các bạn một ngày tốt lành!, cảm ơn vì đã sài Sản phẩm của HZI, thân ái
 
-Bản này reup toàn bộ src của fca-horizon-remake nên nếu có bất cứ vấn đề gì xảy ra thì mình sẽ không chịu trách nhiệm!!
+KANZUWAKAZAKI(15/04/2023)
 
 ## Support For : 
 
@@ -25,11 +38,11 @@ Lưu Ý ! Nếu Bạn Muốn Sài Api Này Hãy Xem Document Tại [Đây Nè](h
 
 Nếu Bạn Muốn Sử Dụng, Hãy Tải Nó Bằng Cách:
 ```bash
-npm i fca-jiser-remake
+npm i fca-project
 ```
 or
 ```bash
-npm install fca-jiser-remake
+npm install fca-project
 ```
 
 Nó Sẽ Tải Vô node_modules (Lib Của Bạn) - Lưu Ý Replit Sẽ Không Hiện Đâu Mà Tìm 😪
@@ -38,11 +51,11 @@ Nó Sẽ Tải Vô node_modules (Lib Của Bạn) - Lưu Ý Replit Sẽ Không H
 
 Nếu Bạn Muốn Sử Dụng Phiên Bản Mới Nhất Hay Cập Nhật Thì Hãy Vô Terminal Hoặc Command Promt Nhập :
 ```bash
-npm install fca-jiser-remake@latest
+npm install fca-project@latest
 ```
 Hoặc
 ```bash
-npm i fca-jiser-remake@latest
+npm i fca-project@latest
 ```
 
 ## Nếu Bạn Muốn Test Api 
@@ -53,7 +66,7 @@ Hãy Sử Dụng Với Tài Khoản Thử Nghiệm => [Facebook Whitehat Account
 ## Cách Sử Dụng
 
 ```javascript
-const login = require("fca-jiser-remake"); // lấy từ lib ra 
+const login = require("fca-project"); // lấy từ lib ra 
 
 // đăng nhập
 login({email: "Gmail Account", password: "Mật Khẩu Facebook Của Bạn"}, (err, api) => {
@@ -93,7 +106,7 @@ Bạn Cần Vô File Mirai.js,Sau Đó Tìm Đến Dòng
 Và Thay Nó Bằng:
 
 ```js
-    var login = require('fca-jiser-remake')
+    var login = require('fca-project')
 ```
 
 Sau Đó Thì Chạy Bình Thường Thôi  !
@@ -114,7 +127,7 @@ __Hướng Dẫn Với Appstate__
 
 ```js
 const fs = require("fs");
-const login = require("fca-jiser-remake");
+const login = require("fca-project");
 
 var credentials = {email: "FB_EMAIL", password: "FB_PASSWORD"}; // thông tin tk
 
