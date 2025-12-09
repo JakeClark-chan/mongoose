@@ -1,0 +1,43 @@
+export declare enum RESTAURANTCATEGORYENUM {
+    VEGAN = "Vegan",
+    VEGETARISCH = "Vegetarisch",
+    BURGER = "Burger",
+    PIZZA = "Pizza",
+    POMMES = "Pommes",
+    SUESSES = "S\u00FC\u00DFes",
+    CAFE = "Cafe",
+    FRUSHTUCK = "Fr\u00FChst\u00FCck",
+    KEBAP = "Kebap",
+    BACKWAREN = "Backwaren",
+    NUDELN = "Nudeln",
+    SUPPE = "Suppe",
+    EIS = "Eis",
+    SUSHI = "Sushi",
+    WRAPS = "Wraps",
+    FINGERFOOD = "Fingerfood",
+    STEAKS = "Steaks",
+    FISCH = "Fisch",
+    KUCHEN = "Kuchen",
+    SALATE = "Salate",
+    FALAFEL = "Falafel",
+    CIGKOFTE = "Cig K\u00F6fte",
+    TUERKISCH = "T\u00FCrkisch",
+    ITALIENISCH = "Italienisch",
+    ARABISCH = "Arabisch",
+    ASIATISCH = "Asiatisch",
+    INDISCH = "Indisch",
+    SONSTIGES = "Sonstiges"
+}
+export declare enum RESTAURANTDETAILSEMUM {
+    GEBET = "Gebetsm\u00F6glichkeit",
+    SITZ = "Sitzm\u00F6glichkeit",
+    PARK = "Parkm\u00F6glichkeit",
+    KARTE = "Kartenzahlung",
+    WC = "WC",
+    WLAN = "WLAN",
+    IMFREIEN = "Pl\u00E4tze im Freien",
+    LIEFERUNG = "Lieferdienst",
+    RESERVIERUNG = "Reservierung m\u00F6glich",
+    BARRIEREFREI = "Barrierefrei"
+}
+//# sourceMappingURL=constants-schema.d.ts.map

