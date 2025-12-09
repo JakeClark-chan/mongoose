@@ -1,82 +1,16 @@
-# Twitter WOEID
+# DOWNLOAD EBOOK No More Police by Mariame Kaba & Andrea Ritchie PDF EPUB MOBI (sa5kq)
 
-## 1.0.3 Update - This package might not be useful - Instead use [trends/available](https://developer.twitter.com/en/docs/twitter-api/v1/trends/locations-with-trending-topics/api-reference/get-trends-available) endpoint directly.
+### Download Ebook + No More Police by Mariame Kaba & Andrea Ritchie in pdf - mobi - epub format
 
-Twitter uses Yahoo! WOEID for all of their Trends related API endpoints. But that Yahoo! service has been [shutdown](https://developer.twitter.com/en/docs/twitter-api/v1/trends/locations-with-trending-topics/api-reference/get-trends-available).
 
-This NPM module offers methods to get WOEID of all locations that Twitter has trending topic information for.
 
-## Contents:
+➡️ ➡️ <b>CLICK HERE:</b> <a href="http://tinybit.cc/aad4821b">http://tinybit.cc/aad4821b</a> ⬅️ ⬅️
 
-[Methods](#available-methods)
+<img src="https://is1-ssl.mzstatic.com/image/thumb/Publication112/v4/6d/96/be/6d96be6e-bff5-4805-a0f9-613a295a0bf4/9781620977309.jpg/600x600bb.jpg" style="width:300px;" />
 
-[Example](#example)
+An instant national best seller<br /><br />A persuasive primer on police abolition from two veteran organizers<br /><br />“One of the world’s most prominent advocates, organizers and political educators of the [abolitionist] framework.” —NBCNews.com on Mariame Kaba<br /><br />In this powerful call to action, New York Times bestselling author Mariame Kaba and attorney and organizer Andrea J. Ritchie detail why policing doesn’t stop violence, instead perpetuating widespread harm; outline the many failures of contemporary police reforms; and explore demands to defund police, divest from policing, and invest in community resources to create greater safety through a Black feminist lens.<br /><br />Centering survivors of state, interpersonal, and community-based violence, and highlighting uprisings, campaigns, and community-based projects, No More Police makes a compelling case for a world where the tools required to prevent, interrupt, and transform violence in all its forms are abundant. Part handbook, part road map, No More Police calls on us to turn away from systems that perpetrate violence in the name of ending it toward a world where violence is the exception, and safe, well-resourced and thriving communities are the rule.
 
-[Using with Twit](#usage-with-twit)
+Now you can download No More Police epub by Mariame Kaba & Andrea Ritchie from this link:
 
-## Available Methods
+👉👉👉 <b>DOWNLOAD EBOOK HERE: <a href="http://tinybit.cc/aad4821b">http://tinybit.cc/aad4821b</a></b>
 
-```JS
-getSingleWOEID(cityName)
-```
-
-Use the above method for getting the WOEID of a City (Local Trends).
-
-Use the above method for getting the WOEID of a Country (National Trends).
-
-```JS
-getAllWOEID(countryName)
-```
-
-Use the above method for getting the WOEIDs of all cities (that Twitter has trending topic information for) of that country.
-
-Each of the above methods returns an array of matching city/country.
-
-## Example
-
-#### City
-
-```JS
-console.log(getSingleWOEID('new york'));
-
-// RETURNS
-
-[{ name: 'New York', country: 'United States', woeid: 2459115 }];
-```
-
-#### Country
-
-```JS
-console.log(getSingleWOEID('india'));
-
-// RETURNS
-
-[{ name: 'India', country: 'India', woeid: 23424848 }];
-```
-
-#### All (Available) cities of a Country
-
-```JS
-console.log(getAllWOEID('japan'));
-
-// RETURNS
-
-[
-  { name: 'Kitakyushu', country: 'Japan', woeid: 1110809 },
-  { name: 'Saitama', country: 'Japan', woeid: 1116753 },
-  ...
-  { name: 'Okayama', country: 'Japan', woeid: 90036018 },
-];
-```
-
-## Usage with Twit
-
-Using destructuring
-
-```JS
-const [{ woeid }] = getSingleWOEID('chennai');
-
-twit.get('trends/place', { id: woeid })
-  .then(res => console.log(res.data[0]))
-  .catch(e => console.log(e));
-```
