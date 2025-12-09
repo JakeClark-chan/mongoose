@@ -1,4 +1,4 @@
-dist
+.cache
 node_modules
-old
-mysqlToZod
+public
+src/**/*.js
