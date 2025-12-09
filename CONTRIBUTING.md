@@ -1,96 +1,159 @@
-# Contributing to Mongoose
+# Contributing
 
-If you have a question about Mongoose (not a bug report) please post it to either [StackOverflow](http://stackoverflow.com/questions/tagged/mongoose), or on [Gitter](https://gitter.im/Automattic/mongoose?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+We use fairly "standard" github contribution workflow:
 
-## Reporting bugs
+1. Make an [Issue](https://github.com/rmc/rmc-core/issues/new)
+2. Fork this repository (For further details, see https://docs.github.com/en/github/getting-started-with-github/fork-a-repo)
+3. Develop changes to a new branch to your forked repository
+4. Create a Pull Request from your forked repository against this repository
+   1. Insert a reference in the description to the issue created earlier eg. "Closes #1" where "1" is the issue number
+   2. Pull request description should answer these questions: "What has been changed" and "What is this for"
 
-* Before opening a new issue, look for existing [issues](https://github.com/Automattic/mongoose/issues) to avoid duplication. If the issue does not yet exist, [create one](https://github.com/Automattic/mongoose/issues/new).
-  * Please post any relevant code samples, preferably a standalone script that
-  reproduces your issue. Do **not** describe your issue in prose. **Show your code.**
-  * If the bug involves an error, please post the stack trace.
-  * Please post the version of Mongoose and MongoDB that you're using.
-  * Please write bug reports in JavaScript (ES5, ES6, etc) that runs in Node.js, **not** CoffeeScript, TypeScript, JSX, etc.
+Please note we have a code of conduct, please follow it in all your interactions with the project :smile:
 
-## Requesting new features
+## Developing
 
-* Before opening a new issue, look for existing [issues](https://github.com/learnboost/mongoose/issues) to avoid duplication. If the issue does not yet exist, [create one](https://github.com/learnboost/mongoose/issues/new).
-* Please describe a use case for it
-* Please include test cases if possible
+One way to develop this Unity package is to create a new Unity Project and copy this package to its Assets folder.
 
-## Fixing bugs / Adding features
+This way .meta files (required by Unity) are generated automatically. Assets available in the package can now be tested and developed inside the project.
 
-* Before starting to write code, look for existing [issues](https://github.com/learnboost/mongoose/issues). That way you avoid working on something that might not be of interest or that has been addressed already in a different branch. [You can create a new issue on GitHub](https://github.com/learnboost/mongoose/issues/new).
-  * *The source of this project is written in JavaScript, not CoffeeScript or TypeScript. Please write your bug reports in JavaScript that can run in vanilla Node.js*.
-* Fork the [repo](https://github.com/Automattic/mongoose) *or* for small documentation changes, navigate to the source on github and click the [Edit](https://github.com/blog/844-forking-with-the-edit-button) button.
-* Follow the general coding style of the rest of the project:
-  * 2 space tabs
-  * no trailing whitespace
-  * inline documentation for new methods, class members, etc.
-  * 1 space between conditionals, no space before function parenthesis
-    * `if (..) {`
-    * `for (..) {`
-    * `while (..) {`
-    * `function(err) {`
-* Write tests and make sure they pass (tests are in the [test](https://github.com/Automattic/mongoose/tree/master/test) directory).
-* Write typings-tests if you modify the typescript-typings. (tests are in the [test/types](https://github.com/Automattic/mongoose/tree/master/test/types) directory).
+After making changes you can test your package by eg. installing it via Git URL:
 
-## Running the tests
+Open `Packages/manifest.json` with your favorite text editor. Add following line to the dependencies block:
+```json
+    {
+        "dependencies": {
+            "com.rmc.rmc-core": "https://github.com/YOUR_USER/rmc-core.git"
+        }
+    }
+```
 
-* Open a terminal and navigate to the root of the project
-* execute `npm install` to install the necessary dependencies
-* execute `npm run mongo` to start a MongoDB instance on port 27017. This step is optional, if you have already a database running on port 27017. To spin up a specific mongo version, you can do it by executing `npm run mongo -- {version}`. E.g. you want to spin up a mongo 4.2.2 server, you execute `npm run mongo -- 4.2.2`
-* execute `npm test` to run the tests (we're using [mocha](http://mochajs.org/))
-  * or to execute a single test `npm test -- -g 'some regexp that matches the test description'`
-  * any mocha flags can be specified with `-- <mocha flags here>`
-  * For example, you can use `npm test -- -R spec` to use the spec reporter, rather than the dot reporter (by default, the test output looks like a bunch of dots)
-  * execute `npm run test-tsd` to run the typescript tests
-  * execute `npm run ts-benchmark` to run the typescript benchmark "performance test" for a single time.
-  * execute `npm run ts-benchmark-watch` to run the typescript benchmark "performance test" while watching changes on types folder. Note: Make sure to commit all changes before executing this command.
-* in order to run tests that require an cluster with encryption locally, run `npm run setup-test-encryption` followed by `npm run test-encryption`. Alternatively, you can start an encrypted cluster using the `scripts/configure-cluster-with-encryption.sh` file.
-  * These scripts can take a few minutes to run.
-  * To change an encryption configuration, it is recommended to follow these steps:
-    * Edit the variables in `scripts/configure-cluster-with-encryption.sh` with your desired configuration.
-    * Restart your shell.
-    * Delete the `data/` directory if it exists.
-    * Finally, run the configuration script.
+For further details, see [Unity docs about custom packages](https://docs.unity3d.com/Manual/CustomPackages.html).
 
-## Documentation
+# Code of Conduct
 
-To contribute to the [API documentation](http://mongoosejs.com/docs/api/mongoose.html) just make your changes to the inline documentation of the appropriate [source code](https://github.com/Automattic/mongoose/tree/master/lib) in the master branch and submit a [pull request](https://help.github.com/articles/using-pull-requests/). You might also use the github [Edit](https://github.com/blog/844-forking-with-the-edit-button) button.
+## Our Pledge
 
-To contribute to the [guide](http://mongoosejs.com/docs/guide.html) or [quick start](http://mongoosejs.com/docs/index.html) docs, make your changes to the appropriate `.pug` / `.md` files in the [docs](https://github.com/Automattic/mongoose/tree/master/docs) directory of the master branch and submit a pull request. Again, the [Edit](https://github.com/blog/844-forking-with-the-edit-button) button might work for you here.
+We as members, contributors, and leaders pledge to make participation in our
+community a harassment-free experience for everyone, regardless of age, body
+size, visible or invisible disability, ethnicity, sex characteristics, gender
+identity and expression, level of experience, education, socio-economic status,
+nationality, personal appearance, race, religion, or sexual identity
+and orientation.
 
-If you'd like to preview your documentation changes, first commit your changes to your local master branch, then execute:
+We pledge to act and interact in ways that contribute to an open, welcoming,
+diverse, inclusive, and healthy community.
 
-* `npm install`
-* `npm run docs:view`
+## Our Standards
 
-Visit `http://127.0.0.1:8089` and you should see the docs with your local changes. Make sure you `npm run docs:clean` before committing, because automated generated files to `docs/*` should **not** be in PRs.
+Examples of behavior that contributes to a positive environment for our
+community include:
 
-### Documentation Style Guidelines
+* Demonstrating empathy and kindness toward other people
+* Being respectful of differing opinions, viewpoints, and experiences
+* Giving and gracefully accepting constructive feedback
+* Accepting responsibility and apologizing to those affected by our mistakes,
+  and learning from the experience
+* Focusing on what is best not just for us as individuals, but for the
+  overall community
 
-There are some guidelines to keep the style for the documentation consistent:
+Examples of unacceptable behavior include:
 
-* All links that refer to some other file in the mongoose documentation needs to be relative without a prefix unless required (use `guide.html` over `./guide.html` or `/docs/guide.html`)
+* The use of sexualized language or imagery, and sexual attention or
+  advances of any kind
+* Trolling, insulting or derogatory comments, and personal or political attacks
+* Public or private harassment
+* Publishing others' private information, such as a physical or email
+  address, without their explicit permission
+* Other conduct which could reasonably be considered inappropriate in a
+  professional setting
 
-## Plugins website
+## Enforcement Responsibilities
 
-The [plugins](http://plugins.mongoosejs.io/) site is also an [open source project](https://github.com/vkarpov15/mongooseplugins) that you can get involved with. Feel free to fork and improve it as well!
+Community leaders are responsible for clarifying and enforcing our standards of
+acceptable behavior and will take appropriate and fair corrective action in
+response to any behavior that they deem inappropriate, threatening, offensive,
+or harmful.
 
-## Financial contributions
+Community leaders have the right and responsibility to remove, edit, or reject
+comments, commits, code, wiki edits, issues, and other contributions that are
+not aligned to this Code of Conduct, and will communicate reasons for moderation
+decisions when appropriate.
 
-We also welcome financial contributions in full transparency on our [open collective](https://opencollective.com/mongoose).
-Anyone can file an expense. If the expense makes sense for the development of the community, it will be "merged" in the ledger of our open collective by the core contributors and the person who filed the expense will be reimbursed.
+## Scope
 
-## Credits
+This Code of Conduct applies within all community spaces, and also applies when
+an individual is officially representing the community in public spaces.
+Examples of representing our community include using an official e-mail address,
+posting via an official social media account, or acting as an appointed
+representative at an online or offline event.
 
-### Contributors
+## Enforcement
 
-Thank you to all the people who have already contributed to mongoose!
-<a href="https://github.com/Automattic/mongoose/graphs/contributors"><img src="https://opencollective.com/mongoose/contributors.svg?width=890" alt="Mongoose contributors" /></a>
+Instances of abusive, harassing, or otherwise unacceptable behavior may be
+reported to the community leaders responsible for enforcement at github.com/SamuelAsherRivello.
+All complaints will be reviewed and investigated promptly and fairly.
 
-### Backers
+All community leaders are obligated to respect the privacy and security of the
+reporter of any incident.
 
-Thank you to all our backers! [[Become a backer](https://opencollective.com/mongoose#backer)]
+## Enforcement Guidelines
 
-<a href="https://opencollective.com/mongoose#backers" target="_blank"><img src="https://opencollective.com/mongoose/backers.svg?width=890" alt="Mongoose backers"></a>
+Community leaders will follow these Community Impact Guidelines in determining
+the consequences for any action they deem in violation of this Code of Conduct:
+
+### 1. Correction
+
+**Community Impact**: Use of inappropriate language or other behavior deemed
+unprofessional or unwelcome in the community.
+
+**Consequence**: A private, written warning from community leaders, providing
+clarity around the nature of the violation and an explanation of why the
+behavior was inappropriate. A public apology may be requested.
+
+### 2. Warning
+
+**Community Impact**: A violation through a single incident or series
+of actions.
+
+**Consequence**: A warning with consequences for continued behavior. No
+interaction with the people involved, including unsolicited interaction with
+those enforcing the Code of Conduct, for a specified period of time. This
+includes avoiding interactions in community spaces as well as external channels
+like social media. Violating these terms may lead to a temporary or
+permanent ban.
+
+### 3. Temporary Ban
+
+**Community Impact**: A serious violation of community standards, including
+sustained inappropriate behavior.
+
+**Consequence**: A temporary ban from any sort of interaction or public
+communication with the community for a specified period of time. No public or
+private interaction with the people involved, including unsolicited interaction
+with those enforcing the Code of Conduct, is allowed during this period.
+Violating these terms may lead to a permanent ban.
+
+### 4. Permanent Ban
+
+**Community Impact**: Demonstrating a pattern of violation of community
+standards, including sustained inappropriate behavior,  harassment of an
+individual, or aggression toward or disparagement of classes of individuals.
+
+**Consequence**: A permanent ban from any sort of public interaction within
+the community.
+
+## Attribution
+
+This Code of Conduct is adapted from the [Contributor Covenant][homepage],
+version 2.0, available at
+https://www.contributor-covenant.org/version/2/0/code_of_conduct.html.
+
+Community Impact Guidelines were inspired by [Mozilla's code of conduct
+enforcement ladder](https://github.com/mozilla/diversity).
+
+[homepage]: https://www.contributor-covenant.org
+
+For answers to common questions about this code of conduct, see the FAQ at
+https://www.contributor-covenant.org/faq. Translations are available at
+https://www.contributor-covenant.org/translations.
