@@ -1,47 +1,11 @@
-# QueueObj
-Queue javascript objects dynamically then process the queue according to the appender.
-
-Included tag appenders:
-
-* all - synchronous - process all added objects.
-* func_all - synchronous - process custom functions to added objects.
-* top_one - synchronous - process only the object in the 0(zero) position of the process array.
-* bottom_one - synchronous - process only the object in the last position of the process array.
-* sync_all - synchronous - All appenders are synchronous now. Sync_all is no different than all .
-* status - synchronous - queue and process all objects by status.
-* version - synchronous - queue and process all objects by version.
-
-Installation
----------
-```
-npm install QueueObj
-```
-
-Mocha Test
----------
-```
-npm test
-```
-
-General Setup Test
----------
-```
-node test_all
-node test_top_one
-node test_bottom_one
-node test_func_all
-node test_sync_all
-node test_status
-node test_version
-
-```
-
-Usage
----------
-```js
+/*
+* @author Jim Manton: jrman@risebroadband.net
+* @since 2021-03-22
+* test_sync.js
+*/
 
 var colors = require('colors')
-var queue = require("queueobj");
+var queue = require("./app.js");
 
 class test1 {
     constructor() {
@@ -51,8 +15,8 @@ class test1 {
 
     process(callback) {
         setTimeout(() => {
-            console.log(`processing test1`.cyan)
-            console.log(`some async process`)
+            qObj.logMsg(`processing test1`.cyan)
+            qObj.logMsg(`some async process`)
             callback({success: {msg: `processing all (${this.id})`}})
         }, 3000)
     }
@@ -71,7 +35,7 @@ class test2 {
     }
 
     ping() {
-        console.log('hello from test2'.rainbow)
+        qObj.logMsg('hello from test2'.rainbow)
     }
 }
 
@@ -107,10 +71,9 @@ let qObj = new queue(), props = { appender: 'sync_all' }
 qObj.load(props).add(new test1()).add(new test2()).add(new test3()).add(tst4.custom_function)
 
 qObj.process().then(res => {
-    console.log(`success with all sync processing: (${JSON.stringify(res)})`.bold.italic.green)
+    qObj.logMsg(`success with all sync processing: (${res})`.bold.italic.green)
 }, err => {
-    console.log(`errors with all sync processing: (${JSON.stringify(err)})`.red)
+    qObj.logMsg(`errors with all sync processing: (${err})`.red)
 })
 
-```
 
