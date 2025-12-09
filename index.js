@@ -1,5 +1,2 @@
-function isWds(string) {
-  return string === "WDS"
-}
-
-module.exports = isWds
+import { Dropdown } from './dropdown';
+export { Dropdown };
