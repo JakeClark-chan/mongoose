@@ -1,0 +1,271 @@
+﻿.dot {
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.small-dot {
+    height: 3px;
+    width: 3px;
+    border-radius: 50%;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+
+.listening {
+    background-color: green;
+}
+
+.not-listening,
+.kc-sdk-signin-required {
+    background-color: red;
+}
+.tester-text {
+    vertical-align:2px;
+}
+.tester-text-area {
+    height: 100%;
+    width: 100%;
+    height: 350px;
+    resize: none;
+}
+
+.tester-text-area-advanced {
+    height: 85vh;
+    resize: none;
+    width: 100%;
+}
+.boxsizingBorder {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.tester-clear-tester {
+    display: inline-block;
+    float: left;
+}
+
+.tester-clear-output-tester {
+    display: inline-block;
+    margin-right: 5px;
+    float: right;
+}
+
+.tester-clear-workflow {
+    display: inline-block;
+    vertical-align: baseline;
+    margin-left: 5px;
+    margin-right: 15px;
+}
+
+.tester-workflow-dropdown {
+    display: inline-block;
+    min-width: 250px;
+}
+
+.tester-close-windows {
+    display: inline-block;
+    float:left;
+}
+
+button[disabled], 
+html input[disabled] {
+    border: 1px solid #999999;
+    background-color: #cccccc;
+    color: #666666;
+    opacity:0.5;
+}
+
+input[type=checkbox]{
+    margin: 0 !important;
+}
+
+.tester-export-workflow {
+    margin-left: 5px;
+}
+
+.sdk-sign-in {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    width: 650px;
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -ms-transform: translateX(-50%) translateY(-50%);
+    -o-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+    width: 800px;
+}
+
+.sdk-sign-in-container {
+    margin-bottom: 15px !important;
+}
+
+.kc-encoder-tab-dropdown{
+
+}
+
+.kc-encoder-phrasecode-text {
+    display: inline-block;
+}
+
+.kc-encoder-phrasecode-input {
+    display: inline-block;
+    width: 182px !important;
+}
+
+.kc-simple-mode-inputs {
+}
+
+.tester-encoder-tab {
+}
+
+select {
+    height: initial !important;
+}
+
+.kc-sdk-tester-sign-in-table{
+    margin-top:0 !important;
+    margin-bottom:0 !important;
+}
+
+.sdk-required-input-text {
+    font-weight: normal !important;
+    color: initial !important;
+}
+
+.tester-session-type {
+    margin-left: -2px;
+}
+
+.tester-state {
+    margin-left: 48px;
+}
+
+.tk-tabl-form-sip td {
+    padding-bottom: .5rem !important;
+}
+
+.tk-tabl-form-sip{
+    margin:initial !important;
+    min-width:100% !important;
+    max-width:100% !important;
+}
+
+#sdk-advanced-login .tk-margin-left-2t {
+    margin-left: initial !important;
+}
+
+.sign-in-left-side {
+    width: 50% !important;
+}
+
+.tester-sign-in-button-space{
+    padding-right:5px !important;
+}
+
+.sdk-tester-input-side{
+    height:100%;
+    position: relative;
+}
+
+.sdk-tester-left-side {
+    height: 100%;
+    position: relative;
+}
+
+.sdk-tester-right-side {
+    height: 100%;
+    position: relative;
+}
+
+.sdk-tester-input-area {
+    position: absolute;
+    width: 95%;
+    padding-top:24px;
+}
+
+
+.sdk-tester-output-area {
+    position: absolute;
+    width: 95%;
+}
+
+.genereate-token-include{
+
+}
+
+
+.sdk-login-table-inputs {
+    width:100%;
+}
+
+.sdk-login-table {
+    width: 100%;
+}
+
+.workflow-button-group{
+    float:right;
+}
+
+.sdk-simple-mode-container {
+    width: 800px !important;
+    height: ~'Calc(100% - 50px)' !important;
+}
+.sdk-advanced-mode-container {
+    width: 100% !important;
+    height: ~'Calc(100% - 50px)' !important;
+}
+
+.sdk-advanced-row {
+    height:90%;
+}
+
+.sdk-workflow-api-buttons {
+}
+
+.tester-workflow-available-api {
+    width: 250px;
+}
+
+.sdk-top-controls{
+    padding-left:15px;
+}
+
+html, html * {
+    box-sizing: border-box !important;
+}
+
+.workflow-window-select-label {
+    vertical-align: middle;
+    padding-bottom: 0 !important;
+    padding-right: 5px !important;
+
+}
+
+.workflow-window-select-radio {
+    margin-top: 0 !important;
+    margin-right: 2px !important;
+    padding-right: 5px !important;
+}
+
+.sdk-version-label{
+    display: inline-block;
+}
+
+.sdk-version {
+    display: inline-block;
+}
+
+.footer {
+    position: relative;
+    margin-top: -150px; /* negative value of footer height */
+    height: 150px;
+    clear: both;
+    padding-top: 20px;
+} 
