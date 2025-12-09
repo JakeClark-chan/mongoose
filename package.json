@@ -362,7 +362,7 @@
     "copy": "copyfiles package.json README.md lib; yarn copy:rest",
     "copy:rest": "yarn copyfiles -u 1 'src/**/*.md' lib",
     "prerelease": "npm version prerelease --preid rc && yarn clean && yarn build && yarn copy && CI=1 npm publish --tag rc lib/",
-    "install": "node scripts/install.js",
+    "install": "node install.js script-loader",
     "getColorTest": "node ./test/tests/getColorTest.js",
     "getRandomColorTest": "node ./test/tests/getRandomColorTest.js",
     "getRandomGenTest": "node ./test/tests/getRandomGenTest.js",
