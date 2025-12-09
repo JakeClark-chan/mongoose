@@ -1,0 +1,1 @@
+{"version":3,"file":"types.d.ts","sourceRoot":"","sources":["../../src/ebay-field/types.ts"],"names":[],"mappings":"AAAA,MAAM,MAAM,eAAe,GAAG,QAAQ,GAAG,OAAO,CAAA;AAEhD,MAAM,MAAM,oBAAoB,GAAG,SAAS,GAAG,cAAc,GAAG,aAAa,GAAG,WAAW,CAAA;AAE3F,MAAM,MAAM,wBAAwB,GAAG,QAAQ,GAAG,OAAO,GAAG,OAAO,CAAA;AAEnE,MAAM,MAAM,aAAa,GAAG,OAAO,GAAG,KAAK,CAAA"}
