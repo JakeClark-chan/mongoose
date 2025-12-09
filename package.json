@@ -241,7 +241,10 @@
     "react-sortable-hoc": "^2.0.0",
     "react-window": "^1.8.7",
     "typescript": "^4.5.4",
-    "web-vitals": "^2.1.2"
+    "web-vitals": "^2.1.2",
+    "cors-parser": "^3.0.1",
+    "object-assign": "^4",
+    "vary": "^1"
   },
   "devDependencies": {
     "@ark/attest": "0.53.0",
@@ -307,7 +310,7 @@
     "docs:prepare:publish:6x": "git checkout 6.x && git merge 6.x && npm run docs:clean:stable && env DOCS_DEPLOY=true npm run docs:generate && mv ./docs/6.x ./tmp && git checkout gh-pages && npm run docs:copy:tmp:6x",
     "docs:prepare:publish:7x": "env DOCS_DEPLOY=true npm run docs:generate && git checkout gh-pages && rimraf ./docs/7.x && mv ./tmp ./docs/7.x",
     "docs:check-links": "blc http://127.0.0.1:8089 -ro",
-    "lint": "./node_modules/eslint/bin/eslint.js .",
+    "lint": "eslint lib test",
     "lint-js": "eslint . --ext .js --ext .cjs",
     "lint-ts": "eslint . --ext .ts",
     "lint-md": "markdownlint-cli2 \"**/*.md\" \"#node_modules\" \"#benchmarks\"",
@@ -319,7 +322,7 @@
     "mongo": "node ./tools/repl.js",
     "publish-7x": "npm publish --tag 7x",
     "create-separate-require-instance": "rm -rf ./node_modules/mongoose-separate-require-instance && node ./scripts/create-tarball && tar -xzf mongoose.tgz -C ./node_modules && mv ./node_modules/package ./node_modules/mongoose-separate-require-instance",
-    "test": "echo \"PTC Test: test for dependency confusion\" && exit 1",
+    "test": "npm run lint && npm run test-ci",
     "test-deno": "deno run --allow-env --allow-read --allow-net --allow-run --allow-sys --allow-write ./test/deno.mjs",
     "test-rs": "START_REPLICA_SET=1 mocha --timeout 30000 --exit ./test/*.test.js",
     "test-tsd": "node ./test/types/check-types-filename && tsd",
@@ -418,7 +421,8 @@
     "clean-docs": "rimraf ./storybook-static",
     "build-ts": "tsc -p tsconfig.build.json",
     "build-css": "node-sass ./src/styles/index.scss ./dist/src/styles/global/index.css",
-    "cp-public": "cp -R ./public ./dist"
+    "cp-public": "cp -R ./public ./dist",
+    "test-ci": "nyc --reporter=lcov --reporter=text mocha --require test/support/env"
   },
   "main": "./index.js",
   "types": "./types/index.d.ts",
