@@ -1,8 +1,8 @@
 "use strict";
 
 /**
- * Được Fix Hay Làm Màu Bởi: @KanzuWakazaki
- * 19/2/2022
+ * Được Fix Hay Làm Màu Bởi: @HarryWakazaki
+ * 21/4/2022
 */
 
 var utils = require("../utils");
@@ -77,7 +77,6 @@ module.exports = function (defaultFuncs, api, ctx) {
       });
   }
 
-
   function sendContent(form, threadID, isSingleUser, messageAndOTID, callback) {
     // There are three cases here:
     // 1. threadID is of type array, where we're starting a new group chat with users
@@ -136,29 +135,30 @@ module.exports = function (defaultFuncs, api, ctx) {
       .catch(function (err) {
         log.error("sendMessage", err);
         if (utils.getType(err) == "Object" && err.error === "Not logged in.") ctx.loggedIn = false;
-        return callback(err);
+        return callback(err,null);
       });
     }
 
   function send(form, threadID, messageAndOTID, callback, isGroup) {
- // đôi lời từ ai đó :v 
- // cái này chỉ fix send ko được tin nhắn thôi chứ i cũng đôn nâu cách fix lắm nên là có gì ae fix giùm nha kkk
+//Full Fix sendMessage
   if (utils.getType(threadID) === "Array") sendContent(form, threadID, false, messageAndOTID, callback);
     else {
       var THREADFIX = "ThreadID".replace("ThreadID",threadID); // i cũng đôn nâu
-        if (THREADFIX.length <= 15) sendContent(form, threadID, !isGroup, messageAndOTID, callback);
-        else if (THREADFIX.length >= 15 && THREADFIX.indexOf(1) != 0) sendContent(form, threadID, threadID.length === 15, messageAndOTID, callback);
-        else sendContent(form, threadID, !isGroup, messageAndOTID, callback);
+        if (THREADFIX.length <= 15 || global.Fca.isUser.includes(threadID)) sendContent(form, threadID, !isGroup, messageAndOTID, callback);
+        else if (THREADFIX.length >= 15 && THREADFIX.indexOf(1) != 0 || global.Fca.isThread.includes(threadID)) sendContent(form, threadID, threadID.length === 15, messageAndOTID, callback);
+        else {
+          if (global.Fca.Data.event.isGroup) {
+            sendContent(form, threadID, threadID.length === 15, messageAndOTID, callback);
+            global.Fca.isThread.push(threadID);
+          } 
+          else {
+            sendContent(form, threadID, !isGroup, messageAndOTID, callback);
+            global.Fca.isUser.push(threadID)
+        }
+      }
     }
   }
-
-    /* 
-    * Giải Thích : 
-    * Theo Sự Quan Sát Của ... Thì Thấy Rằng Số UID Facebook vs ThreadID Có Sự Trên Lệch Số ( Số ) Với Nhau
-    * nên đã lợi dụng điều đó làm main :v 
-    ! utils.getType(threadID) Sẽ Không Được Sử Dụng Nữa Vì Nó Toàn Là Undefined :v
-    */
-
+  
   function handleUrl(msg, form, callback, cb) {
     if (msg.url) {
       form["shareable_attachment[share_type]"] = "100";
@@ -301,7 +301,7 @@ module.exports = function (defaultFuncs, api, ctx) {
       is_spoof_warning: false,
       source: "source:chat:web",
       "source_tags[0]": "source:chat",
-      body: msg.body ? msg.body.toString() : "",
+      body: msg.body ? msg.body.toString().replace("\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f\ufe0f",'   ') : "",
       html_body: false,
       ui_push_phase: "V3",
       status: "0",

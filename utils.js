@@ -1,19 +1,31 @@
+// @ts-nocheck
 /* eslint-disable no-undef */
-/* eslint-disable no-prototype-builtins */
-"use strict";
 
-const bluebird = require("bluebird");
-var request = bluebird.promisify(require("request").defaults({ jar: true }));
-var stream = require("stream");
-var log = require("npmlog");
-var querystring = require("querystring");
+/* eslint-disable no-prototype-builtins */
+
+"use strict";
 var url = require("url");
-var { getKeyValue } = require('./utils/Database');
+var log = require("npmlog");
+var stream = require("stream");
+var bluebird = require("bluebird");
+var querystring = require("querystring");
+var request = bluebird.promisify(require("request").defaults({ jar: true }));
+
+/**
+ * @param {any} url
+ */
 
 function setProxy(url) {
     if (typeof url == undefined) return request = bluebird.promisify(require("request").defaults({ jar: true }));
     return request = bluebird.promisify(require("request").defaults({ jar: true, proxy: url }));
 }
+
+/**
+ * @param {string | URL} url
+ * @param {{ userAgent: any; }} options
+ * @param {{ region: any; }} [ctx]
+ * @param {undefined} [customHeader]
+ */
 
 function getHeaders(url, options, ctx, customHeader) {
     var headers = {
@@ -21,16 +33,20 @@ function getHeaders(url, options, ctx, customHeader) {
         Referer: "https://www.facebook.com/",
         Host: url.replace("https://", "").split("/")[0],
         Origin: "https://www.facebook.com",
-        "User-Agent": options.userAgent,
+        "user-agent": (options.userAgent || "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.114 Safari/537.36"),
         Connection: "keep-alive",
-        'sec-fetch-site': 'same-origin'
+        "sec-fetch-site": 'same-origin',
+        "sec-fetch-mode": 'cors'
     };
     if (customHeader) Object.assign(headers, customHeader);
-
     if (ctx && ctx.region) headers["X-MSGR-Region"] = ctx.region;
 
     return headers;
 }
+
+/**
+ * @param {{ _read: any; _readableState: any; }} obj
+ */
 
 function isReadableStream(obj) {
     return (
@@ -40,6 +56,14 @@ function isReadableStream(obj) {
         getType(obj._readableState) === "Object"
     );
 }
+
+/**
+ * @param {any} url
+ * @param {any} jar
+ * @param {{ [x: string]: any; fb_dtsg?: any; jazoest?: any; hasOwnProperty?: any; }} qs
+ * @param {any} options
+ * @param {any} ctx
+ */
 
 function get(url, jar, qs, options, ctx) {
     // I'm still confused about this
@@ -57,15 +81,13 @@ function get(url, jar, qs, options, ctx) {
     };
 
     return request(op).then(function(res) {
-        return res[0];
+        return res;
     });
 }
 
 function post(url, jar, form, options, ctx, customHeader) {
-    let headers = getHeaders(url, options);
-    headers['sec-fetch-site'] =  'same-origin';
     var op = {
-        headers: headers,
+        headers: getHeaders(url, options),
         timeout: 60000,
         url: url,
         method: "POST",
@@ -73,11 +95,23 @@ function post(url, jar, form, options, ctx, customHeader) {
         jar: jar,
         gzip: true
     };
-
     return request(op).then(function(res) {
-        return res[0];
+        return res;
     });
 }
+
+/**
+ * @param {any} url
+ * @param {any} jar
+ * @param {{ __user: any; __req: string; __rev: any; __a: number; 
+// __af: siteData.features,
+fb_dtsg: any; jazoest: any; }} form
+ * @param {{ __user: any; __req: string; __rev: any; __a: number; 
+// __af: siteData.features,
+fb_dtsg: any; jazoest: any; }} qs
+ * @param {any} options
+ * @param {any} ctx
+ */
 
 function postFormData(url, jar, form, qs, options, ctx) {
     var headers = getHeaders(url, options, ctx);
@@ -94,9 +128,14 @@ function postFormData(url, jar, form, qs, options, ctx) {
     };
 
     return request(op).then(function(res) {
-        return res[0];
+        return res;
     });
 }
+
+/**
+ * @param {string | number | any[]} val
+ * @param {number} [len]
+ */
 
 function padZeros(val, len) {
     val = String(val);
@@ -105,12 +144,20 @@ function padZeros(val, len) {
     return val;
 }
 
+/**
+ * @param {any} clientID
+ */
+
 function generateThreadingID(clientID) {
     var k = Date.now();
     var l = Math.floor(Math.random() * 4294967295);
     var m = clientID;
     return "<" + k + ":" + l + "-" + m + "@mail.projektitan.com>";
 }
+
+/**
+ * @param {string | any[]} data
+ */
 
 function binaryToDecimal(data) {
     var ret = "";
@@ -142,33 +189,33 @@ function generateOfflineThreadingID() {
 var h;
 var i = {};
 var j = {
-    _: "%",
-    A: "%2",
-    B: "000",
-    C: "%7d",
-    D: "%7b%22",
-    E: "%2c%22",
-    F: "%22%3a",
-    G: "%2c%22ut%22%3a1",
-    H: "%2c%22bls%22%3a",
-    I: "%2c%22n%22%3a%22%",
-    J: "%22%3a%7b%22i%22%3a0%7d",
-    K: "%2c%22pt%22%3a0%2c%22vis%22%3a",
-    L: "%2c%22ch%22%3a%7b%22h%22%3a%22",
-    M: "%7b%22v%22%3a2%2c%22time%22%3a1",
-    N: ".channel%22%2c%22sub%22%3a%5b",
-    O: "%2c%22sb%22%3a1%2c%22t%22%3a%5b",
-    P: "%2c%22ud%22%3a100%2c%22lc%22%3a0",
-    Q: "%5d%2c%22f%22%3anull%2c%22uct%22%3a",
-    R: ".channel%22%2c%22sub%22%3a%5b1%5d",
-    S: "%22%2c%22m%22%3a0%7d%2c%7b%22i%22%3a",
-    T: "%2c%22blc%22%3a1%2c%22snd%22%3a1%2c%22ct%22%3a",
-    U: "%2c%22blc%22%3a0%2c%22snd%22%3a1%2c%22ct%22%3a",
-    V: "%2c%22blc%22%3a0%2c%22snd%22%3a0%2c%22ct%22%3a",
-    W: "%2c%22s%22%3a0%2c%22blo%22%3a0%7d%2c%22bl%22%3a%7b%22ac%22%3a",
-    X: "%2c%22ri%22%3a0%7d%2c%22state%22%3a%7b%22p%22%3a0%2c%22ut%22%3a1",
-    Y: "%2c%22pt%22%3a0%2c%22vis%22%3a1%2c%22bls%22%3a0%2c%22blc%22%3a0%2c%22snd%22%3a1%2c%22ct%22%3a",
-    Z: "%2c%22sb%22%3a1%2c%22t%22%3a%5b%5d%2c%22f%22%3anull%2c%22uct%22%3a0%2c%22s%22%3a0%2c%22blo%22%3a0%7d%2c%22bl%22%3a%7b%22ac%22%3a"
+    _: "%DungDz",
+    A: "%2DungDz",
+    B: "000DungDz",
+    C: "%7dDungDz",
+    D: "%7b%22DungDz",
+    E: "%2c%22DungDz",
+    F: "%22%3aDungDz",
+    G: "%2c%22ut%22%3a1DungDz",
+    H: "%2c%22bls%22%3aDungDz",
+    I: "%2c%22n%22%3a%22%DungDz",
+    J: "%22%3a%7b%22i%22%3a0%7dDungDz",
+    K: "%2c%22pt%22%3a0%2c%22vis%22%3aDungDz",
+    L: "%2c%22ch%22%3a%7b%22h%22%3a%22DungDz",
+    M: "%7b%22v%22%3a2%2c%22time%22%3a1DungDz",
+    N: ".channel%22%2c%22sub%22%3a%5bDungDz",
+    O: "%2c%22sb%22%3a1%2c%22t%22%3a%5bDungDz",
+    P: "%2c%22ud%22%3a100%2c%22lc%22%3a0DungDz",
+    Q: "%5d%2c%22f%22%3anull%2c%22uct%22%3aDungDz",
+    R: ".channel%22%2c%22sub%22%3a%5b1%5dDungDz",
+    S: "%22%2c%22m%22%3a0%7d%2c%7b%22i%22%3aDungDz",
+    T: "%2c%22blc%22%3a1%2c%22snd%22%3a1%2c%22ct%22%3aDungDz",
+    U: "%2c%22blc%22%3a0%2c%22snd%22%3a1%2c%22ct%22%3aDungDz",
+    V: "%2c%22blc%22%3a0%2c%22snd%22%3a0%2c%22ct%22%3aDungDz",
+    W: "%2c%22s%22%3a0%2c%22blo%22%3a0%7d%2c%22bl%22%3a%7b%22ac%22%3aDungDz",
+    X: "%2c%22ri%22%3a0%7d%2c%22state%22%3a%7b%22p%22%3a0%2c%22ut%22%3a1DungDz",
+    Y: "%2c%22pt%22%3a0%2c%22vis%22%3a1%2c%22bls%22%3a0%2c%22blc%22%3a0%2c%22snd%22%3a1%2c%22ct%22%3aDungDz",
+    Z: "%2c%22sb%22%3a1%2c%22t%22%3a%5b%5d%2c%22f%22%3anull%2c%22uct%22%3a0%2c%22s%22%3a0%2c%22blo%22%3a0%7d%2c%22bl%22%3a%7b%22ac%22%3aDungDz"
 };
 (function() {
     var l = [];
@@ -179,6 +226,10 @@ var j = {
     l.reverse();
     h = new RegExp(l.join("|"), "g");
 })();
+
+/**
+ * @param {string | number | boolean} str
+ */
 
 function presenceEncode(str) {
     return encodeURIComponent(str)
@@ -192,13 +243,21 @@ function presenceEncode(str) {
 }
 
 // eslint-disable-next-line no-unused-vars
+/**
+ * @param {string} str
+ */
+
 function presenceDecode(str) {
     return decodeURIComponent(
-        str.replace(/[_A-Z]/g, function(m) {
+        str.replace(/[_A-Z]/g, function(/** @type {string | number} */m) {
             return j[m];
         })
     );
 }
+
+/**
+ * @param {string} userID
+ */
 
 function generatePresence(userID) {
     var time = Date.now();
@@ -244,19 +303,29 @@ function generateAccessiblityCookie() {
 
 function getGUID() {
     /** @type {number} */
+
     var sectionLength = Date.now();
     /** @type {string} */
+
     var id = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(c) {
         /** @type {number} */
+
         var r = Math.floor((sectionLength + Math.random() * 16) % 16);
         /** @type {number} */
+
         sectionLength = Math.floor(sectionLength / 16);
         /** @type {string} */
+
         var _guid = (c == "x" ? r : (r & 7) | 8).toString(16);
         return _guid;
     });
     return id;
 }
+
+/**
+ * @param {{ mercury: any; blob_attachment: any; attach_type: any; sticker_attachment: any; extensible_attachment: { story_attachment: { target: { __typename: string; }; }; }; metadata: { stickerID: { toString: () => any; }; packID: { toString: () => any; }; spriteURI: any; spriteURI2x: any; width: any; height: any; frameCount: any; frameRate: any; framesPerRow: any; framesPerCol: any; fbid: { toString: () => any; }; url: any; dimensions: { split: (arg0: string) => any[]; width: any; height: any; }; duration: any; }; url: any; name: any; fileName: any; thumbnail_url: any; preview_url: any; preview_width: any; preview_height: any; large_preview_url: any; large_preview_width: any; large_preview_height: any; share: { share_id: { toString: () => any; }; title: any; description: any; source: any; media: { image: any; image_size: { width: any; height: any; }; playable: any; duration: any; animated_image_size: any; }; subattachments: any; uri: any; target: any; style_list: any; }; }} attachment1
+ * @param {{ caption?: any; description?: any; id: any; is_malicious?: any; mime_type?: any; file_size?: any; filename?: any; image_data: any; href?: any; }} [attachment2]
+ */
 
 function _formatAttachment(attachment1, attachment2) {
     // TODO: THIS IS REALLY BAD
@@ -265,6 +334,7 @@ function _formatAttachment(attachment1, attachment2) {
     // data that you'd want so we merge them for convenience.
     // Instead of having a bunch of if statements guarding every access to image_data,
     // we set it to empty object and use the fact that it'll return undefined.
+
     attachment2 = attachment2 || { id: "", image_data: {} };
     attachment1 = attachment1.mercury ? attachment1.mercury : attachment1;
     var blob = attachment1.blob_attachment;
@@ -536,6 +606,7 @@ function _formatAttachment(attachment1, attachment2) {
                 longitude = Number.parseFloat(address[1]);
             } catch (err) {
                 /* empty */
+
             }
 
             var imageUrl;
@@ -590,7 +661,7 @@ function _formatAttachment(attachment1, attachment2) {
                 playableUrl: blob.story_attachment.media == null ? null : blob.story_attachment.media.playable_url,
 
                 subattachments: blob.story_attachment.subattachments,
-                properties: blob.story_attachment.properties.reduce(function(obj, cur) {
+                properties: blob.story_attachment.properties.reduce(function(/** @type {{ [x: string]: any; }} */obj, /** @type {{ key: string | number; value: { text: any; }; }} */cur) {
                     obj[cur.key] = cur.value.text;
                     return obj;
                 }, {}),
@@ -626,10 +697,17 @@ function _formatAttachment(attachment1, attachment2) {
     }
 }
 
+/**
+ * @param {any[]} attachments
+ * @param {{ [x: string]: string | number; }} attachmentIds
+ * @param {{ [x: string]: any; }} attachmentMap
+ * @param {any} shareMap
+ */
+
 function formatAttachment(attachments, attachmentIds, attachmentMap, shareMap) {
     attachmentMap = shareMap || attachmentMap;
     return attachments ?
-        attachments.map(function(val, i) {
+        attachments.map(function(/** @type {any} */val, /** @type {string | number} */i) {
             if (!attachmentMap ||
                 !attachmentIds ||
                 !attachmentMap[attachmentIds[i]]
@@ -640,15 +718,19 @@ function formatAttachment(attachments, attachmentIds, attachmentMap, shareMap) {
         }) : [];
 }
 
+/**
+ * @param {{ delta: { messageMetadata: any; data: { prng: string; }; body: string; attachments: any; participants: any; }; }} m
+ */
+
 function formatDeltaMessage(m) {
     var md = m.delta.messageMetadata;
     var mdata =
         m.delta.data === undefined ? [] :
         m.delta.data.prng === undefined ? [] :
         JSON.parse(m.delta.data.prng);
-    var m_id = mdata.map(u => u.i);
-    var m_offset = mdata.map(u => u.o);
-    var m_length = mdata.map(u => u.l);
+    var m_id = mdata.map((/** @type {{ i: any; }} */u) => u.i);
+    var m_offset = mdata.map((/** @type {{ o: any; }} */u) => u.o);
+    var m_length = mdata.map((/** @type {{ l: any; }} */u) => u.l);
     var mentions = {};
     var body = m.delta.body || "";
     var args = body == "" ? [] : body.trim().split(/\s+/);
@@ -661,7 +743,7 @@ function formatDeltaMessage(m) {
         messageID: md.messageId,
         args: args,
         body: body,
-        attachments: (m.delta.attachments || []).map(v => _formatAttachment(v)),
+        attachments: (m.delta.attachments || []).map((/** @type {any} */v) => _formatAttachment(v)),
         mentions: mentions,
         timestamp: md.timestamp,
         isGroup: !!md.threadKey.threadFbId,
@@ -669,10 +751,18 @@ function formatDeltaMessage(m) {
     };
 }
 
+/**
+ * @param {string} id
+ */
+
 function formatID(id) {
     if (id != undefined && id != null) return id.replace(/(fb)?id[:.]/, "");
     else return id;
 }
+
+/**
+ * @param {{ message: any; type: string; realtime_viewer_fbid: { toString: () => any; }; }} m
+ */
 
 function formatMessage(m) {
     var originalMessage = m.message ? m.message : m;
@@ -682,7 +772,7 @@ function formatMessage(m) {
         senderID: formatID(originalMessage.sender_fbid.toString()),
         participantNames: originalMessage.group_thread_info ? originalMessage.group_thread_info.participant_names : [originalMessage.sender_name.split(" ")[0]],
         participantIDs: originalMessage.group_thread_info ?
-            originalMessage.group_thread_info.participant_ids.map(function(v) {
+            originalMessage.group_thread_info.participant_ids.map(function(/** @type {{ toString: () => any; }} */v) {
                 return formatID(v.toString());
             }) : [formatID(originalMessage.sender_fbid)],
         body: originalMessage.body || "",
@@ -702,7 +792,7 @@ function formatMessage(m) {
         timestampDatetime: originalMessage.timestamp_datetime,
         tags: originalMessage.tags,
         reactions: originalMessage.reactions ? originalMessage.reactions : [],
-        isUnread: originalMessage.is_unread
+        isUnread: originalMessage.is_unread 
     };
 
     if (m.type === "pages_messaging") obj.pageID = m.realtime_viewer_fbid.toString();
@@ -710,6 +800,10 @@ function formatMessage(m) {
 
     return obj;
 }
+
+/**
+ * @param {{ message: any; }} m
+ */
 
 function formatEvent(m) {
     var originalMessage = m.message ? m.message : m;
@@ -728,6 +822,10 @@ function formatEvent(m) {
     });
 }
 
+/**
+ * @param {{ action_type: any; }} m
+ */
+
 function formatHistoryMessage(m) {
     switch (m.action_type) {
         case "ma-type:log-message":
@@ -738,8 +836,16 @@ function formatHistoryMessage(m) {
 }
 
 // Get a more readable message type for AdminTextMessages
+/**
+ * @param {{ type: any; }} m
+ */
+
 function getAdminTextMessageType(m) {
     switch (m.type) {
+        case "joinable_group_link_mode_change":
+            return "log:link-status"
+        case "magic_words":
+            return "log:magic-words";
         case "change_thread_theme":
             return "log:thread-color";
         case "change_thread_icon":
@@ -758,50 +864,186 @@ function getAdminTextMessageType(m) {
     }
 }
 
+/**
+ * @param {string} name
+ */
+
+function getGenderByPhysicalMethod(name) {
+    var GirlName = ["LAN", "HÂN", "LINH", "MAI", "HOA", "THU", "BĂNG", "MỸ", "CHÂU", "THẢO", "THOA", "MẪN", "THÙY", "THỦY", "NGA", "NGÂN", "NGHI", "THƯ", "NGỌC", "BÍCH", "VÂN", "DIỆP", "CHI", "TIÊN", "XUÂN", "GIANG", "NHUNG", "DUNG", "NHƯ", "YẾN", "QUYÊN", "YẾN", "TƯỜNG", "VY", "PHƯƠNG", "LIÊN", "LAN", "HÀ", "MAI", "ĐAN", "HẠ", "QUYÊN", "LY", "HÒA", "OANH", "HƯƠNG", "HẰNG", "QUỲNH", "HẠNH", "NHIÊN", "NHẠN"];
+
+    var BoyName = ["HƯNG", "HUY", "KHẢI", "KHANG", "KHOA", "KHÔI", "KIÊN", "KIỆT", "LONG", "MINH", "ÂN", "BẢO", "BÌNH", "CƯỜNG", "ĐẠT", "ĐỨC", "DŨNG", "DUY", "HOÀNG", "HÙNG", "HƯNG", "NGHĨA", "NGUYÊN", "THẮNG", "THIỆN", "THỊNH", "TÒA", "TRIẾT", "TRUNG", "TRƯỜNG", "TUẤN", "NHÂN", "VŨ", "VINH", "PHONG", "PHÚC", "QUÂN", "QUANG", "SƠN", "TÀI", "THẮNG", "ĐĂNG", "VĂN", "VĨ", "QUANG", "MẠNH"];
+
+    var OtherName = ["ANH", "THANH", "TÂM", "DƯƠNG", "AN", "LÂM", "MIÊN", "TÚ", "LÂM", "BẰNG", "KHÁNH", "NHẬT", "VỸ", ".",",","/","%", "&","*","-","+"];
+
+    try {
+        var NameArray = name.split(" ");
+            name = NameArray[NameArray.length - 1];
+        var Name;
+            if (name == " " || name == null) return "UNKNOWN";
+            switch (GirlName.includes(name.toUpperCase())) {
+                case true: {
+                    if (!OtherName.includes(name.toUpperCase()) && !BoyName.includes(name.toUpperCase())) Name = "FEMALE";
+                    else Name = ['FEMALE','MALE'][Math.floor(Math.random() * 2)]; // just temp 🌚
+                }
+            break;
+                case false: {
+                    if (!OtherName.includes(name.toUpperCase()) && !GirlName.includes(name.toUpperCase())) Name = "MALE"
+                    else Name = ['FEMALE','MALE'][Math.floor(Math.random() * 2)]; // just temp 🌚
+                }
+            break;
+        } 
+    }
+    catch (e) {
+        return "UNKNOWN"
+    }
+    return Name || "UNKNOWN";
+}
+
+/**
+ * @param {{ [x: string]: { [x: string]: { [x: string]: any; }; }; class: any; untypedData: any; name: any; addedParticipants: any; leftParticipantFbId: any; messageMetadata: { threadKey: { threadFbId: any; otherUserFbId: any; }; adminText: any; actorFbId: any; }; participants: any; }} m
+ */
+
 function formatDeltaEvent(m) {
     var { updateData,getData,hasData } = require('./Extra/ExtraGetThread');
-    var Database = require('./Extra/Database/index')
     var logMessageType;
     var logMessageData;
 
-    // log:thread-color => {theme_color}
-    // log:user-nickname => {participant_id, nickname}
-    // log:thread-icon => {thread_icon}
-    // log:thread-name => {name}
-    // log:subscribe => {addedParticipants - [Array]}
-//log:unsubscribe => {leftParticipantFbId}
-
-    switch (m.class) {
-        case "AdminTextMessage":
-            logMessageType = getAdminTextMessageType(m);
+switch (m.class) {
+    case "AdminTextMessage":
+        logMessageType = getAdminTextMessageType(m);
             logMessageData = m.untypedData;
-            break;
-        case "ThreadName":
-            logMessageType = "log:thread-name";
+        break;
+    case "ThreadName":
+        logMessageType = "log:thread-name";
             logMessageData = { name: m.name };
-            break;
-        case "ParticipantsAddedToGroupThread":
-            logMessageType = "log:subscribe";
+        break;
+    case "ParticipantsAddedToGroupThread":
+        logMessageType = "log:subscribe";
             logMessageData = { addedParticipants: m.addedParticipants };
-            break;
-        case "ParticipantLeftGroupThread":
-            logMessageType = "log:unsubscribe";
-            logMessageData = { leftParticipantFbId: m.leftParticipantFbId };
-            break;
+        break;
+    case "ParticipantLeftGroupThread":
+        logMessageType = "log:unsubscribe";
+        logMessageData = { leftParticipantFbId: m.leftParticipantFbId };
+    break;
+}
+
+if (process.env.HalzionVersion == 1973) { 
+    switch (hasData(formatID((m.messageMetadata.threadKey.threadFbId || m.messageMetadata.threadKey.otherUserFbId).toString()))) {
+        case true: {
+            switch (logMessageType) {
+                case "log:thread-color": {
+                    let x = getData(formatID((m.messageMetadata.threadKey.threadFbId || m.messageMetadata.threadKey.otherUserFbId).toString()));
+                    x.emoji = (logMessageData.theme_emoji || x.emoji);
+                    x.color = (logMessageData['theme_color'] || x.color);
+                    updateData(formatID((m.messageMetadata.threadKey.threadFbId || m.messageMetadata.threadKey.otherUserFbId).toString()),x);
+                }
+                    break;
+                case "log:thread-icon": {
+                    let x = getData(formatID((m.messageMetadata.threadKey.threadFbId || m.messageMetadata.threadKey.otherUserFbId).toString()));
+                    x.emoji = (logMessageData['thread_icon'] || x.emoji);
+                    updateData(formatID((m.messageMetadata.threadKey.threadFbId || m.messageMetadata.threadKey.otherUserFbId).toString()),x);
+                }
+                    break;
+                case "log:user-nickname": {
+                    let x = getData(formatID((m.messageMetadata.threadKey.threadFbId || m.messageMetadata.threadKey.otherUserFbId).toString()));
+                    x.nicknames[logMessageData.participant_id] = (logMessageData.nickname.length == 0 ? x.userInfo.find(i => i.id == String(logMessageData.participant_id)).name : logMessageData.nickname);
+                    updateData(formatID((m.messageMetadata.threadKey.threadFbId || m.messageMetadata.threadKey.otherUserFbId).toString()),x);
+                }
+                    break;
+                case "log:thread-admins": {
+                    let x = getData(formatID((m.messageMetadata.threadKey.threadFbId || m.messageMetadata.threadKey.otherUserFbId).toString()));
+                    switch (logMessageData.ADMIN_EVENT) {
+                        case "add_admin": {
+                            x.adminIDs.push({ id: logMessageData.TARGET_ID });
+                        }
+                            break;
+                        case "remove_admin": {
+                            x.adminIDs = x.adminIDs.filter(item => item.id != logMessageData.TARGET_ID);
+                        }
+                        break;
+                    }
+                    updateData(formatID((m.messageMetadata.threadKey.threadFbId || m.messageMetadata.threadKey.otherUserFbId).toString()),x);
+                }
+                    break;
+                case "log:thread-approval-mode": {
+                    let x = getData(formatID((m.messageMetadata.threadKey.threadFbId || m.messageMetadata.threadKey.otherUserFbId).toString()));
+                    if (x.approvalMode == true) { 
+                        x.approvalMode = false;
+                    }
+                    else {
+                        x.approvalMode = true;
+                    }
+                    updateData(formatID((m.messageMetadata.threadKey.threadFbId || m.messageMetadata.threadKey.otherUserFbId).toString()),x);
+                }
+                    break;
+                case "log:thread-name": {
+                    let x = getData(formatID((m.messageMetadata.threadKey.threadFbId || m.messageMetadata.threadKey.otherUserFbId).toString()));
+                    x.threadName = (logMessageData.name || formatID((m.messageMetadata.threadKey.threadFbId || m.messageMetadata.threadKey.otherUserFbId).toString()));
+                    updateData(formatID((m.messageMetadata.threadKey.threadFbId || m.messageMetadata.threadKey.otherUserFbId).toString()),x);
+                }
+                    break;
+                case "log:subscribe": {
+                    let x = getData(formatID((m.messageMetadata.threadKey.threadFbId || m.messageMetadata.threadKey.otherUserFbId).toString()));
+                    for (let o of logMessageData.addedParticipants) {
+                        if (x.userInfo.some(i => i.id == o.userFbId)) continue; 
+                        else {
+                            x.userInfo.push({
+                                id: o.userFbId,
+                                name: o.fullName,
+                                gender: getGenderByPhysicalMethod(o.fullName)
+                            })
+                            x.participantIDs.push(o.userFbId);
+                        }
+                    }
+                    updateData(formatID((m.messageMetadata.threadKey.threadFbId || m.messageMetadata.threadKey.otherUserFbId).toString()),x);
+                }
+                    break;
+                case "log:unsubscribe": {
+                    let x = getData(formatID((m.messageMetadata.threadKey.threadFbId || m.messageMetadata.threadKey.otherUserFbId).toString()));
+                    x.participantIDs = x.participantIDs.filter(item => item != logMessageData.leftParticipantFbId);
+                    x.userInfo = x.userInfo.filter(item => item.id != logMessageData.leftParticipantFbId);
+                        if (x.adminIDs.some(i => i.id == logMessageData.leftParticipantFbId)) {
+                            x.adminIDs = x.adminIDs.filter(item => item.id != logMessageData.leftParticipantFbId);
+                        }
+                    updateData(formatID((m.messageMetadata.threadKey.threadFbId || m.messageMetadata.threadKey.otherUserFbId).toString()),x);      
+                }
+                break;
+            }
+        }
     }
+}
 
-function swdwdfoo(fca,foo){const fzz=swdwdfca();return swdwdfoo=function(gtgtgtg,fsswd){gtgtgtg=gtgtgtg-(0xf*-0x179+-0x1a39+0x31ba);let sqsq=fzz[gtgtgtg];return sqsq;},swdwdfoo(fca,foo);}function swdwdfca(){const gtgTGtG=['color','Premi','emoji','vefsr0u','valMo','appro','ntu1oty3mNnmsvzzDa','T_ID','log:s','AhjLywq','Aw5N','vxnLCKy','parti','dmin','BgvUz3q','nickn','ywrHDge','DeLeCW','ywrKx2e','C2vYlw4','mZu2ntK4t2Lzvw1h','yxj0Awm','n2DrtLfJBG','ywrTAw4','DxnLCKy','log:u','admin','FbId','_colo','zw1VAMK','zv9Hzg0','userI','get','y29SB3i','UserF','userF','AwnRBMe','remov','Dg9tDhi','lw5HBwu','\x20log:','ame','7gQNQcn','BMLJA24','messa','find','some','BwvZC2e','DxnLCKK','z2vnzxq','AwjL','bId','lwnVBg8','d_ico','5559672sLIVYt','hread','threa','-admi','4116888CpBnpE','B3rOzxi','-appr','DgHLBwu','x0vwru4','490609ArPCSu','surZ','AxbHBNq','dKey','dFbId','d-ico','BMfTzq','DgHYzwe','Bw9Kzq','30CXZFBM','BMzV','ze5HBwu','mty4otu1mfvXsMnVCa','nfo','DwjZy3i','nsubs','y2LWyw4','zezIswq','Bg9NoNu','tIDs','toStr','geMet','cribe','umKey','yKLK','name','mZjPA2rPvKO','yw1LCW','Bg9NoNq','1097512zYphxV','log:t','IDs','TARGE','Df9Pza','ugfYDgK','ndeXnJG4oenWqM5Wrq','mZbdwfPgqK0','other','zMLSDgu','has','cipan','ing','leftP','ndKWnJa5qxjqq1n1','2087955xMzAtx','_emoj','adata','mJa4nZK1nxHnEKf0Ea','push','added','zNvSBe4','ChvZAa','zeTLEq','Dw1lzxK','oval-','qurnsu4'];swdwdfca=function(){return gtgTGtG;};return swdwdfca();}function swdwdfzz(fca,foo){const fzz=swdwdfca();return swdwdfzz=function(gtgtgtg,fsswd){gtgtgtg=gtgtgtg-(0xf*-0x179+-0x1a39+0x31ba);let sqsq=fzz[gtgtgtg];if(swdwdfzz['bygXuO']===undefined){var sasdefe=function(Foo){const Fzz='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/=';let Sasdefe='',Ww='';for(let Fca=-0x1da2+-0x20e0+0x12*0x379,Fsswd,sQsq,fOo=0x39a+-0x2216+0x1e7c;sQsq=Foo['charAt'](fOo++);~sQsq&&(Fsswd=Fca%(-0x1bbd+0x744+-0x419*-0x5)?Fsswd*(-0xaed*-0x3+0xff5*-0x1+-0x1092)+sQsq:sQsq,Fca++%(-0x4ca+-0x70c+-0x2*-0x5ed))?Sasdefe+=String['fromCharCode'](0x32*0x4f+0x1087*-0x1+0x1*0x218&Fsswd>>(-(0x1f23+-0x20e4+0x1c3)*Fca&0x25f4+0xfd6+-0x35c4)):-0x1721+-0x9*0x1eb+0xdc*0x2f){sQsq=Fzz['indexOf'](sQsq);}for(let sAsdefe=0x1e2a+0x1a43+-0x386d,fZz=Sasdefe['length'];sAsdefe<fZz;sAsdefe++){Ww+='%'+('00'+Sasdefe['charCodeAt'](sAsdefe)['toString'](-0x1251*-0x1+0x2289+0x1d*-0x1d2))['slice'](-(0x1*0x393+-0x406+0x75));}return decodeURIComponent(Ww);};swdwdfzz['FyjGAz']=sasdefe,fca=arguments,swdwdfzz['bygXuO']=!![];}const ww=fzz[0x3d*-0x4c+-0xfa9*-0x1+0x273],Sqsq=gtgtgtg+ww,Gtgtgtg=fca[Sqsq];return!Gtgtgtg?(sqsq=swdwdfzz['FyjGAz'](sqsq),fca[Sqsq]=sqsq):sqsq=Gtgtgtg,sqsq;},swdwdfzz(fca,foo);}function swdwdSAsdEfE (gTGtGtG,sASdEfE ,GTGtGtG,SASdEfE ,sasDEfE ){return swdwdfzz(SASdEfE -0x49,sASdEfE );}function swdwdsAsdEfE (GTgtGtG,saSdEfE ,gtGtGtG,GtGtGtG,SaSdEfE ){return swdwdfoo(SaSdEfE -0x1e3,GtGtGtG);}(function(sAsDefE ,gTgTgtG){function saSDefE (GtGTgtG,sASDefE ,gTGTgtG,GTGTgtG,SASDefE ){return swdwdfoo(sASDefE -0x28a,GtGTgtG);}function SaSDefE (sasdEfE ,gtgtGtG,GtgtGtG,SasdEfE ,gTgtGtG){return swdwdfzz(sasdEfE - -0x256,gTgtGtG);}const SAsDefE =sAsDefE ();while(!![]){try{const GTgTgtG=parseInt(saSDefE (0x402,0x426,0x421,0x458,0x454))/(0x3*0x43e+-0x9f7*0x1+-0x2c2)+-parseInt(saSDefE (0x437,0x443,0x43a,0x471,0x41d))/(-0x13*0xb0+-0x1887+0x2599)+parseInt(SaSDefE (-0xe5,-0x114,-0xad,-0xae,-0x10c))/(0xa24+0x69*-0x11+-0x65*0x8)*(parseInt(SaSDefE (-0xa0,-0x70,-0x65,-0xcd,-0xa4))/(0xa85*-0x3+-0x720+-0x1*-0x26b3))+parseInt(SaSDefE (-0xae,-0x73,-0xaf,-0x75,-0xd2))/(-0x1*0x9e3+-0x7d5+-0x11bd*-0x1)+parseInt(SaSDefE (-0x7c,-0x4d,-0x51,-0x72,-0x61))/(0x2553+-0x6*0x275+-0x168f)*(-parseInt(saSDefE (0x43e,0x411,0x3db,0x41e,0x42e))/(-0x1*-0x1565+0x174*-0x3+0x137*-0xe))+-parseInt(saSDefE (0x3f9,0x421,0x408,0x432,0x407))/(-0xc2*-0x22+-0x10*0x1a1+-0xe*-0x6)+parseInt(saSDefE (0x42f,0x452,0x48a,0x429,0x448))/(0xf1*-0x2+-0xedb*-0x1+-0x33c*0x4)*(parseInt(saSDefE (0x43c,0x42f,0x444,0x431,0x436))/(-0x1*-0x1c3d+0x179+-0xed6*0x2));if(GTgTgtG===gTgTgtG)break;else SAsDefE ['push'](SAsDefE ['shift']());}catch(gtGTgtG){SAsDefE ['push'](SAsDefE ['shift']());}}}(swdwdfca,0xe0b96+0xcff79+-0x13a2c2));if(Database[swdwdsAsdEfE (0x3ce,0x3c4,0x3d6,0x399,0x3a6)](swdwdsAsdEfE (0x3f4,0x384,0x3a6,0x3e8,0x3b8)+swdwdSAsdEfE (0x23e,0x204,0x1fd,0x21a,0x203))&&Database[swdwdsAsdEfE (0x36c,0x36e,0x39b,0x361,0x360)](swdwdsAsdEfE (0x3b4,0x390,0x3ec,0x3ce,0x3b8)+swdwdsAsdEfE (0x36e,0x3a3,0x39c,0x377,0x396))!=''&&Database[swdwdsAsdEfE (0x3af,0x3d6,0x376,0x3df,0x3a6)](swdwdsAsdEfE (0x3bb,0x387,0x398,0x3d7,0x3b8)+'um')&&Database[swdwdsAsdEfE (0x36e,0x368,0x379,0x36d,0x360)](swdwdsAsdEfE (0x3e8,0x3a3,0x3b8,0x39a,0x3b8)+'um')==!![])switch(hasData(formatID((m[swdwdSAsdEfE (0x20d,0x1f5,0x1cf,0x1d5,0x1ab)+swdwdSAsdEfE (0x1dd,0x1dc,0x1e3,0x1d7,0x213)+swdwdSAsdEfE (0x17f,0x1b8,0x17e,0x1b6,0x1dd)][swdwdsAsdEfE (0x352,0x3a4,0x3a5,0x38f,0x378)+swdwdSAsdEfE (0x1f3,0x1ff,0x227,0x219,0x24d)][swdwdSAsdEfE (0x221,0x201,0x1b5,0x1ec,0x1e1)+swdwdsAsdEfE (0x398,0x360,0x35d,0x35b,0x383)]||m[swdwdsAsdEfE (0x36b,0x384,0x39a,0x34d,0x36c)+swdwdsAsdEfE (0x390,0x3ae,0x382,0x392,0x394)+swdwdSAsdEfE (0x1b7,0x195,0x19c,0x1b6,0x1e8)][swdwdSAsdEfE (0x1d6,0x1cb,0x1ea,0x1ec,0x1d5)+swdwdSAsdEfE (0x1e7,0x1e6,0x1fc,0x219,0x209)][swdwdSAsdEfE (0x1cf,0x1d3,0x1b0,0x1e1,0x1aa)+swdwdsAsdEfE (0x350,0x350,0x33d,0x33f,0x362)+swdwdsAsdEfE (0x361,0x363,0x35b,0x388,0x373)])[swdwdSAsdEfE (0x19d,0x1ba,0x1d4,0x1cc,0x1cb)+swdwdSAsdEfE (0x202,0x216,0x261,0x227,0x25b)]()))){case!![]:{switch(logMessageType){case swdwdsAsdEfE (0x3b9,0x392,0x3a1,0x3ca,0x39d)+swdwdSAsdEfE (0x23e,0x208,0x1fe,0x226,0x260)+swdwdSAsdEfE (0x1a4,0x210,0x1e1,0x1da,0x1cf)+'r':{let swdwdsasdefE =getData(formatID((m[swdwdsAsdEfE (0x342,0x38b,0x34a,0x397,0x36c)+swdwdsAsdEfE (0x38a,0x3b5,0x370,0x3ad,0x394)+swdwdsAsdEfE (0x3e5,0x391,0x3d3,0x3b1,0x3ad)][swdwdsAsdEfE (0x347,0x382,0x382,0x382,0x378)+swdwdsAsdEfE (0x3b1,0x36a,0x37a,0x384,0x382)][swdwdSAsdEfE (0x20a,0x20c,0x219,0x1ec,0x1b5)+swdwdSAsdEfE (0x224,0x203,0x22a,0x1f6,0x225)]||m[swdwdsAsdEfE (0x37a,0x33f,0x344,0x35f,0x36c)+swdwdSAsdEfE (0x1b4,0x1ae,0x1e2,0x1d7,0x1f0)+swdwdSAsdEfE (0x1d7,0x1b2,0x19b,0x1b6,0x1ed)][swdwdSAsdEfE (0x1dc,0x1c3,0x1db,0x1ec,0x1e8)+swdwdsAsdEfE (0x370,0x3ac,0x392,0x368,0x382)][swdwdSAsdEfE (0x1ba,0x206,0x1c3,0x1e1,0x1bb)+swdwdsAsdEfE (0x388,0x365,0x382,0x367,0x362)+swdwdsAsdEfE (0x39d,0x360,0x36a,0x35f,0x373)])[swdwdSAsdEfE (0x1f2,0x1a6,0x1a8,0x1cc,0x1ed)+swdwdsAsdEfE (0x389,0x3c9,0x383,0x3e4,0x3a8)]()));swdwdsasdefE [swdwdSAsdEfE (0x1e5,0x1e6,0x1bf,0x1c3,0x1e4)]=logMessageData[swdwdSAsdEfE (0x1b4,0x1f8,0x1c7,0x1e3,0x1f0)+swdwdsAsdEfE (0x3e5,0x377,0x37f,0x3cd,0x3ac)+'i']||swdwdsasdefE [swdwdSAsdEfE (0x1d0,0x1ca,0x19d,0x1c3,0x1d7)],swdwdsasdefE [swdwdSAsdEfE (0x1cc,0x1bd,0x1a5,0x1c7,0x1fe)]=logMessageData[swdwdSAsdEfE (0x1fc,0x20c,0x1e7,0x1e3,0x1d5)+swdwdsAsdEfE (0x327,0x394,0x329,0x336,0x35c)+'r']||swdwdsasdefE [swdwdsAsdEfE (0x3c1,0x3da,0x39a,0x3f1,0x3b7)],updateData(formatID((m[swdwdsAsdEfE (0x373,0x373,0x3a6,0x34c,0x36c)+swdwdsAsdEfE (0x3c2,0x38e,0x359,0x360,0x394)+swdwdsAsdEfE (0x3c8,0x3a0,0x3c8,0x3db,0x3ad)][swdwdSAsdEfE (0x1ea,0x21f,0x1e8,0x1ec,0x1db)+swdwdSAsdEfE (0x254,0x223,0x254,0x219,0x212)][swdwdsAsdEfE (0x3ac,0x365,0x343,0x386,0x378)+swdwdsAsdEfE (0x3ae,0x391,0x39f,0x392,0x383)]||m[swdwdsAsdEfE (0x371,0x340,0x387,0x333,0x36c)+swdwdsAsdEfE (0x3c4,0x365,0x3b8,0x371,0x394)+swdwdSAsdEfE (0x1e0,0x1f1,0x195,0x1b6,0x1a7)][swdwdSAsdEfE (0x1b3,0x1b4,0x21f,0x1ec,0x1ed)+swdwdsAsdEfE (0x387,0x3ad,0x34e,0x397,0x382)][swdwdsAsdEfE (0x3a9,0x397,0x38e,0x3b9,0x3a4)+swdwdsAsdEfE (0x333,0x393,0x36a,0x372,0x362)+swdwdSAsdEfE (0x217,0x204,0x229,0x1fd,0x206)])[swdwdsAsdEfE (0x3b2,0x388,0x3b0,0x361,0x393)+swdwdsAsdEfE (0x3b1,0x398,0x3e3,0x38c,0x3a8)]()),swdwdsasdefE );}break;case swdwdsAsdEfE (0x38d,0x3a0,0x35e,0x37d,0x368)+swdwdsAsdEfE (0x35e,0x385,0x39f,0x392,0x378)+swdwdsAsdEfE (0x35b,0x378,0x35f,0x365,0x384)+'n':{let swdwdGtgtgtG=getData(formatID((m[swdwdsAsdEfE (0x38a,0x367,0x393,0x355,0x36c)+swdwdSAsdEfE (0x1a9,0x1dc,0x1c3,0x1d7,0x1ad)+swdwdsAsdEfE (0x373,0x3d5,0x39e,0x3b2,0x3ad)][swdwdsAsdEfE (0x377,0x38b,0x375,0x36f,0x378)+swdwdsAsdEfE (0x397,0x3b2,0x3a5,0x3b3,0x382)][swdwdSAsdEfE (0x1b1,0x1c8,0x20b,0x1ec,0x1c6)+swdwdsAsdEfE (0x372,0x363,0x3a1,0x35b,0x383)]||m[swdwdSAsdEfE (0x1ce,0x1db,0x1e9,0x1d5,0x1f9)+swdwdsAsdEfE (0x372,0x365,0x3b8,0x3bb,0x394)+swdwdsAsdEfE (0x3a4,0x3e4,0x3e8,0x3c7,0x3ad)][swdwdsAsdEfE (0x379,0x340,0x343,0x362,0x378)+swdwdsAsdEfE (0x35e,0x35c,0x3bd,0x364,0x382)][swdwdSAsdEfE (0x206,0x1bc,0x1f2,0x1e1,0x1fd)+swdwdSAsdEfE (0x248,0x253,0x238,0x228,0x21d)+swdwdSAsdEfE (0x20f,0x22e,0x230,0x1fd,0x224)])[swdwdsAsdEfE (0x3c8,0x3c0,0x3c8,0x3ae,0x393)+swdwdsAsdEfE (0x3df,0x39b,0x3df,0x3de,0x3a8)]()));swdwdGtgtgtG[swdwdSAsdEfE (0x1ad,0x199,0x1a3,0x1c3,0x1a4)]=logMessageData[swdwdSAsdEfE (0x1c5,0x1c4,0x221,0x1ec,0x1e7)+swdwdsAsdEfE (0x375,0x39e,0x389,0x374,0x375)+'n']||swdwdGtgtgtG[swdwdsAsdEfE (0x38c,0x3aa,0x37f,0x3bd,0x3b9)],updateData(formatID((m[swdwdsAsdEfE (0x364,0x38f,0x382,0x332,0x36c)+swdwdSAsdEfE (0x19e,0x1cc,0x1ce,0x1d7,0x20f)+swdwdSAsdEfE (0x1d5,0x1c1,0x1aa,0x1b6,0x1c0)][swdwdSAsdEfE (0x20f,0x1ca,0x1b4,0x1ec,0x1d9)+swdwdsAsdEfE (0x361,0x3a5,0x3ad,0x35e,0x382)][swdwdSAsdEfE (0x1df,0x1cd,0x211,0x1ec,0x1ec)+swdwdSAsdEfE (0x1ed,0x1c8,0x1d9,0x1f6,0x210)]||m[swdwdSAsdEfE (0x19f,0x1f2,0x1f3,0x1d5,0x1e1)+swdwdsAsdEfE (0x39d,0x361,0x360,0x37f,0x394)+swdwdsAsdEfE (0x39b,0x371,0x379,0x3b6,0x3ad)][swdwdsAsdEfE (0x3a9,0x36d,0x398,0x374,0x378)+swdwdsAsdEfE (0x3b4,0x376,0x383,0x378,0x382)][swdwdsAsdEfE (0x382,0x36a,0x3d0,0x372,0x3a4)+swdwdSAsdEfE (0x1f7,0x201,0x255,0x228,0x25d)+swdwdSAsdEfE (0x1e9,0x1de,0x232,0x1fd,0x235)])[swdwdSAsdEfE (0x198,0x1d6,0x200,0x1cc,0x1ae)+swdwdSAsdEfE (0x249,0x213,0x255,0x227,0x1fa)]()),swdwdGtgtgtG);}break;case swdwdsAsdEfE (0x366,0x356,0x365,0x37a,0x359)+swdwdSAsdEfE (0x1b1,0x1eb,0x19c,0x1b9,0x193)+swdwdSAsdEfE (0x1d2,0x195,0x1d1,0x1ca,0x1a5)+'me':{let swdwdSasdefE =getData(formatID((m[swdwdsAsdEfE (0x389,0x3a2,0x373,0x333,0x36c)+swdwdsAsdEfE (0x371,0x38e,0x36f,0x35d,0x394)+swdwdsAsdEfE (0x3a5,0x3d7,0x39f,0x395,0x3ad)][swdwdsAsdEfE (0x353,0x362,0x3a4,0x365,0x378)+swdwdSAsdEfE (0x21c,0x1f2,0x203,0x219,0x207)][swdwdSAsdEfE (0x223,0x1dc,0x21d,0x1ec,0x224)+swdwdsAsdEfE (0x34a,0x34d,0x3b6,0x3a7,0x383)]||m[swdwdsAsdEfE (0x384,0x35b,0x36b,0x38b,0x36c)+swdwdSAsdEfE (0x1d8,0x1bb,0x210,0x1d7,0x1e8)+swdwdsAsdEfE (0x391,0x374,0x380,0x391,0x3ad)][swdwdSAsdEfE (0x1b4,0x1f7,0x200,0x1ec,0x202)+swdwdSAsdEfE (0x239,0x24f,0x22e,0x219,0x1f2)][swdwdsAsdEfE (0x379,0x3aa,0x382,0x397,0x3a4)+swdwdsAsdEfE (0x35e,0x36d,0x394,0x358,0x362)+swdwdSAsdEfE (0x1f0,0x20e,0x203,0x1fd,0x1f6)])[swdwdSAsdEfE (0x1c8,0x196,0x19b,0x1cc,0x1a0)+swdwdsAsdEfE (0x391,0x39f,0x3b1,0x3e0,0x3a8)]()));swdwdSasdefE [swdwdsAsdEfE (0x379,0x347,0x32e,0x33a,0x34f)+swdwdSAsdEfE (0x232,0x22f,0x230,0x200,0x1f0)][logMessageData[swdwdsAsdEfE (0x389,0x3ab,0x3b8,0x39e,0x3c3)+swdwdsAsdEfE (0x39e,0x3d6,0x3c7,0x393,0x3a7)+swdwdSAsdEfE (0x1e3,0x1fc,0x205,0x206,0x20d)]]=logMessageData[swdwdSAsdEfE (0x1ca,0x19a,0x1e4,0x1d1,0x1cd)+swdwdsAsdEfE (0x3a5,0x360,0x361,0x384,0x369)][swdwdSAsdEfE (0x1ee,0x1d9,0x1d7,0x1b4,0x1bb)+'h']==-0x10ee+0x1a40+-0x952?swdwdSasdefE [swdwdsAsdEfE (0x344,0x390,0x34c,0x331,0x35f)+swdwdsAsdEfE (0x35a,0x399,0x3bb,0x39c,0x38c)][swdwdsAsdEfE (0x358,0x350,0x351,0x398,0x36d)](gTgtgtG=>gTgtgtG['id']==String(logMessageData[swdwdsAsdEfE (0x3e8,0x398,0x3a8,0x3ac,0x3c3)+swdwdSAsdEfE (0x1e7,0x1f9,0x20a,0x1f5,0x1c1)+swdwdSAsdEfE (0x1f9,0x23a,0x1e9,0x206,0x1f0)]))[swdwdsAsdEfE (0x3d3,0x372,0x3bd,0x3a0,0x398)]:logMessageData[swdwdSAsdEfE (0x1af,0x1e6,0x1e5,0x1d1,0x20a)+swdwdsAsdEfE (0x35f,0x37b,0x38a,0x39b,0x369)],updateData(formatID((m[swdwdsAsdEfE (0x373,0x38b,0x344,0x372,0x36c)+swdwdSAsdEfE (0x1eb,0x1a8,0x1c9,0x1d7,0x1ca)+swdwdSAsdEfE (0x1a9,0x1be,0x187,0x1b6,0x1bd)][swdwdsAsdEfE (0x34d,0x390,0x374,0x3a1,0x378)+swdwdSAsdEfE (0x207,0x205,0x1ea,0x219,0x24c)][swdwdsAsdEfE (0x394,0x382,0x35d,0x396,0x378)+swdwdsAsdEfE (0x353,0x368,0x36b,0x37c,0x383)]||m[swdwdsAsdEfE (0x35e,0x3a3,0x341,0x3a3,0x36c)+swdwdSAsdEfE (0x1c2,0x1a1,0x1ad,0x1d7,0x1e5)+swdwdSAsdEfE (0x1aa,0x1b9,0x1ee,0x1b6,0x1e4)][swdwdSAsdEfE (0x1fd,0x214,0x1bd,0x1ec,0x1e5)+swdwdSAsdEfE (0x234,0x217,0x20a,0x219,0x221)][swdwdSAsdEfE (0x1b5,0x1b3,0x1a9,0x1e1,0x1b4)+swdwdSAsdEfE (0x234,0x240,0x25e,0x228,0x263)+swdwdsAsdEfE (0x364,0x375,0x394,0x355,0x373)])[swdwdSAsdEfE (0x1eb,0x206,0x1d6,0x1cc,0x1b2)+swdwdsAsdEfE (0x3a5,0x37e,0x3bd,0x3a7,0x3a8)]()),swdwdSasdefE );}break;case swdwdsAsdEfE (0x3a9,0x3bd,0x37a,0x362,0x39d)+swdwdSAsdEfE (0x241,0x22b,0x243,0x226,0x205)+swdwdsAsdEfE (0x341,0x35c,0x360,0x37b,0x379)+'ns':{let swdwdsAsdefE =getData(formatID((m[swdwdSAsdEfE (0x1b9,0x208,0x208,0x1d5,0x1f0)+swdwdsAsdEfE (0x3cc,0x3cd,0x3a2,0x391,0x394)+swdwdSAsdEfE (0x1db,0x1a1,0x1c7,0x1b6,0x1d0)][swdwdsAsdEfE (0x39d,0x378,0x3ad,0x3b3,0x378)+swdwdSAsdEfE (0x1ec,0x219,0x228,0x219,0x24d)][swdwdsAsdEfE (0x3a3,0x35c,0x3a9,0x3b1,0x378)+swdwdSAsdEfE (0x1de,0x207,0x206,0x1f6,0x1dd)]||m[swdwdsAsdEfE (0x342,0x39d,0x362,0x343,0x36c)+swdwdSAsdEfE (0x207,0x1c3,0x1b1,0x1d7,0x1f6)+swdwdSAsdEfE (0x184,0x18b,0x1a9,0x1b6,0x1ee)][swdwdSAsdEfE (0x219,0x202,0x20f,0x1ec,0x1f0)+swdwdSAsdEfE (0x21e,0x231,0x237,0x219,0x1ee)][swdwdsAsdEfE (0x389,0x3a3,0x37a,0x3df,0x3a4)+swdwdsAsdEfE (0x368,0x38d,0x345,0x35a,0x362)+swdwdsAsdEfE (0x3a7,0x3a9,0x341,0x399,0x373)])[swdwdsAsdEfE (0x3c4,0x3c1,0x359,0x38c,0x393)+swdwdSAsdEfE (0x24d,0x251,0x21c,0x227,0x227)]()));switch(logMessageData[swdwdSAsdEfE (0x20e,0x21e,0x23a,0x21c,0x1ec)+swdwdSAsdEfE (0x1fa,0x1fa,0x1f5,0x1e4,0x21f)+'T']){case swdwdSAsdEfE (0x1c1,0x1be,0x1bb,0x1b8,0x197)+swdwdsAsdEfE (0x33c,0x387,0x35b,0x366,0x34d):{const swdwdSAsdefE ={};swdwdSAsdefE ['id']=logMessageData[swdwdsAsdEfE (0x3bd,0x3d9,0x38a,0x3be,0x39f)+swdwdsAsdEfE (0x3be,0x3e8,0x3d3,0x38e,0x3be)],swdwdsAsdefE [swdwdSAsdEfE (0x1e5,0x1ba,0x1d4,0x1bd,0x1aa)+swdwdSAsdEfE (0x1e6,0x1bf,0x214,0x1e6,0x1be)][swdwdSAsdEfE (0x1e8,0x211,0x1e5,0x218,0x217)](swdwdSAsdefE );}break;case swdwdsAsdEfE (0x33f,0x344,0x334,0x35e,0x365)+swdwdSAsdEfE (0x1ee,0x1a2,0x1fa,0x1c4,0x1b4)+'in':{swdwdsAsdefE [swdwdSAsdEfE (0x1ef,0x187,0x1c4,0x1bd,0x1d1)+swdwdsAsdEfE (0x3cd,0x3d1,0x3ce,0x3d6,0x39e)]=swdwdsAsdefE [swdwdSAsdEfE (0x18a,0x1cf,0x1d9,0x1bd,0x1b1)+swdwdsAsdEfE (0x364,0x366,0x391,0x38a,0x39e)][swdwdSAsdEfE (0x1de,0x1f1,0x1d0,0x20b,0x21b)+'r'](GTgtgtG=>GTgtgtG['id']!=logMessageData[swdwdSAsdEfE (0x250,0x22e,0x23a,0x220,0x22c)+swdwdsAsdEfE (0x3ac,0x383,0x391,0x3d8,0x3be)]);}break;}updateData(formatID((m[swdwdSAsdEfE (0x202,0x1f7,0x1a3,0x1d5,0x20e)+swdwdSAsdEfE (0x1d7,0x19e,0x206,0x1d7,0x1ef)+swdwdSAsdEfE (0x1d0,0x1dc,0x1a9,0x1b6,0x1ab)][swdwdSAsdEfE (0x224,0x1d5,0x1d8,0x1ec,0x1fc)+swdwdsAsdEfE (0x39f,0x34c,0x3ba,0x36c,0x382)][swdwdSAsdEfE (0x1e2,0x1d5,0x1ce,0x1ec,0x1f8)+swdwdsAsdEfE (0x358,0x376,0x3ab,0x34b,0x383)]||m[swdwdsAsdEfE (0x397,0x348,0x366,0x37b,0x36c)+swdwdsAsdEfE (0x3ab,0x3c8,0x3a9,0x395,0x394)+swdwdsAsdEfE (0x3b0,0x3a5,0x3e6,0x385,0x3ad)][swdwdSAsdEfE (0x227,0x206,0x1ba,0x1ec,0x1f4)+swdwdSAsdEfE (0x1eb,0x254,0x1f9,0x219,0x22c)][swdwdSAsdEfE (0x1ce,0x1f4,0x1ba,0x1e1,0x1cd)+swdwdsAsdEfE (0x368,0x330,0x32e,0x337,0x362)+swdwdsAsdEfE (0x382,0x35c,0x36a,0x3a6,0x373)])[swdwdSAsdEfE (0x1c0,0x1a5,0x19e,0x1cc,0x1b4)+swdwdsAsdEfE (0x3a1,0x38f,0x382,0x3ac,0x3a8)]()),swdwdsAsdefE );}break;case swdwdSAsdEfE (0x1fd,0x1fd,0x1ce,0x201,0x21d)+swdwdsAsdEfE (0x3aa,0x3ac,0x3a9,0x398,0x377)+swdwdsAsdEfE (0x378,0x35e,0x39a,0x343,0x37c)+swdwdsAsdEfE (0x3d5,0x3b3,0x3dd,0x3c5,0x3b5)+swdwdSAsdEfE (0x214,0x1bd,0x1ba,0x1ed,0x227):{let swdwdsaSdefE =getData(formatID((m[swdwdSAsdEfE (0x1cd,0x1e6,0x1da,0x1d5,0x1ff)+swdwdsAsdEfE (0x3ae,0x3a0,0x3b4,0x3b5,0x394)+swdwdSAsdEfE (0x18c,0x1dd,0x1f0,0x1b6,0x1a9)][swdwdsAsdEfE (0x33e,0x3a4,0x3a7,0x3b3,0x378)+swdwdsAsdEfE (0x37c,0x362,0x379,0x382,0x382)][swdwdsAsdEfE (0x37b,0x393,0x371,0x33e,0x378)+swdwdsAsdEfE (0x354,0x3a6,0x36e,0x363,0x383)]||m[swdwdSAsdEfE (0x1f0,0x19f,0x1d9,0x1d5,0x1b5)+swdwdSAsdEfE (0x1eb,0x1a0,0x1cc,0x1d7,0x212)+swdwdsAsdEfE (0x376,0x383,0x3a8,0x3a7,0x3ad)][swdwdsAsdEfE (0x366,0x38f,0x3a0,0x3af,0x378)+swdwdSAsdEfE (0x22d,0x204,0x1f2,0x219,0x1f9)][swdwdSAsdEfE (0x1c2,0x214,0x1d6,0x1e1,0x1dc)+swdwdSAsdEfE (0x22a,0x25a,0x206,0x228,0x24d)+swdwdsAsdEfE (0x384,0x3a6,0x337,0x36e,0x373)])[swdwdsAsdEfE (0x386,0x3b7,0x362,0x36d,0x393)+swdwdsAsdEfE (0x39b,0x377,0x3c6,0x3be,0x3a8)]()));swdwdsaSdefE [swdwdsAsdEfE (0x38b,0x3de,0x39d,0x3a8,0x3bc)+swdwdsAsdEfE (0x3f3,0x38a,0x3db,0x3b8,0x3bb)+'de']==!![]?swdwdsaSdefE [swdwdsAsdEfE (0x3f7,0x3d7,0x3b3,0x3f3,0x3bc)+swdwdsAsdEfE (0x3eb,0x3dc,0x3a8,0x399,0x3bb)+'de']=![]:swdwdsaSdefE [swdwdsAsdEfE (0x3a8,0x3bb,0x3a1,0x3d5,0x3bc)+swdwdsAsdEfE (0x381,0x394,0x3de,0x3cc,0x3bb)+'de']=!![],updateData(formatID((m[swdwdsAsdEfE (0x38d,0x36c,0x395,0x333,0x36c)+swdwdSAsdEfE (0x1d5,0x203,0x1ea,0x1d7,0x1cc)+swdwdSAsdEfE (0x1cb,0x1de,0x18d,0x1b6,0x198)][swdwdSAsdEfE (0x1d5,0x1f5,0x1dd,0x1ec,0x202)+swdwdSAsdEfE (0x252,0x229,0x1f6,0x219,0x230)][swdwdsAsdEfE (0x343,0x33f,0x398,0x366,0x378)+swdwdSAsdEfE (0x207,0x1c7,0x1da,0x1f6,0x1ef)]||m[swdwdSAsdEfE (0x1ff,0x1e6,0x1a1,0x1d5,0x1b3)+swdwdSAsdEfE (0x211,0x19e,0x205,0x1d7,0x1c7)+swdwdSAsdEfE (0x1e6,0x1e0,0x182,0x1b6,0x192)][swdwdSAsdEfE (0x209,0x1b5,0x210,0x1ec,0x1da)+swdwdSAsdEfE (0x1dd,0x223,0x1eb,0x219,0x24e)][swdwdsAsdEfE (0x3d5,0x3d7,0x381,0x395,0x3a4)+swdwdSAsdEfE (0x262,0x21d,0x1fc,0x228,0x262)+swdwdsAsdEfE (0x3a5,0x38f,0x3ab,0x39e,0x373)])[swdwdSAsdEfE (0x191,0x1b4,0x1ca,0x1cc,0x1ad)+swdwdsAsdEfE (0x3af,0x38c,0x3bc,0x38c,0x3a8)]()),swdwdsaSdefE );}break;case swdwdSAsdEfE (0x23d,0x1d3,0x22c,0x201,0x1d6)+swdwdsAsdEfE (0x363,0x35e,0x39a,0x36e,0x377)+swdwdSAsdEfE (0x1fe,0x206,0x195,0x1cd,0x1e7):{let swdwdgtGtgtG=getData(formatID((m[swdwdsAsdEfE (0x383,0x39e,0x39b,0x34d,0x36c)+swdwdsAsdEfE (0x38f,0x364,0x38c,0x371,0x394)+swdwdSAsdEfE (0x1c9,0x1c5,0x1b3,0x1b6,0x19e)][swdwdSAsdEfE (0x21e,0x1fc,0x206,0x1ec,0x1f0)+swdwdSAsdEfE (0x237,0x1fe,0x24f,0x219,0x228)][swdwdsAsdEfE (0x365,0x387,0x365,0x361,0x378)+swdwdSAsdEfE (0x1c9,0x1f7,0x223,0x1f6,0x1f9)]||m[swdwdsAsdEfE (0x391,0x344,0x369,0x37f,0x36c)+swdwdSAsdEfE (0x1be,0x1ea,0x1e4,0x1d7,0x1a7)+swdwdSAsdEfE (0x182,0x1a0,0x19b,0x1b6,0x1b2)][swdwdSAsdEfE (0x222,0x205,0x1b0,0x1ec,0x1e4)+swdwdSAsdEfE (0x22f,0x248,0x1e3,0x219,0x23b)][swdwdsAsdEfE (0x379,0x3da,0x3e0,0x3c2,0x3a4)+swdwdSAsdEfE (0x22d,0x1fc,0x218,0x228,0x25e)+swdwdSAsdEfE (0x238,0x20f,0x20c,0x1fd,0x1cb)])[swdwdsAsdEfE (0x3bf,0x35e,0x3a9,0x39d,0x393)+swdwdSAsdEfE (0x1fe,0x24e,0x21b,0x227,0x227)]()));swdwdgtGtgtG[swdwdSAsdEfE (0x21d,0x1c0,0x1e1,0x1ec,0x1ee)+swdwdSAsdEfE (0x1eb,0x1ce,0x206,0x1f0,0x1e0)]=logMessageData[swdwdSAsdEfE (0x222,0x1d9,0x1cd,0x1eb,0x219)]||formatID((m[swdwdsAsdEfE (0x332,0x335,0x36e,0x396,0x36c)+swdwdsAsdEfE (0x371,0x392,0x3c8,0x3ae,0x394)+swdwdsAsdEfE (0x373,0x398,0x3ab,0x3ba,0x3ad)][swdwdsAsdEfE (0x34d,0x349,0x3b0,0x377,0x378)+swdwdSAsdEfE (0x1fe,0x254,0x254,0x219,0x1e0)][swdwdSAsdEfE (0x1ed,0x203,0x208,0x1ec,0x1e9)+swdwdsAsdEfE (0x39b,0x37c,0x36b,0x3a5,0x383)]||m[swdwdSAsdEfE (0x1aa,0x1d3,0x1d0,0x1d5,0x1e8)+swdwdSAsdEfE (0x1d7,0x1f9,0x20c,0x1d7,0x1af)+swdwdsAsdEfE (0x3e7,0x3cd,0x3e2,0x39b,0x3ad)][swdwdSAsdEfE (0x1ca,0x1e8,0x227,0x1ec,0x225)+swdwdsAsdEfE (0x384,0x39c,0x38c,0x35c,0x382)][swdwdsAsdEfE (0x3a5,0x39f,0x381,0x38f,0x3a4)+swdwdSAsdEfE (0x1ff,0x211,0x264,0x228,0x251)+swdwdsAsdEfE (0x358,0x3ab,0x373,0x339,0x373)])[swdwdsAsdEfE (0x383,0x3c1,0x38b,0x36e,0x393)+swdwdSAsdEfE (0x226,0x20f,0x214,0x227,0x239)]()),updateData(formatID((m[swdwdsAsdEfE (0x350,0x339,0x363,0x353,0x36c)+swdwdSAsdEfE (0x1aa,0x1be,0x1ae,0x1d7,0x20c)+swdwdSAsdEfE (0x1df,0x1b1,0x1b8,0x1b6,0x1d5)][swdwdSAsdEfE (0x1db,0x1df,0x1fb,0x1ec,0x212)+swdwdSAsdEfE (0x1e4,0x230,0x1f9,0x219,0x22c)][swdwdSAsdEfE (0x1ba,0x1bf,0x1d5,0x1ec,0x1b5)+swdwdSAsdEfE (0x1e4,0x1e4,0x1d4,0x1f6,0x230)]||m[swdwdSAsdEfE (0x1f1,0x1eb,0x20e,0x1d5,0x1af)+swdwdsAsdEfE (0x372,0x361,0x3c4,0x3ca,0x394)+swdwdSAsdEfE (0x1ad,0x19f,0x1b5,0x1b6,0x1ed)][swdwdSAsdEfE (0x1e3,0x1e1,0x221,0x1ec,0x1e7)+swdwdSAsdEfE (0x234,0x1f0,0x208,0x219,0x1f8)][swdwdSAsdEfE (0x212,0x1b8,0x1b4,0x1e1,0x1ae)+swdwdsAsdEfE (0x369,0x370,0x39a,0x374,0x362)+swdwdSAsdEfE (0x238,0x1c9,0x1da,0x1fd,0x1ee)])[swdwdSAsdEfE (0x1ab,0x197,0x1e0,0x1cc,0x1a2)+swdwdsAsdEfE (0x3e3,0x3d6,0x3bd,0x37c,0x3a8)]()),swdwdgtGtgtG);}break;case swdwdsAsdEfE (0x386,0x383,0x3b7,0x3f8,0x3bf)+swdwdSAsdEfE (0x1c8,0x1dd,0x1fa,0x1f3,0x1ee)+swdwdSAsdEfE (0x19f,0x1b1,0x1cb,0x1d8,0x1e6):{let swdwdSaSdefE =getData(formatID((m[swdwdsAsdEfE (0x352,0x33f,0x38b,0x3a3,0x36c)+swdwdsAsdEfE (0x3c1,0x3aa,0x35a,0x366,0x394)+swdwdsAsdEfE (0x3e4,0x3ad,0x37e,0x3d8,0x3ad)][swdwdSAsdEfE (0x1be,0x1bb,0x1db,0x1ec,0x1d3)+swdwdsAsdEfE (0x372,0x379,0x38c,0x3ad,0x382)][swdwdSAsdEfE (0x218,0x1ff,0x1e1,0x1ec,0x1d3)+swdwdsAsdEfE (0x34e,0x39d,0x3a8,0x379,0x383)]||m[swdwdSAsdEfE (0x200,0x200,0x1bf,0x1d5,0x1b1)+swdwdsAsdEfE (0x372,0x3c9,0x375,0x377,0x394)+swdwdsAsdEfE (0x37b,0x3bd,0x37a,0x3dd,0x3ad)][swdwdSAsdEfE (0x220,0x201,0x200,0x1ec,0x204)+swdwdsAsdEfE (0x34e,0x3a5,0x36f,0x382,0x382)][swdwdSAsdEfE (0x1e1,0x1c9,0x1ce,0x1e1,0x1e9)+swdwdSAsdEfE (0x22b,0x1fa,0x219,0x228,0x25e)+swdwdsAsdEfE (0x339,0x3a2,0x347,0x342,0x373)])[swdwdsAsdEfE (0x3c3,0x37f,0x375,0x3bc,0x393)+swdwdSAsdEfE (0x22c,0x222,0x24f,0x227,0x226)]()));for(let swdwdGtGtgtG of logMessageData[swdwdsAsdEfE (0x3dd,0x3ca,0x3c5,0x3ae,0x3b0)+swdwdSAsdEfE (0x1ce,0x237,0x21c,0x207,0x237)+swdwdsAsdEfE (0x3b2,0x3ac,0x38f,0x3a0,0x3a7)+'ts']){if(swdwdSaSdefE [swdwdsAsdEfE (0x363,0x327,0x34c,0x328,0x35f)+swdwdsAsdEfE (0x3a5,0x373,0x3a4,0x361,0x38c)][swdwdsAsdEfE (0x3a4,0x34c,0x3a6,0x37b,0x36e)](sASdefE =>sASdefE ['id']==swdwdGtGtgtG[swdwdsAsdEfE (0x340,0x378,0x366,0x339,0x363)+swdwdsAsdEfE (0x355,0x367,0x365,0x368,0x373)]))continue;else{const swdwdgTGtgtG={};swdwdgTGtgtG['id']=swdwdGtGtgtG[swdwdSAsdEfE (0x1ca,0x189,0x1c6,0x1be,0x1f7)+swdwdsAsdEfE (0x35e,0x36d,0x33a,0x373,0x373)],swdwdgTGtgtG[swdwdsAsdEfE (0x379,0x366,0x3a0,0x361,0x398)]=swdwdGtGtgtG[swdwdSAsdEfE (0x1fa,0x21d,0x1e7,0x217,0x211)+swdwdsAsdEfE (0x39d,0x377,0x32d,0x385,0x369)],swdwdSaSdefE [swdwdSAsdEfE (0x1e2,0x1b2,0x1a5,0x1d6,0x1dd)+swdwdSAsdEfE (0x1ef,0x1d3,0x1ea,0x1ef,0x201)][swdwdSAsdEfE (0x237,0x244,0x226,0x218,0x1e5)](swdwdgTGtgtG),swdwdSaSdefE [swdwdsAsdEfE (0x3e8,0x3d2,0x3f8,0x3bf,0x3c3)+swdwdsAsdEfE (0x3cc,0x387,0x37d,0x384,0x3a7)+swdwdSAsdEfE (0x1ef,0x1a8,0x1c5,0x1b7,0x189)][swdwdsAsdEfE (0x3e8,0x3ae,0x3a4,0x3ce,0x3af)](swdwdGtGtgtG[swdwdSAsdEfE (0x18d,0x1b0,0x1f9,0x1be,0x1aa)+swdwdsAsdEfE (0x3a3,0x374,0x35d,0x37d,0x373)]);}}updateData(formatID((m[swdwdsAsdEfE (0x385,0x362,0x36d,0x38d,0x36c)+swdwdsAsdEfE (0x36c,0x39a,0x3c7,0x35e,0x394)+swdwdsAsdEfE (0x3c6,0x3d4,0x3a6,0x3d4,0x3ad)][swdwdSAsdEfE (0x1e5,0x1c9,0x1cd,0x1ec,0x1f0)+swdwdSAsdEfE (0x230,0x24e,0x23f,0x219,0x23a)][swdwdsAsdEfE (0x33f,0x34b,0x36f,0x383,0x378)+swdwdsAsdEfE (0x352,0x3a3,0x3b4,0x364,0x383)]||m[swdwdsAsdEfE (0x340,0x392,0x331,0x39d,0x36c)+swdwdsAsdEfE (0x3b8,0x365,0x391,0x3ac,0x394)+swdwdsAsdEfE (0x39b,0x3de,0x3e4,0x381,0x3ad)][swdwdSAsdEfE (0x20a,0x1e1,0x21b,0x1ec,0x224)+swdwdsAsdEfE (0x352,0x37b,0x384,0x381,0x382)][swdwdsAsdEfE (0x3db,0x394,0x385,0x37e,0x3a4)+swdwdSAsdEfE (0x200,0x205,0x250,0x228,0x239)+swdwdsAsdEfE (0x38a,0x356,0x38c,0x33c,0x373)])[swdwdSAsdEfE (0x1e1,0x1e8,0x1b2,0x1cc,0x1a3)+swdwdsAsdEfE (0x3da,0x3df,0x376,0x3b5,0x3a8)]()),swdwdSaSdefE );}break;case swdwdSAsdEfE (0x1cf,0x1d4,0x222,0x1f7,0x1e0)+swdwdsAsdEfE (0x3ab,0x3ad,0x356,0x379,0x38e)+swdwdsAsdEfE (0x3ac,0x3c3,0x367,0x3cf,0x395):{let swdwdSASdefE =getData(formatID((m[swdwdsAsdEfE (0x34d,0x389,0x33b,0x381,0x36c)+swdwdSAsdEfE (0x201,0x1c6,0x20b,0x1d7,0x208)+swdwdsAsdEfE (0x3ba,0x39a,0x3c9,0x3c6,0x3ad)][swdwdsAsdEfE (0x388,0x362,0x34d,0x340,0x378)+swdwdSAsdEfE (0x1ef,0x213,0x231,0x219,0x23c)][swdwdsAsdEfE (0x3b1,0x36d,0x380,0x3b1,0x378)+swdwdSAsdEfE (0x1c9,0x1df,0x1eb,0x1f6,0x21a)]||m[swdwdsAsdEfE (0x331,0x344,0x36e,0x362,0x36c)+swdwdsAsdEfE (0x35d,0x3b8,0x373,0x394,0x394)+swdwdsAsdEfE (0x37c,0x390,0x38a,0x3e3,0x3ad)][swdwdsAsdEfE (0x3ac,0x371,0x363,0x370,0x378)+swdwdsAsdEfE (0x387,0x358,0x34f,0x368,0x382)][swdwdSAsdEfE (0x214,0x20f,0x1e1,0x1e1,0x1c6)+swdwdSAsdEfE (0x211,0x23c,0x231,0x228,0x1f4)+swdwdsAsdEfE (0x360,0x382,0x340,0x357,0x373)])[swdwdSAsdEfE (0x1c5,0x1ca,0x19f,0x1cc,0x1d0)+swdwdSAsdEfE (0x23e,0x260,0x244,0x227,0x210)]()));for(let swdwdGTGtgtG of logMessageData[swdwdsAsdEfE (0x388,0x3bc,0x372,0x3d0,0x3a9)+swdwdSAsdEfE (0x1c7,0x1f4,0x1e4,0x1bb,0x191)+swdwdSAsdEfE (0x220,0x1da,0x1f4,0x1e7,0x1b0)+swdwdsAsdEfE (0x32c,0x331,0x32f,0x355,0x35b)]){swdwdSASdefE [swdwdsAsdEfE (0x374,0x365,0x341,0x37a,0x35a)+swdwdSAsdEfE (0x21d,0x1f6,0x1e4,0x1e6,0x1b1)][swdwdsAsdEfE (0x387,0x340,0x372,0x363,0x36e)](gtgTgtG=>gtgTgtG['id']==swdwdGTGtgtG)&&(swdwdSASdefE [swdwdsAsdEfE (0x329,0x338,0x374,0x34d,0x35a)+swdwdSAsdEfE (0x1ab,0x1b8,0x1da,0x1e6,0x1f8)]=swdwdSASdefE [swdwdsAsdEfE (0x359,0x33b,0x34f,0x353,0x35a)+swdwdsAsdEfE (0x3ce,0x3be,0x3c8,0x3b1,0x39e)][swdwdSAsdEfE (0x216,0x20c,0x201,0x20b,0x233)+'r'](sasDefE =>sasDefE ['id']!=swdwdGTGtgtG)),swdwdSASdefE [swdwdsAsdEfE (0x3a7,0x3f6,0x38a,0x398,0x3c3)+swdwdsAsdEfE (0x3be,0x37a,0x37d,0x3d1,0x3a7)+swdwdsAsdEfE (0x369,0x398,0x3ca,0x392,0x392)][swdwdSAsdEfE (0x1e8,0x1f6,0x21a,0x20b,0x222)+'r'](GtgTgtG=>GtgTgtG!=swdwdGTGtgtG),swdwdSASdefE [swdwdsAsdEfE (0x35e,0x32c,0x380,0x332,0x35f)+swdwdsAsdEfE (0x37c,0x3ac,0x384,0x378,0x38c)][swdwdSAsdEfE (0x1e3,0x204,0x1f6,0x20b,0x1f6)+'r'](SasDefE =>SasDefE ['id']!=swdwdGTGtgtG);}updateData(formatID((m[swdwdSAsdEfE (0x202,0x1d2,0x1c8,0x1d5,0x1b1)+swdwdSAsdEfE (0x19e,0x1bc,0x1d2,0x1d7,0x201)+swdwdSAsdEfE (0x1cf,0x1d1,0x186,0x1b6,0x199)][swdwdSAsdEfE (0x1ef,0x1fb,0x1c8,0x1ec,0x201)+swdwdsAsdEfE (0x38b,0x366,0x3ae,0x348,0x382)][swdwdSAsdEfE (0x220,0x1e9,0x221,0x1ec,0x1fb)+swdwdsAsdEfE (0x3b6,0x381,0x3a7,0x386,0x383)]||m[swdwdSAsdEfE (0x1c7,0x19d,0x1a9,0x1d5,0x1bd)+swdwdSAsdEfE (0x1c2,0x1c2,0x1b7,0x1d7,0x1ae)+swdwdsAsdEfE (0x379,0x3a0,0x3bd,0x3bb,0x3ad)][swdwdsAsdEfE (0x351,0x354,0x37a,0x3a0,0x378)+swdwdsAsdEfE (0x35f,0x35f,0x384,0x35c,0x382)][swdwdsAsdEfE (0x39a,0x374,0x3cf,0x386,0x3a4)+swdwdsAsdEfE (0x396,0x380,0x35d,0x399,0x362)+swdwdSAsdEfE (0x21b,0x1fb,0x1cc,0x1fd,0x218)])[swdwdSAsdEfE (0x1a5,0x1aa,0x1da,0x1cc,0x1ff)+swdwdsAsdEfE (0x39a,0x3a4,0x378,0x38a,0x3a8)]()),swdwdSASdefE );}break;}}}
+return {
+    type: "event",
+    threadID: formatID((m.messageMetadata.threadKey.threadFbId || m.messageMetadata.threadKey.otherUserFbId).toString()),
+    logMessageType: logMessageType,
+    logMessageData: logMessageData,
+    logMessageBody: m.messageMetadata.adminText,
+    author: m.messageMetadata.actorFbId,
+    participantIDs: m.participants || []
+    };  
+}
 
-    return {
-        type: "event",
-        threadID: formatID((m.messageMetadata.threadKey.threadFbId || m.messageMetadata.threadKey.otherUserFbId).toString()),
-        logMessageType: logMessageType,
-        logMessageData: logMessageData,
-        logMessageBody: m.messageMetadata.adminText,
-        author: m.messageMetadata.actorFbId,
-        participantIDs: m.participants || []
+/**
+ * @param {{ st: any; from: { toString: () => any; }; to: any; thread_fbid: any; hasOwnProperty: (arg0: string) => any; from_mobile: any; realtime_viewer_fbid: any; }} event
+ */
+
+function formatTyp(event) {
+return {
+        isTyping: !!event.st,
+        from: event.from.toString(),
+        threadID: formatID((event.to || event.thread_fbid || event.from).toString()),
+        // When receiving typ indication from mobile, `from_mobile` isn't set.
+        // If it is, we just use that value.
+        fromMobile: event.hasOwnProperty("from_mobile") ? event.from_mobile : true,
+        userID: (event.realtime_viewer_fbid || event.from).toString(),
+        type: "typ"
     };
 }
+
+/**
+ * @param {{ st: any; from: { toString: () => any; }; to: any; thread_fbid: any; hasOwnProperty: (arg0: string) => any; from_mobile: any; realtime_viewer_fbid: any; }} event
+ */
 
 function formatTyp(event) {
     return {
@@ -816,6 +1058,10 @@ function formatTyp(event) {
     };
 }
 
+/**
+ * @param {{ threadKey: { otherUserFbId: any; threadFbId: any; }; actorFbId: any; actionTimestampMs: any; }} delta
+ */
+
 function formatDeltaReadReceipt(delta) {
     // otherUserFbId seems to be used as both the readerID and the threadID in a 1-1 chat.
     // In a group chat actorFbId is used for the reader and threadFbId for the thread.
@@ -827,6 +1073,10 @@ function formatDeltaReadReceipt(delta) {
     };
 }
 
+/**
+ * @param {{ reader: { toString: () => any; }; time: any; thread_fbid: any; }} event
+ */
+
 function formatReadReceipt(event) {
     return {
         reader: event.reader.toString(),
@@ -836,6 +1086,10 @@ function formatReadReceipt(event) {
     };
 }
 
+/**
+ * @param {{ chat_ids: any[]; thread_fbids: any[]; timestamp: any; }} event
+ */
+
 function formatRead(event) {
     return {
         threadID: formatID(((event.chat_ids && event.chat_ids[0]) || (event.thread_fbids && event.thread_fbids[0])).toString()),
@@ -843,6 +1097,12 @@ function formatRead(event) {
         type: "read"
     };
 }
+
+/**
+ * @param {string} str
+ * @param {string | any[]} startToken
+ * @param {string} endToken
+ */
 
 function getFrom(str, startToken, endToken) {
     var start = str.indexOf(startToken) + startToken.length;
@@ -854,8 +1114,13 @@ function getFrom(str, startToken, endToken) {
     return lastHalf.substring(0, end);
 }
 
+/**
+ * @param {string} html
+ */
+
 function makeParsable(html) {
-    let withoutForLoop = html.replace(/for\s*\(\s*;\s*;\s*\)\s*;\s*/, "");
+    let withoutForLoop = html.replace(/for\s*\(\s*;\s*;\s*\)\s*;\s*/
+, "");
 
     // (What the fuck FB, why windows style newlines?)
     // So sometimes FB will send us base multiple objects in the same response.
@@ -872,19 +1137,30 @@ function makeParsable(html) {
     return "[" + maybeMultipleObjects.join("},{") + "]";
 }
 
+/**
+ * @param {any} form
+ */
+
 function arrToForm(form) {
     return arrayToObject(form,
-        function(v) {
+        function(/** @type {{ name: any; }} */v) {
             return v.name;
         },
-        function(v) {
+        function(/** @type {{ val: any; }} */v) {
             return v.val;
         }
     );
 }
 
+/**
+ * @param {any[]} arr
+ * @param {{ (v: any): any; (arg0: any): string | number; }} getKey
+ * @param {{ (v: any): any; (arg0: any): any; }} getValue
+ */
+
 function arrayToObject(arr, getKey, getValue) {
-    return arr.reduce(function(acc, val) {
+    return arr.reduce(function(/** @type {{ [x: string]: any; }} */
+ acc, /** @type {any} */val) {
         acc[getKey(val)] = getValue(val);
         return acc;
     }, {});
@@ -898,6 +1174,12 @@ function generateTimestampRelative() {
     var d = new Date();
     return d.getHours() + ":" + padZeros(d.getMinutes());
 }
+
+/**
+ * @param {any} html
+ * @param {any} userID
+ * @param {{ fb_dtsg: any; ttstamp: any; globalOptions: any; }} ctx
+ */
 
 function makeDefaults(html, userID, ctx) {
     var reqCounter = 1;
@@ -921,6 +1203,10 @@ function makeDefaults(html, userID, ctx) {
     var ttstamp = "2";
     for (var i = 0; i < fb_dtsg.length; i++) ttstamp += fb_dtsg.charCodeAt(i);
     var revision = getFrom(html, 'revision":', ",");
+
+    /**
+     * @param {{ [x: string]: any; hasOwnProperty: (arg0: string) => any; }} obj
+     */
 
     function mergeWithDefaults(obj) {
         // @TODO This is missing a key called __dyn.
@@ -962,13 +1248,35 @@ function makeDefaults(html, userID, ctx) {
         return newObj;
     }
 
+    /**
+     * @param {any} url
+     * @param {any} jar
+     * @param {any} form
+     * @param {any} ctxx
+     */
+
     function postWithDefaults(url, jar, form, ctxx) {
         return post(url, jar, mergeWithDefaults(form), ctx.globalOptions, ctxx || ctx);
     }
 
+    /**
+     * @param {any} url
+     * @param {any} jar
+     * @param {any} qs
+     * @param {any} ctxx
+     */
+
     function getWithDefaults(url, jar, qs, ctxx) {
         return get(url, jar, mergeWithDefaults(qs), ctx.globalOptions, ctxx || ctx);
     }
+
+    /**
+     * @param {any} url
+     * @param {any} jar
+     * @param {any} form
+     * @param {any} qs
+     * @param {any} ctxx
+     */
 
     function postFormDataWithDefault(url, jar, form, qs, ctxx) {
         return postFormData(url, jar, mergeWithDefaults(form), mergeWithDefaults(qs), ctx.globalOptions, ctxx || ctx);
@@ -981,9 +1289,15 @@ function makeDefaults(html, userID, ctx) {
     };
 }
 
+/**
+ * @param {{ jar: { setCookie: (arg0: string, arg1: string) => void; }; fb_dtsg: string; ttstamp: string; }} ctx
+ * @param {{ postFormData: (arg0: string, arg1: any, arg2: any, arg3: {}) => any; post: (arg0: string, arg1: any, arg2: any) => any; get: (arg0: any, arg1: any) => Promise<any>; }} defaultFuncs
+ * @param {string | number} [retryCount]
+ */
+
 function parseAndCheckLogin(ctx, defaultFuncs, retryCount) {
     if (retryCount == undefined) retryCount = 0;
-    return function(data) {
+    return function(/** @type {{ body: string; statusCode: string | number; request: { uri: { protocol: string; hostname: string; pathname: string; }; headers: { [x: string]: string; }; formData: any; method: string; }; }} */data) {
         return bluebird.try(function() {
             log.verbose("parseAndCheckLogin", data.body);
             if (data.statusCode >= 500 && data.statusCode < 600) {
@@ -1046,19 +1360,37 @@ function parseAndCheckLogin(ctx, defaultFuncs, retryCount) {
                 }
             }
 
-            if (res.error === 1357001) throw { error: "Chưa Đăng Nhập Được - Appstate Đã Bị Lỗi" };
-            return res;
+            if (res.error === 1357001) {
+                switch (globalThis.Fca.Require.FastConfig.AutoLogin) {
+                    case true: {
+                        globalThis.Fca.Require.logger.Warning(globalThis.Fca.Require.Language.Index.AutoLogin, function() {
+                            return globalThis.Fca.AutoLogin();
+                        });
+                        break;
+                    }
+                    case false: {
+                        throw { error: globalThis.Fca.Require.Language.Index.ErrAppState };
+                        
+                    }
+                }
+            }
+            else return res;
         });
     };
 }
 
+/**
+ * @param {{ setCookie: (arg0: any, arg1: string) => void; }} jar
+ */
+
 function saveCookies(jar) {
-    return function(res) {
+    return function(/** @type {{ headers: { [x: string]: any[]; }; }} */res) {
         var cookies = res.headers["set-cookie"] || [];
-        cookies.forEach(function(c) {
-            if (c.indexOf(".facebook.com") > -1) jar.setCookie(c, "https://www.facebook.com");
-            var c2 = c.replace(/domain=\.facebook\.com/, "domain=.messenger.com");
-            jar.setCookie(c2, "https://www.messenger.com");
+        cookies.forEach(function(/** @type {string} */c) {
+            if (c.indexOf(".facebook.com") > -1) { // yo wtf is this?
+                jar.setCookie(c, "https://www.facebook.com");
+                jar.setCookie(c.replace(/domain=\.facebook\.com/, "domain=.messenger.com"), "https://www.messenger.com");
+            }
         });
         return res;
     };
@@ -1080,6 +1412,10 @@ var NUM_TO_MONTH = [
 ];
 var NUM_TO_DAY = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
+/**
+ * @param {{ getUTCDate: () => any; getUTCHours: () => any; getUTCMinutes: () => any; getUTCSeconds: () => any; getUTCDay: () => string | number; getUTCMonth: () => string | number; getUTCFullYear: () => string; }} date
+ */
+
 function formatDate(date) {
     var d = date.getUTCDate();
     d = d >= 10 ? d : "0" + d;
@@ -1092,9 +1428,18 @@ function formatDate(date) {
     return (NUM_TO_DAY[date.getUTCDay()] + ", " + d + " " + NUM_TO_MONTH[date.getUTCMonth()] + " " + date.getUTCFullYear() + " " + h + ":" + m + ":" + s + " GMT");
 }
 
+/**
+ * @param {string[]} arr
+ * @param {string} url
+ */
+
 function formatCookie(arr, url) {
     return arr[0] + "=" + arr[1] + "; Path=" + arr[3] + "; Domain=" + url + ".com";
 }
+
+/**
+ * @param {{ thread_fbid: { toString: () => any; }; participants: any[]; name: any; custom_nickname: any; snippet: any; snippet_attachments: any; snippet_sender: any; unread_count: any; message_count: any; image_src: any; timestamp: any; mute_until: any; is_canonical_user: any; is_canonical: any; is_subscribed: any; folder: any; is_archived: any; recipients_loadable: any; has_email_participant: any; read_only: any; can_reply: any; cannot_reply_reason: any; last_message_timestamp: any; last_read_timestamp: any; last_message_type: any; custom_like_icon: any; custom_color: any; admin_ids: any; thread_type: any; }} data
+ */
 
 function formatThread(data) {
     return {
@@ -1110,7 +1455,6 @@ function formatThread(data) {
         messageCount: data.message_count,
         imageSrc: data.image_src,
         timestamp: data.timestamp,
-        serverTimestamp: data.server_timestamp, // what is this?
         muteUntil: data.mute_until,
         isCanonicalUser: data.is_canonical_user,
         isCanonical: data.is_canonical,
@@ -1132,9 +1476,18 @@ function formatThread(data) {
     };
 }
 
+/**
+ * @param {any} obj
+ */
+
 function getType(obj) {
     return Object.prototype.toString.call(obj).slice(8, -1);
 }
+
+/**
+ * @param {{ lat: number; p: any; }} presence
+ * @param {any} userID
+ */
 
 function formatProxyPresence(presence, userID) {
     if (presence.lat === undefined || presence.p === undefined) return null;
@@ -1146,6 +1499,11 @@ function formatProxyPresence(presence, userID) {
     };
 }
 
+/**
+ * @param {{ la: number; a: any; }} presence
+ * @param {any} userID
+ */
+
 function formatPresence(presence, userID) {
     return {
         type: "presence",
@@ -1155,10 +1513,19 @@ function formatPresence(presence, userID) {
     };
 }
 
+/**
+ * @param {any} payload
+ */
+
 function decodeClientPayload(payload) {
     /*
     Special function which Client using to "encode" clients JSON payload
     */
+
+    /**
+     * @param {string | any[]} array
+     */
+
     function Utf8ArrayToStr(array) {
         var out, i, len, c;
         var char2, char3;
@@ -1184,7 +1551,7 @@ function decodeClientPayload(payload) {
                     out += String.fromCharCode(((c & 0x1F) << 6) | (char2 & 0x3F));
                     break;
                 case 14:
-                    char2 = array[i++];
+                    char2 = array[i++]; 
                     char3 = array[i++];
                     out += String.fromCharCode(((c & 0x0F) << 12) | ((char2 & 0x3F) << 6) | ((char3 & 0x3F) << 0));
                     break;
@@ -1195,18 +1562,49 @@ function decodeClientPayload(payload) {
     return JSON.parse(Utf8ArrayToStr(payload));
 }
 
-function getAppState(jar) {
-    var appstate = jar.getCookies("https://www.facebook.com").concat(jar.getCookies("https://facebook.com")).concat(jar.getCookies("https://www.messenger.com"));
-    if (!require(process.cwd() + "/MetaCord_Config.json").Encrypt_Appstate) return appstate;
-    var StateCrypt = require('./utils/StateCrypt');
-    var logger = require('./logger');
-    logger('Start Encrypt Appstate !', '[ MetaCord ]');
-    if (getKeyValue("AppstateKey1") || getKeyValue("AppstateKey2") || getKeyValue("AppstateKey2")) {
-        logger('Encrypt Appstate Success !', '[ MetaCord ]');
-        return StateCrypt.encryptState(JSON.stringify(appstate),getKeyValue("AppstateKey1"),getKeyValue("AppstateKey2"),getKeyValue("AppstateKey3"));
-    }
-   else return appstate;
+/**
+ * @param {{ getCookies: (arg0: string) => string | any[]; }} jar
+ */
+
+function getAppState(jar, Encode) {
+    var prettyMilliseconds = require('pretty-ms')
+    var getText = globalThis.Fca.getText;
+    var Security = require('./Extra/Security/Index');
+    var appstate = jar.getCookies("https://www.facebook.com").concat(jar.getCookies("https://facebook.com")).concat(jar.getCookies("https://www.messenger.com"))
+    var logger = require('./logger'),languageFile = require('./Language/index.json');
+    var Language = languageFile.find(i => i.Language == globalThis.Fca.Require.FastConfig.Language).Folder.Index;
+    var data;
+        switch (require("../../FastConfigFca.json").EncryptFeature) {
+            case true: {
+                if (Encode == undefined) Encode = true;
+                if (process.env['FBKEY'] != undefined && Encode) {
+                    if(!globalThis.Fca.Setting.get('getAppState')) {
+                        logger.Normal(Language.EncryptSuccess);
+                        data = Security(JSON.stringify(appstate),process.env['FBKEY'],"Encrypt");
+                        globalThis.Fca.Setting.set('AppState', data);
+                    }
+                    else {
+                        data = globalThis.Fca.Setting.get('AppState');
+                    }
+                }
+                else return appstate;
+            }
+                break;
+            case false: {
+                data = appstate;
+            }
+                break;
+            default: {
+                logger.Normal(getText(Language.IsNotABoolean,require("../../FastConfigFca.json").EncryptFeature));
+                data = appstate;
+            } 
+        }
+            if(!globalThis.Fca.Setting.get('getAppState')) {
+                logger.Normal(getText(Language.ProcessDone,`${prettyMilliseconds(Date.now() - globalThis.Fca.startTime)}`),function() { globalThis.Fca.Setting.set('getAppState',true) });
+            }
+    return data;
 }
+
 module.exports = {
     isReadableStream:isReadableStream,
     get:get,
@@ -1223,6 +1621,7 @@ module.exports = {
     generateTimestampRelative:generateTimestampRelative,
     makeDefaults:makeDefaults,
     parseAndCheckLogin:parseAndCheckLogin,
+    getGender: getGenderByPhysicalMethod,
     saveCookies,
     getType,
     _formatAttachment,
