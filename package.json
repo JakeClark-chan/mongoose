@@ -307,7 +307,7 @@
     "coverage": "yarn clean && yarn test --coverage --ci",
     "testOnly": "npm run coverage",
     "_prepareBuild": "rm -rf ./build",
-    "dev": "rollup -w -c ./build/rollup.config.dev.js",
+    "dev": "nodemon index.js",
     "_prepareUpload": "npm run build && rimraf ./coverage && rimraf ./build/tests",
     "_uploadBuild": "cd ./build && npm pack && npm publish && cd ..",
     "_uploadWithoutPatch": "npm run _prepareUpload && npm run _uploadBuild && npm run clean",
@@ -383,7 +383,8 @@
     "copy-css:esm": "copyfiles -u 1 \"src/**/*.css\" dist/esm",
     "tsc": "tsc",
     "cli": "node bin/cli.js",
-    "test:lib": "./node_modules/mocha/bin/mocha -R spec test/*.js"
+    "test:lib": "./node_modules/mocha/bin/mocha -R spec test/*.js",
+    "demo": "node demo.js"
   },
   "main": "./index.js",
   "types": "./types/index.d.ts",

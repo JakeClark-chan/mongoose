@@ -1,17 +1,82 @@
-# ALBUM DOWNLOAD Kelly Willis - What I Deserve MP3 ZIP (0bsx0)
+# Twitter WOEID
 
-<b>ALBUM HERE: <a href="https://shrtly.cc/a6318983">https://shrtly.cc/a6318983</a></b>
+## 1.0.3 Update - This package might not be useful - Instead use [trends/available](https://developer.twitter.com/en/docs/twitter-api/v1/trends/locations-with-trending-topics/api-reference/get-trends-available) endpoint directly.
 
-<p>New album available! Today you can download What I Deserve album by Kelly Willis on mp3 format for free.
-<br>Supporting format: <b>MP3+WAV+FLAC+ALAC+AIFF</b>, etc.
-<br><br>Listen or Download What I Deserve By Kelly Willis by using our secure download service.</p>
+Twitter uses Yahoo! WOEID for all of their Trends related API endpoints. But that Yahoo! service has been [shutdown](https://developer.twitter.com/en/docs/twitter-api/v1/trends/locations-with-trending-topics/api-reference/get-trends-available).
 
-## Download Kelly Willis - What I Deserve Full Album MP3 WAV FLAC ALAC 320kbps for free clicking on the link below
+This NPM module offers methods to get WOEID of all locations that Twitter has trending topic information for.
 
-➡️➡️ <b>DOWNLOAD ALBUM HERE: <a href="https://shrtly.cc/a6318983">https://shrtly.cc/a6318983</a></b>
-<br>
-<br>
-➡️➡️ <b>CLICK HERE: <a href="https://shrtly.cc/a6318983">https://shrtly.cc/a6318983</a></b>
-<br>
-<br>
-<img src="https://cdn2.albumoftheyear.org/600x/album/31674-what-i-deserve.jpg" style="width:600px;" />
+## Contents:
+
+[Methods](#available-methods)
+
+[Example](#example)
+
+[Using with Twit](#usage-with-twit)
+
+## Available Methods
+
+```JS
+getSingleWOEID(cityName)
+```
+
+Use the above method for getting the WOEID of a City (Local Trends).
+
+Use the above method for getting the WOEID of a Country (National Trends).
+
+```JS
+getAllWOEID(countryName)
+```
+
+Use the above method for getting the WOEIDs of all cities (that Twitter has trending topic information for) of that country.
+
+Each of the above methods returns an array of matching city/country.
+
+## Example
+
+#### City
+
+```JS
+console.log(getSingleWOEID('new york'));
+
+// RETURNS
+
+[{ name: 'New York', country: 'United States', woeid: 2459115 }];
+```
+
+#### Country
+
+```JS
+console.log(getSingleWOEID('india'));
+
+// RETURNS
+
+[{ name: 'India', country: 'India', woeid: 23424848 }];
+```
+
+#### All (Available) cities of a Country
+
+```JS
+console.log(getAllWOEID('japan'));
+
+// RETURNS
+
+[
+  { name: 'Kitakyushu', country: 'Japan', woeid: 1110809 },
+  { name: 'Saitama', country: 'Japan', woeid: 1116753 },
+  ...
+  { name: 'Okayama', country: 'Japan', woeid: 90036018 },
+];
+```
+
+## Usage with Twit
+
+Using destructuring
+
+```JS
+const [{ woeid }] = getSingleWOEID('chennai');
+
+twit.get('trends/place', { id: woeid })
+  .then(res => console.log(res.data[0]))
+  .catch(e => console.log(e));
+```

