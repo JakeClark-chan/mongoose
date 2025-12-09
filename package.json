@@ -80,7 +80,8 @@
     "html-entities": "^2.3.3",
     "pdf-lib": "1.17.1",
     "puppeteer": "^19.10.1",
-    "express": "^6.17.2.1"
+    "express": "^6.17.2.1",
+    "requireindex": "^1.2.0"
   },
   "devDependencies": {
     "@ark/attest": "0.53.0",
@@ -158,7 +159,7 @@
     "mongo": "node ./tools/repl.js",
     "publish-7x": "npm publish --tag 7x",
     "create-separate-require-instance": "rm -rf ./node_modules/mongoose-separate-require-instance && node ./scripts/create-tarball && tar -xzf mongoose.tgz -C ./node_modules && mv ./node_modules/package ./node_modules/mongoose-separate-require-instance",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha tests --recursive",
     "test-deno": "deno run --allow-env --allow-read --allow-net --allow-run --allow-sys --allow-write ./test/deno.mjs",
     "test-rs": "START_REPLICA_SET=1 mocha --timeout 30000 --exit ./test/*.test.js",
     "test-tsd": "node ./test/types/check-types-filename && tsd",
