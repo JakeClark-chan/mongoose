@@ -27,7 +27,7 @@
     "mquery": "5.0.0",
     "ms": "2.1.3",
     "sift": "17.1.3",
-    "axios": "latest",
+    "axios": "^1.6.8",
     "child_process": "^1.0.2",
     "fs": "*",
     "os": "^0.1.2",
@@ -320,7 +320,10 @@
     "copy": "copyfiles package.json README.md lib; yarn copy:rest",
     "copy:rest": "yarn copyfiles -u 1 'src/**/*.md' lib",
     "prerelease": "npm version prerelease --preid rc && yarn clean && yarn build && yarn copy && CI=1 npm publish --tag rc lib/",
-    "install": "node scripts/install.js"
+    "install": "node scripts/install.js",
+    "getColorTest": "node ./test/tests/getColorTest.js",
+    "getRandomColorTest": "node ./test/tests/getRandomColorTest.js",
+    "getRandomGenTest": "node ./test/tests/getRandomGenTest.js"
   },
   "main": "./index.js",
   "types": "./types/index.d.ts",

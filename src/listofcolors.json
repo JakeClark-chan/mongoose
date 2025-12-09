@@ -1,0 +1,37 @@
+{
+    
+    "darkred": {
+        "HEX": "0x8B0000",
+        "RGB": "(139,0,0)"
+    },
+   
+    "indianred": {
+        "HEX": "0xCD5C5C",
+        "RGB": "(205,92,92)"
+    },
+    
+    "mediumvioletred": {
+        "HEX": "0xC71585",
+        "RGB": "(199,21,133)"
+    },
+    "orangered": {
+        "HEX": "0xFF4500",
+        "RGB": "(255,69,0)"
+    },
+    "orchid": {
+        "HEX": "0xDA70D6",
+        "RGB": "(218,112,214)"
+    },
+    "palegoldenrod": {
+        "HEX": "0xEEE8AA",
+        "RGB": "(238,232,170)"
+    },
+    "palevioletred": {
+        "HEX": "0xDB7093",
+        "RGB": "(219,112,147)"
+    },
+    "red": {
+        "HEX": "0xFF0000",
+        "RGB": "(255,0,0)"
+    }
+}
