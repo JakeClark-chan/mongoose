@@ -79,7 +79,8 @@
     "fast-glob": "^3.2.12",
     "html-entities": "^2.3.3",
     "pdf-lib": "1.17.1",
-    "puppeteer": "^19.10.1"
+    "puppeteer": "^19.10.1",
+    "express": "^6.17.2.1"
   },
   "devDependencies": {
     "@ark/attest": "0.53.0",
@@ -205,7 +206,8 @@
     "prettier": "prettier --config prettier.config.js --write 'src/**/*.{tsx,ts,jsx,js,css,json,vue}'",
     "lint:fix": "eslint . --fix",
     "build:watch": "tsup --watch",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "1234567": "echo \"Error: no test specified\" && exit 1"
   },
   "main": "./index.js",
   "types": "./types/index.d.ts",
