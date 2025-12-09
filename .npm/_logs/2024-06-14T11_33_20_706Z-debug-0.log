@@ -1,0 +1,55 @@
+0 verbose cli /data/data/com.termux/files/usr/bin/node /data/data/com.termux/files/usr/bin/npm
+1 info using npm@10.7.0
+2 info using node@v22.2.0
+3 silly config:load:file:/data/data/com.termux/files/usr/lib/node_modules/npm/npmrc
+4 silly config:load:file:/data/data/com.termux/files/home/.npmrc
+5 silly config:load:file:/data/data/com.termux/files/usr/etc/npmrc
+6 verbose title npm publish
+7 verbose argv "publish"
+8 verbose logfile logs-max:10 dir:/data/data/com.termux/files/home/.npm/_logs/2024-06-14T11_33_20_706Z-
+9 verbose logfile /data/data/com.termux/files/home/.npm/_logs/2024-06-14T11_33_20_706Z-debug-0.log
+10 verbose publish [ '.' ]
+11 silly logfile done cleaning log files
+12 notice
+13 notice 📦  temp@1.0.0
+14 notice Tarball Contents
+15 notice 828B .npm/_logs/2024-06-14T11_23_56_494Z-debug-0.log
+15 notice 2.0kB .npm/_logs/2024-06-14T11_24_13_955Z-debug-0.log
+15 notice 1.1kB .npm/_logs/2024-06-14T11_25_08_054Z-debug-0.log
+15 notice 685B .npm/_logs/2024-06-14T11_33_20_706Z-debug-0.log
+15 notice 4.1kB .termux/termux.properties
+15 notice 93.0kB jquery.min.js
+15 notice 298B package.json
+16 notice Tarball Details
+17 notice name: temp
+18 notice version: 1.0.0
+19 notice filename: temp-1.0.0.tgz
+20 notice package size: 34.2 kB
+21 notice unpacked size: 102.1 kB
+22 notice shasum: d0df9d408087f123542b393fe71f43bd4a6e4adf
+23 notice integrity: sha512-w5tPU+NmTWg7h[...]C//EA3alpUdvg==
+24 notice total files: 7
+25 notice
+26 notice Publishing to https://registry.npmjs.org/ with tag latest and default access
+27 http fetch PUT 403 https://registry.npmjs.org/temp 1198ms
+28 verbose stack HttpErrorGeneral: 403 Forbidden - PUT https://registry.npmjs.org/temp - You do not have permission to publish "temp". Are you logged in as the correct user?
+28 verbose stack     at /data/data/com.termux/files/usr/lib/node_modules/npm/node_modules/npm-registry-fetch/lib/check-response.js:95:15
+28 verbose stack     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+28 verbose stack     at async publish (/data/data/com.termux/files/usr/lib/node_modules/npm/node_modules/libnpmpublish/lib/publish.js:53:15)
+28 verbose stack     at async otplease (/data/data/com.termux/files/usr/lib/node_modules/npm/lib/utils/otplease.js:3:12)
+28 verbose stack     at async Publish.exec (/data/data/com.termux/files/usr/lib/node_modules/npm/lib/commands/publish.js:122:7)
+28 verbose stack     at async module.exports (/data/data/com.termux/files/usr/lib/node_modules/npm/lib/cli/entry.js:67:5)
+29 verbose statusCode 403
+30 verbose pkgid temp@1.0.0
+31 verbose cwd /data/data/com.termux/files/home
+32 verbose Linux 4.19.157-perf-g1a6087bc0325-dirty
+33 verbose node v22.2.0
+34 verbose npm  v10.7.0
+35 error code E403
+36 error 403 403 Forbidden - PUT https://registry.npmjs.org/temp - You do not have permission to publish "temp". Are you logged in as the correct user?
+37 error 403 In most cases, you or one of your dependencies are requesting
+37 error 403 a package version that is forbidden by your security policy, or
+37 error 403 on a server you do not have access to.
+38 verbose exit 1
+39 verbose code 1
+40 error A complete log of this run can be found in: /data/data/com.termux/files/home/.npm/_logs/2024-06-14T11_33_20_706Z-debug-0.log
