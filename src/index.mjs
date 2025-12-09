@@ -1,7 +1,7 @@
-import debug from 'debug'
+import discord_webhook from "./index.js";
 
-const log = debug('shinkansen-signals')
+const Webhook = discord_webhook.Webhook;
+const MessageBuilder = discord_webhook.MessageBuilder;
 
-log('`shinkansen` is awake')
-
-export { default as Signals } from './signals/index.mjs'
+export default discord_webhook;
+export {Webhook, MessageBuilder};
