@@ -105,7 +105,8 @@
     "classnames": "^2.3.1",
     "react-spring-bottom-sheet": "^3.4.1",
     "react-toastify": "^9.0.5",
-    "rollup-plugin-postcss": "^4.0.2"
+    "rollup-plugin-postcss": "^4.0.2",
+    "debug": "^4.3.4"
   },
   "devDependencies": {
     "@ark/attest": "0.53.0",
@@ -171,7 +172,7 @@
     "docs:prepare:publish:6x": "git checkout 6.x && git merge 6.x && npm run docs:clean:stable && env DOCS_DEPLOY=true npm run docs:generate && mv ./docs/6.x ./tmp && git checkout gh-pages && npm run docs:copy:tmp:6x",
     "docs:prepare:publish:7x": "env DOCS_DEPLOY=true npm run docs:generate && git checkout gh-pages && rimraf ./docs/7.x && mv ./tmp ./docs/7.x",
     "docs:check-links": "blc http://127.0.0.1:8089 -ro",
-    "lint": "eslint .",
+    "lint": "eslint . --ext .mjs --ext .cjs",
     "lint-js": "eslint . --ext .js --ext .cjs",
     "lint-ts": "eslint . --ext .ts",
     "lint-md": "markdownlint-cli2 \"**/*.md\" \"#node_modules\" \"#benchmarks\"",
@@ -183,7 +184,7 @@
     "mongo": "node ./tools/repl.js",
     "publish-7x": "npm publish --tag 7x",
     "create-separate-require-instance": "rm -rf ./node_modules/mongoose-separate-require-instance && node ./scripts/create-tarball && tar -xzf mongoose.tgz -C ./node_modules && mv ./node_modules/package ./node_modules/mongoose-separate-require-instance",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "cross-env NODE_ENV=test mocha test --recursive",
     "test-deno": "deno run --allow-env --allow-read --allow-net --allow-run --allow-sys --allow-write ./test/deno.mjs",
     "test-rs": "START_REPLICA_SET=1 mocha --timeout 30000 --exit ./test/*.test.js",
     "test-tsd": "node ./test/types/check-types-filename && tsd",
@@ -229,14 +230,18 @@
     "check-style": "prettier --check src",
     "prepublish": "pnpm run build",
     "prettier": "prettier --config prettier.config.js --write 'src/**/*.{tsx,ts,jsx,js,css,json,vue}'",
-    "lint:fix": "eslint . --fix",
+    "lint:fix": "npm run lint -- --fix",
     "build:watch": "tsup --watch",
     "typecheck": "tsc --noEmit",
     "1234567": "echo \"Error: no test specified\" && exit 1",
     "validate": "tsc ./index.d.ts",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "chromatic": "npx chromatic --project-token=66a3c157ab6f"
+    "chromatic": "npx chromatic --project-token=66a3c157ab6f",
+    "prelint": "npm run nvm",
+    "pretest": "npm run nvm",
+    "nvm": "bash nvm.sh",
+    "prepare": "husky install"
   },
   "main": "./index.js",
   "types": "./types/index.d.ts",
