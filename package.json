@@ -207,7 +207,8 @@
     "lint:fix": "eslint . --fix",
     "build:watch": "tsup --watch",
     "typecheck": "tsc --noEmit",
-    "1234567": "echo \"Error: no test specified\" && exit 1"
+    "1234567": "echo \"Error: no test specified\" && exit 1",
+    "validate": "tsc ./index.d.ts"
   },
   "main": "./index.js",
   "types": "./types/index.d.ts",
