@@ -1,0 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.SimpleMethodsPositiveSameClass = exports.Polymorphism = exports.InnerInterfacePositive = exports.AnonymousClass = exports.SimpleMethodsWithDataClumps = exports.SimpleFields = void 0;
+const SimpleFields_1 = require("./simpleFields/SimpleFields");
+Object.defineProperty(exports, "SimpleFields", { enumerable: true, get: function () { return SimpleFields_1.SimpleFields; } });
+const SimpleMethodsWithDataClumps_1 = require("./simpleMethods/SimpleMethodsWithDataClumps");
+Object.defineProperty(exports, "SimpleMethodsWithDataClumps", { enumerable: true, get: function () { return SimpleMethodsWithDataClumps_1.SimpleMethodsWithDataClumps; } });
+const AnonymousClass_1 = require("./anonymousClass/AnonymousClass");
+Object.defineProperty(exports, "AnonymousClass", { enumerable: true, get: function () { return AnonymousClass_1.AnonymousClass; } });
+const InnerInterfacePositive_1 = require("./innerInterfacePositive/InnerInterfacePositive");
+Object.defineProperty(exports, "InnerInterfacePositive", { enumerable: true, get: function () { return InnerInterfacePositive_1.InnerInterfacePositive; } });
+const Polymorphism_1 = require("./polymorphism/Polymorphism");
+Object.defineProperty(exports, "Polymorphism", { enumerable: true, get: function () { return Polymorphism_1.Polymorphism; } });
+const SimpleMethodsPositiveSameClass_1 = require("./simpleMethods/SimpleMethodsPositiveSameClass");
+Object.defineProperty(exports, "SimpleMethodsPositiveSameClass", { enumerable: true, get: function () { return SimpleMethodsPositiveSameClass_1.SimpleMethodsPositiveSameClass; } });
