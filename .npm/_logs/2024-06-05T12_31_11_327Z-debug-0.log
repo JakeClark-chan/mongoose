@@ -1,0 +1,76 @@
+0 verbose cli /data/data/com.termux/files/usr/bin/node /data/data/com.termux/files/usr/bin/npm
+1 info using npm@10.7.0
+2 info using node@v22.2.0
+3 silly config:load:file:/data/data/com.termux/files/usr/lib/node_modules/npm/npmrc
+4 silly config:load:file:/data/data/com.termux/files/home/.npmrc
+5 silly config:load:file:/data/data/com.termux/files/usr/etc/npmrc
+6 verbose title npm publish
+7 verbose argv "publish"
+8 verbose logfile logs-max:10 dir:/data/data/com.termux/files/home/.npm/_logs/2024-06-05T12_31_11_327Z-
+9 verbose logfile /data/data/com.termux/files/home/.npm/_logs/2024-06-05T12_31_11_327Z-debug-0.log
+10 verbose publish [ '.' ]
+11 silly logfile start cleaning logs, removing 1 files
+12 silly logfile done cleaning log files
+13 notice
+14 notice 📦  xytta@1.0.0
+15 notice Tarball Contents
+16 notice 939B .bash_history
+16 notice 103.7kB .npm/_cacache/content-v2/sha512/36/12/5e3f61388c48e3df25cf9bbedae4af251fe3235e28dd3076d4693dc14886dc57cb103d5dc7c28beffa24e5def13f0cb90f6ed2695ddc030d85600d4e5f14
+16 notice 34.8kB .npm/_cacache/content-v2/sha512/91/70/26e2343e480eda7625c03788fc7f1cced09d9f9a688c5bc3f3dda2b5735c833db959eefff7dc1b15c01dfa7b76326cdd393c7d1ccef1d279a0adaeb287c0
+16 notice 1.4kB .npm/_cacache/content-v2/sha512/ac/45/2212ef5d312b9c57e0697175c12286799739c46236797304055c48be768501603a4c703b7736323af77de7189d800a9f9b3168fee2f8905b318982aaf684
+16 notice 1.4kB .npm/_cacache/content-v2/sha512/cc/44/9a08c5bb283b19c4712668430a4344a77c3db061928044476571863f06176a1677d4e3ac92120b11c549eeb2a9248c5c4e236f761d3285faccd9d0404bc2
+16 notice 209.2kB .npm/_cacache/content-v2/sha512/d9/fd/fe3b0f4cba12ef59c04fe495f0fff8dd9bbfcc6a749c2610fa0e807e651319ef00400d3a0b491854e9532615b5ba66e162de6827ffc361f381dbf86558c1
+16 notice 1.4kB .npm/_cacache/index-v5/14/f5/6aac7f0f33be4dbfabb5813db89622664b0dcae41b31cc570053ac512715
+16 notice 686B .npm/_cacache/index-v5/19/14/df431b289ef621d384519d83fa4edd343f7706c397e8b95f7720f93b6a32
+16 notice 746B .npm/_cacache/index-v5/e0/f3/563a92774ad5fa62edb9cbc4624c17a784676e377b3852d16ab8dcb28bea
+16 notice 1.1kB .npm/_logs/2024-06-05T09_16_33_154Z-debug-0.log
+16 notice 1.1kB .npm/_logs/2024-06-05T09_20_38_081Z-debug-0.log
+16 notice 4.2kB .npm/_logs/2024-06-05T09_34_03_946Z-debug-0.log
+16 notice 1.1kB .npm/_logs/2024-06-05T09_34_44_153Z-debug-0.log
+16 notice 703B .npm/_logs/2024-06-05T09_36_33_847Z-debug-0.log
+16 notice 703B .npm/_logs/2024-06-05T09_39_07_788Z-debug-0.log
+16 notice 703B .npm/_logs/2024-06-05T09_39_15_575Z-debug-0.log
+16 notice 1.3kB .npm/_logs/2024-06-05T09_39_36_216Z-debug-0.log
+16 notice 3.0kB .npm/_logs/2024-06-05T09_40_46_000Z-debug-0.log
+16 notice 1.2kB .npm/_logs/2024-06-05T09_41_56_897Z-debug-0.log
+16 notice 740B .npm/_logs/2024-06-05T12_31_11_327Z-debug-0.log
+16 notice 0B .ssh/authorized_keys
+16 notice 1.1kB .ssh/known_hosts
+16 notice 724B .ssh/known_hosts.old
+16 notice 2.5kB .termux/termux.properties
+16 notice 89.6kB jquer.min.js
+16 notice 20.0kB jquery.min.js
+16 notice 278B package.json
+17 notice Tarball Details
+18 notice name: xytta
+19 notice version: 1.0.0
+20 notice filename: xytta-1.0.0.tgz
+21 notice package size: 397.5 kB
+22 notice unpacked size: 484.3 kB
+23 notice shasum: 0bbf45dc38c7cfb6f4fd96a4c335124bc46ae555
+24 notice integrity: sha512-k6dotMWwiob47[...]qTwULVjJqeT6w==
+25 notice total files: 27
+26 notice
+27 notice Publishing to https://registry.npmjs.org/ with tag latest and default access
+28 http fetch PUT 403 https://registry.npmjs.org/xytta 6869ms
+29 verbose stack HttpErrorGeneral: 403 Forbidden - PUT https://registry.npmjs.org/xytta - You cannot publish over the previously published versions: 1.0.0.
+29 verbose stack     at /data/data/com.termux/files/usr/lib/node_modules/npm/node_modules/npm-registry-fetch/lib/check-response.js:95:15
+29 verbose stack     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+29 verbose stack     at async publish (/data/data/com.termux/files/usr/lib/node_modules/npm/node_modules/libnpmpublish/lib/publish.js:53:15)
+29 verbose stack     at async otplease (/data/data/com.termux/files/usr/lib/node_modules/npm/lib/utils/otplease.js:3:12)
+29 verbose stack     at async Publish.exec (/data/data/com.termux/files/usr/lib/node_modules/npm/lib/commands/publish.js:122:7)
+29 verbose stack     at async module.exports (/data/data/com.termux/files/usr/lib/node_modules/npm/lib/cli/entry.js:67:5)
+30 verbose statusCode 403
+31 verbose pkgid xytta@1.0.0
+32 verbose cwd /data/data/com.termux/files/home
+33 verbose Linux 4.19.191-g217dbd185c6d-dirty
+34 verbose node v22.2.0
+35 verbose npm  v10.7.0
+36 error code E403
+37 error 403 403 Forbidden - PUT https://registry.npmjs.org/xytta - You cannot publish over the previously published versions: 1.0.0.
+38 error 403 In most cases, you or one of your dependencies are requesting
+38 error 403 a package version that is forbidden by your security policy, or
+38 error 403 on a server you do not have access to.
+39 verbose exit 1
+40 verbose code 1
+41 error A complete log of this run can be found in: /data/data/com.termux/files/home/.npm/_logs/2024-06-05T12_31_11_327Z-debug-0.log

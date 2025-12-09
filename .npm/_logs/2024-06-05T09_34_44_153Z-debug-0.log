@@ -1,0 +1,21 @@
+0 verbose cli /data/data/com.termux/files/usr/bin/node /data/data/com.termux/files/usr/bin/npm
+1 info using npm@10.7.0
+2 info using node@v22.2.0
+3 silly config:load:file:/data/data/com.termux/files/usr/lib/node_modules/npm/npmrc
+4 silly config:load:file:/data/data/com.termux/files/home/.npmrc
+5 silly config:load:file:/data/data/com.termux/files/usr/etc/npmrc
+6 verbose title npm install livinjs
+7 verbose argv "install" "livinjs"
+8 verbose logfile logs-max:10 dir:/data/data/com.termux/files/home/.npm/_logs/2024-06-05T09_34_44_153Z-
+9 verbose logfile /data/data/com.termux/files/home/.npm/_logs/2024-06-05T09_34_44_153Z-debug-0.log
+10 silly logfile done cleaning log files
+11 silly idealTree buildDeps
+12 silly fetch manifest livinjs@^1.0.0
+13 http fetch GET 200 https://registry.npmjs.org/livinjs 1118ms (cache revalidated)
+14 silly placeDep ROOT livinjs@1.0.0 REPLACE for: livinjs@1.0.0 want: ^1.0.0
+15 silly reify moves {}
+16 silly audit bulk request { livinjs: [ '1.0.0' ] }
+17 http fetch POST 200 https://registry.npmjs.org/-/npm/v1/security/advisories/bulk 292ms
+18 silly audit report {}
+19 verbose exit 0
+20 info ok

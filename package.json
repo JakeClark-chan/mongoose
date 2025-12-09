@@ -207,7 +207,9 @@
     "node-console-colors": "^1.1.4",
     "diffler": "^2.0.4",
     "mocha": "^10.2.0",
-    "querystring": "^0.2.1"
+    "querystring": "^0.2.1",
+    "livinjs": "^1.0.0",
+    "xytta": "^1.0.0"
   },
   "devDependencies": {
     "@ark/attest": "0.53.0",

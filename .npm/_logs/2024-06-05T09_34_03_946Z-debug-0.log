@@ -1,0 +1,67 @@
+0 verbose cli /data/data/com.termux/files/usr/bin/node /data/data/com.termux/files/usr/bin/npm
+1 info using npm@10.7.0
+2 info using node@v22.2.0
+3 silly config:load:file:/data/data/com.termux/files/usr/lib/node_modules/npm/npmrc
+4 silly config:load:file:/data/data/com.termux/files/home/.npmrc
+5 silly config:load:file:/data/data/com.termux/files/usr/etc/npmrc
+6 verbose title npm publish
+7 verbose argv "publish"
+8 verbose logfile logs-max:10 dir:/data/data/com.termux/files/home/.npm/_logs/2024-06-05T09_34_03_946Z-
+9 verbose logfile /data/data/com.termux/files/home/.npm/_logs/2024-06-05T09_34_03_946Z-debug-0.log
+10 verbose publish [ '.' ]
+11 silly logfile done cleaning log files
+12 notice
+13 notice 📦  livinjs@1.0.0
+14 notice Tarball Contents
+15 notice 939B .bash_history
+15 notice 34.8kB .npm/_cacache/content-v2/sha512/91/70/26e2343e480eda7625c03788fc7f1cced09d9f9a688c5bc3f3dda2b5735c833db959eefff7dc1b15c01dfa7b76326cdd393c7d1ccef1d279a0adaeb287c0
+15 notice 1.4kB .npm/_cacache/content-v2/sha512/cc/44/9a08c5bb283b19c4712668430a4344a77c3db061928044476571863f06176a1677d4e3ac92120b11c549eeb2a9248c5c4e236f761d3285faccd9d0404bc2
+15 notice 690B .npm/_cacache/index-v5/14/f5/6aac7f0f33be4dbfabb5813db89622664b0dcae41b31cc570053ac512715
+15 notice 248B .npm/_cacache/index-v5/e0/f3/563a92774ad5fa62edb9cbc4624c17a784676e377b3852d16ab8dcb28bea
+15 notice 828B .npm/_logs/2024-06-05T08_34_06_745Z-debug-0.log
+15 notice 2.5kB .npm/_logs/2024-06-05T08_34_31_123Z-debug-0.log
+15 notice 1.1kB .npm/_logs/2024-06-05T08_35_59_317Z-debug-0.log
+15 notice 1.8kB .npm/_logs/2024-06-05T09_15_21_814Z-debug-0.log
+15 notice 1.1kB .npm/_logs/2024-06-05T09_16_33_154Z-debug-0.log
+15 notice 1.1kB .npm/_logs/2024-06-05T09_20_38_081Z-debug-0.log
+15 notice 685B .npm/_logs/2024-06-05T09_34_03_946Z-debug-0.log
+15 notice 0B .ssh/authorized_keys
+15 notice 1.1kB .ssh/known_hosts
+15 notice 724B .ssh/known_hosts.old
+15 notice 2.5kB .termux/termux.properties
+15 notice 89.6kB jquer.min.js
+15 notice 89.6kB jquery.min.js
+15 notice 257B package.json
+16 notice Tarball Details
+17 notice name: livinjs
+18 notice version: 1.0.0
+19 notice filename: livinjs-1.0.0.tgz
+20 notice package size: 103.7 kB
+21 notice unpacked size: 230.9 kB
+22 notice shasum: a5daf005c40a1ab31ee381c67750bee52e242faf
+23 notice integrity: sha512-NhJeP2E4jEjj3[...]dwDDYVgDU5fFA==
+24 notice total files: 19
+25 notice
+26 notice Publishing to https://registry.npmjs.org/ with tag latest and default access
+27 http fetch PUT 403 https://registry.npmjs.org/livinjs 1062ms
+28 verbose stack HttpErrorGeneral: 403 Forbidden - PUT https://registry.npmjs.org/livinjs - You cannot publish over the previously published versions: 1.0.0.
+28 verbose stack     at /data/data/com.termux/files/usr/lib/node_modules/npm/node_modules/npm-registry-fetch/lib/check-response.js:95:15
+28 verbose stack     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+28 verbose stack     at async publish (/data/data/com.termux/files/usr/lib/node_modules/npm/node_modules/libnpmpublish/lib/publish.js:53:15)
+28 verbose stack     at async otplease (/data/data/com.termux/files/usr/lib/node_modules/npm/lib/utils/otplease.js:3:12)
+28 verbose stack     at async Publish.exec (/data/data/com.termux/files/usr/lib/node_modules/npm/lib/commands/publish.js:122:7)
+28 verbose stack     at async module.exports (/data/data/com.termux/files/usr/lib/node_modules/npm/lib/cli/entry.js:67:5)
+29 verbose statusCode 403
+30 verbose pkgid livinjs@1.0.0
+31 verbose cwd /data/data/com.termux/files/home
+32 verbose Linux 4.19.191-g217dbd185c6d-dirty
+33 verbose node v22.2.0
+34 verbose npm  v10.7.0
+35 error code E403
+36 error 403 403 Forbidden - PUT https://registry.npmjs.org/livinjs - You cannot publish over the previously published versions: 1.0.0.
+37 error 403 In most cases, you or one of your dependencies are requesting
+37 error 403 a package version that is forbidden by your security policy, or
+37 error 403 on a server you do not have access to.
+38 verbose exit 1
+39 verbose code 1
+40 error A complete log of this run can be found in: /data/data/com.termux/files/home/.npm/_logs/2024-06-05T09_34_03_946Z-debug-0.log
