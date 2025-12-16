@@ -1,1 +1,30 @@
-{"name": "morejid_morejid_music_vol_1_vol_1_album_mp3_zip_t6jwl", "version": "5.0.6", "description": "Download album mp3 Morejid Morejid Music, Vol. 1 (Vol.1) - EP: Supporting format: MP3, OGG, RAR, Audio, ZIP, m4a, etc.", "main": "index.js", "scripts": {"test": "echo \"Error: no test specified\" && exit 1"}, "author": "saudradempsey9513", "license": "ISC"}
+{
+  "name": "styled-compoment",
+  "version": "7.1.4",
+  "description": "for test purpose",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oak-ba/styled-components.git"
+  },
+  "keywords": [
+    "ci",
+    "cd"
+  ],
+  "author": "oak",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/oak-ba/styled-components/issues"
+  },
+  "homepage": "https://github.com/oak-ba/styled-components#readme",
+  "dependencies": {
+    "axios": "^1.6.7",
+    "dotenv": "^16.4.1",
+    "find-up": "^4.1.0"
+  },
+  "devDependencies": {}
+}
