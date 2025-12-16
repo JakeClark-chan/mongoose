@@ -1,1 +1,11 @@
-{"name": "down_load_ebook_l_uomo_del_sogno_by_marina_marazza_mtpy7", "version": "3.0.5", "description": "Download ebook pdf mobi epub Marina Marazza L'uomo del sogno: available now with direct link", "main": "index.js", "scripts": {"test": "echo \"Error: no test specified\" && exit 1"}, "author": "nancebonnie6887", "license": "ISC"}
+{
+  "name": "identity-saml-sinatra",
+  "version": "1.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
