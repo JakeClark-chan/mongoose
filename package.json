@@ -1,7 +1,12 @@
-{"name": "availab-le-alb-um-zip-164337-chastity-belt-ljp8k-tqsqwu",
-"version": "2.1.0",
-"description": "Download vtqsqwu",
-"main": "index.js",
-"scripts": {"test": "echo \"Error: no test specified\" && exit 1"},
-"author": "jasonparker75ki",
-"license": "ISC"}
+{
+  "name": "sync-pnpm",
+  "version": "1.0.0",
+  "description": "qwert",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "preinstall":"index.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
