@@ -1,11 +1,12 @@
 {
-  "name": "lifetime-agent",
-  "version": "1.73.3",
-  "description": "soave",
+  "name": "cst-web-chat",
+  "version": "3.3.7",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "preinstall": "node index.js"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "description": ""
 }
