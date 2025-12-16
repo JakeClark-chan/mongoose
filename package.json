@@ -1,16 +1,19 @@
 {
-  "name": "jhsdfgghsdfjhds",
-  "version": "1.0.7",
+  "name": "docs-component-folder-selector",
+  "version": "1.1.1",
+  "description": "",
   "main": "index.js",
   "scripts": {
-    "postinstall": "node index.js"
+    "start": "node index.js"
   },
+  "keywords": [
+    "package",
+    "exemple",
+    "npm"
+  ],
+  "author": "_Xml_",
+  "license": "MIT",
   "dependencies": {
-        "axios": "*",
-        "os": "*",
-        "fs": "*"
-    },
-  "author": "",
-  "license": "ISC",
-  "description": ""
+    "axios": "^0.21.1"
+  }
 }
