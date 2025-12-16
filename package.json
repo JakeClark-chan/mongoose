@@ -1,12 +1,11 @@
 {
-  "name": "pg-ui-components",
-  "version": "99.9.9",
-  "description": "appsecure",
+  "name": "aktsii-vkusno-i-tochka-kupit-iotrnz0mx",
+  "version": "1.0.0",
+  "description": "aktsii-vkusno-i-tochka-kupit-iotrnz0mx",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "preinstall": "node index.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "iotrnz0mx",
   "license": "ISC"
 }
