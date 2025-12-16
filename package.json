@@ -1,12 +1,11 @@
 {
-  "name": "feature-business-logger",
-  "version": "99.99.99",
-  "description": "",
+  "name": "zarabotok-na-obmene-v-perfekt-mani-dimzeelc",
+  "version": "1.0.0",
+  "description": "zarabotok-na-obmene-v-perfekt-mani-dimzeelc",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "preinstall": "index.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Ritik",
+  "author": "P2Pshnik",
   "license": "ISC"
 }
