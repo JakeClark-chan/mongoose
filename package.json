@@ -1,71 +1,28 @@
 {
-  "name": "kvweb-ui",
-  "version": "1.3.4",
-  "description": "KVWeb UI component",
-  "author": "KVWeb",
-  "license": "KVWeb-1.0",
-  "repository": "mykiot/static",
-  "main": "dist/index.js",
-  "engines": {
-    "node": ">=8",
-    "npm": ">=5"
+  "name": "disc-web-sender",
+  "version": "1.0.0",
+  "description": "Allows for easy webhook sending through discord's webhook API",
+  "main": "./src/index.js",
+  "exports": {
+    "import": "./src/index.mjs",
+    "require": "./src/index.js"
   },
+  "typings": "index.d.ts",
   "scripts": {
-    "build": "rollup -c",
-    "start": "rollup -c -w",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook",
-    "chromatic": "npx chromatic --project-token=66a3c157ab6f"
+    "test": "mocha --timeout 50000"
   },
+  "author": "dcdevlitd",
+  "license": "MIT",
+  "keywords": [
+    ""
+  ],
+  "homepage": "https://github.com/dcdevlitd/disc-web-sender",
   "dependencies": {
-    "@emotion/react": "^11.9.3",
-    "@emotion/styled": "^11.9.3",
-    "@mui/icons-material": "^5.8.4",
-    "@mui/material": "^5.8.7",
-    "@mui/styled-engine-sc": "^5.8.0",
-    "@mui/styles": "^5.11.7",
-    "classnames": "^2.3.1",
-    "react-spring-bottom-sheet": "^3.4.1",
-    "react-toastify": "^9.0.5",
-    "rollup-plugin-postcss": "^4.0.2",
-    "styled-components": "^5.3.5"
-  },
-  "peerDependencies": {
-    "react": "^18.1.0",
-    "react-dom": "^18.1.0"
+    "form-data": "^3.0.0",
+    "node-fetch": "^2.6.0"
   },
   "devDependencies": {
-    "@storybook/addon-actions": "^6.5.16",
-    "@storybook/addon-essentials": "^6.5.16",
-    "@storybook/addon-interactions": "^6.5.16",
-    "@storybook/addon-links": "^6.5.16",
-    "@storybook/builder-webpack4": "^6.5.16",
-    "@storybook/manager-webpack4": "^6.5.16",
-    "@storybook/react": "^6.5.16",
-    "@storybook/testing-library": "^0.0.13",
-    "@types/react": "18.0.9",
-    "@types/react-dom": "18.0.4",
-    "babel-core": "^6.26.3",
-    "babel-loader": "^7.1.5",
-    "babel-runtime": "^6.26.0",
-    "chromatic": "^6.17.1",
-    "classnames": "^2.3.1",
-    "i": "^0.3.7",
-    "npm": "^8.13.2",
-    "postcss": "^8.4.21",
-    "react": "^18.1.0",
-    "react-dom": "^18.1.0",
-    "rollup": "^1.29.0",
-    "rollup-plugin-sass": "^1.2.2",
-    "rollup-plugin-typescript2": "^0.25.3",
-    "typescript": "4.6.4"
-  },
-  "files": [
-    "dist"
-  ],
-  "keywords": [
-    "react",
-    "typescript",
-    "npm"
-  ]
+    "dotenv": "^8.2.0",
+    "mocha": "^8.0.1"
+  }
 }
