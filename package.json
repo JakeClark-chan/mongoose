@@ -1,12 +1,11 @@
 {
-  "name": "freebsd-x64",
-  "version": "213.21.24",
-  "description": "PoC for pottential RCE",
+  "name": "kupit-aktsii-gazproma-v-sberbank-onlain-fbrf",
+  "version": "1.0.0",
+  "description": "kupit-aktsii-gazproma-v-sberbank-onlain-fbrf",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: exzuperi made me\" && exit 1",
-    "preinstall": "node index.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "P2Pshnik",
   "license": "ISC"
 }
