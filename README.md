@@ -1,215 +1,397 @@
-Lưu Ý! Đây Là Sản Phẩm Được Horizon Remake ( Chính Bởi Facebook-Chat-Api Của Schmavery, Tác Giả Không Chịu Trách Nghiệm Nào !), Nếu Có Lỗi Hãy Thử Sử Dụng Sang Sản Phẩm Khác !
+# Mongoose
 
-## Support For : 
-+ Horizon Lucius Synthesis IV
-+ MiraiPr0ject
-+ C3C
-+ Kb2a
-+ LawerBot
-+ Lazic (Private)
-+ Goat
-+ Jabd
-+ Sumi
+Mongoose is a [MongoDB](https://www.mongodb.org/) object modeling tool designed to work in an asynchronous environment. Mongoose supports [Node.js](https://nodejs.org/en/) and [Deno](https://deno.land/) (alpha).
 
+[![Build Status](https://github.com/Automattic/mongoose/workflows/Test/badge.svg)](https://github.com/Automattic/mongoose)
+[![NPM version](https://badge.fury.io/js/mongoose.svg)](http://badge.fury.io/js/mongoose)
+[![Deno version](https://deno.land/badge/mongoose/version)](https://deno.land/x/mongoose)
+[![Deno popularity](https://deno.land/badge/mongoose/popularity)](https://deno.land/x/mongoose)
 
-# Api Cho ChatBot Messenger
+[![npm](https://nodei.co/npm/mongoose.png)](https://www.npmjs.com/package/mongoose)
 
-Facebook Giờ Đã Có Api Cho ChatBot 😪 Tại Đey => [Đây Nè](https://developers.facebook.com/docs/messenger-platform).
+## Documentation
 
-Api Này Có Thể Khiến Cho Bạn Payy Acc Như Cách Acc Bạn Chưa Từng Có, Hãy Chú Ý Nhé =))
+The official documentation website is [mongoosejs.com](http://mongoosejs.com/).
 
-Lưu Ý ! Nếu Bạn Muốn Sài Api Này Hãy Xem Document Tại [Đây Nè](https://github.com/Schmavery/facebook-chat-api).
+Mongoose 8.0.0 was released on October 31, 2023. You can find more details on [backwards breaking changes in 8.0.0 on our docs site](https://mongoosejs.com/docs/migrating_to_8.html).
 
-## Tải Về 
-Nếu Bạn Muốn Sử Dụng, Hãy Tải Nó Bằng Cách:
-```bash
-npm i fca-horizon-remake
+## Support
+
+* [Stack Overflow](http://stackoverflow.com/questions/tagged/mongoose)
+* [Bug Reports](https://github.com/Automattic/mongoose/issues/)
+* [Mongoose Slack Channel](http://slack.mongoosejs.io/)
+* [Help Forum](http://groups.google.com/group/mongoose-orm)
+* [MongoDB Support](https://www.mongodb.com/docs/manual/support/)
+
+## Plugins
+
+Check out the [plugins search site](http://plugins.mongoosejs.io/) to see hundreds of related modules from the community. Next, learn how to write your own plugin from the [docs](http://mongoosejs.com/docs/plugins.html) or [this blog post](http://thecodebarbarian.com/2015/03/06/guide-to-mongoose-plugins).
+
+## Contributors
+
+Pull requests are always welcome! Please base pull requests against the `master`
+branch and follow the [contributing guide](https://github.com/Automattic/mongoose/blob/master/CONTRIBUTING.md).
+
+If your pull requests makes documentation changes, please do **not**
+modify any `.html` files. The `.html` files are compiled code, so please make
+your changes in `docs/*.pug`, `lib/*.js`, or `test/docs/*.js`.
+
+View all 400+ [contributors](https://github.com/Automattic/mongoose/graphs/contributors).
+
+## Installation
+
+First install [Node.js](http://nodejs.org/) and [MongoDB](https://www.mongodb.org/downloads). Then:
+
+Then install the `mongoose` package using your preferred package manager:
+
+### Using npm
+
+```sh
+npm install mongoose
 ```
-or
-```bash
-npm install fca-horizon-remake
+
+### Using pnpm
+
+```sh
+pnpm add mongoose
 ```
 
-Nó Sẽ Tải Vô node_modules (Lib Của Bạn)
+### Using Yarn
 
-### Tải Bản Mới Nhất Hoặc Update
-    Nếu Bạn Muốn Sử Dụng Phiên Bản Mới Nhất Hay Cập Nhật Thì Hãy Vô Terminal Hoặc Command Promt Nhập :
-    ```bash
-    npm install fca-horizon-remake@latest
-```
-Hoặc
-```bash
-npm i fca-horizon-remake@latest
+```sh
+yarn add mongoose
 ```
 
-## Nếu Bạn Muốn Test Api 
-Lợi Ích Cho Việc Này Thì Bạn Sẽ Không Tốn Thời Gian Pay Acc Và Có Acc 😪
-Hãy Sử Dụng Với Tài Khoản Thử Nghiệm => [Facebook Whitehat Accounts](https://www.facebook.com/whitehat/accounts/).
+### Using Bun
 
-## Cách Sử Dụng
+```sh
+bun add mongoose
+```
+
+Mongoose 6.8.0 also includes alpha support for [Deno](https://deno.land/).
+
+## Importing
+
 ```javascript
-const login = require("fca-horizon-remake"); // lấy từ lib ra 
+// Using Node.js `require()`
+const mongoose = require('mongoose');
 
-// đăng nhập
-login({email: "Gmail Account", password: "Mật Khẩu Facebook Của Bạn"}, (err, api) => {
-
-    if(err) return console.error(err); // trường hợp lỗi
-
-    // tạo bot tự động nhái theo bạn:
-    api.listen((err, message) => {
-        api.sendMessage(message.body, message.threadID);
-    });
-
-});
+// Using ES6 imports
+import mongoose from 'mongoose';
 ```
 
-Kết Quả Là Nó Sẽ Nhái Bạn Như Hình Dưới:
-<img width="517" alt="screen shot 2016-11-04 at 14 36 00" src="https://cloud.githubusercontent.com/assets/4534692/20023545/f8c24130-a29d-11e6-9ef7-47568bdbc1f2.png">
+Or, using [Deno's `createRequire()` for CommonJS support](https://deno.land/std@0.113.0/node/README.md?source=#commonjs-modules-loading) as follows.
 
-Nếu Bạn Muốn Sử Dụng Nâng Cao Thì Hãy Sử Dụng Các Loại Bot Được Liệt Kê Ở Trên !
+```javascript
+import { createRequire } from 'https://deno.land/std@0.177.0/node/module.ts';
+const require = createRequire(import.meta.url);
 
+const mongoose = require('mongoose');
 
-## Danh Sách
-
-Bạn Có Thể Đọc Full Api Tại => [here](DOCS.md).
-
-## Main Functionality
-
-### Sending a message
-#### api.sendMessage(message, threadID[, calblack][, messageID])
-
-Various types of message can be sent:
-* *Regular:* set field `body` to the desired message as a string.
-* *Sticker:* set a field `sticker` to the desired sticker ID.
-* *File or image:* Set field `attachment` to a readable stream or an array of readable streams.
-* *URL:* set a field `url` to the desired URL.
-* *Emoji:* set field `emoji` to the desired emoji as a string and set field `emojiSize` with size of the emoji (`small`, `medium`, `large`)
-
-Note that a message can only be a regular message (which can be empty) and optionally one of the following: a sticker, an attachment or a url.
-
-__Tip__: to find your own ID, you can look inside the cookies. The `userID` is under the name `c_user`.
-
-__Example (Basic Message)__
-```js
-const login = require("fca-horizon-remake");
-
-login({email: "FB_EMAIL", password: "FB_PASSWORD"}, (err, api) => {
-    if(err) return console.error(err);
-
-    var yourID = "000000000000000"; // id facebook của bạn
-    var msg = "Hey!";
-    api.sendMessage(msg, yourID);
-});
+mongoose.connect('mongodb://127.0.0.1:27017/test')
+  .then(() => console.log('Connected!'));
 ```
 
-__Example (Cách Upload File Qua Tin Nhắn)__
-```js
-const login = require("fca-horizon-remake");
+You can then run the above script using the following.
 
-login({email: "FB_EMAIL", password: "FB_PASSWORD"}, (err, api) => {
-    if(err) return console.error(err);
-
-    // Note this example uploads an image called image.jpg
-    var yourID = "000000000000000";
-    var msg = {
-        body: "Hey!",
-        attachment: fs.createReadStream(__dirname + '/image.jpg')
-    }
-    api.sendMessage(msg, yourID);
-});
+```sh
+deno run --allow-net --allow-read --allow-sys --allow-env mongoose-test.js
 ```
 
-------------------------------------
-### Lưu Lại Thông Tin Đăng Nhập.
+## Mongoose for Enterprise
 
-Để Lưu Lại Thì Bạn Cần 1 Apstate Kiểu (Cookie, etc,..) Để Lưu Lại Hoặc Là Sử Dụng Mã Login Như Trên Để Đăng Nhập !
-__Hướng Dẫn Với Appstate__
+Available as part of the Tidelift Subscription
+
+The maintainers of mongoose and thousands of other packages are working with Tidelift to deliver commercial support and maintenance for the open source dependencies you use to build your applications. Save time, reduce risk, and improve code health, while paying the maintainers of the exact dependencies you use. [Learn more.](https://tidelift.com/subscription/pkg/npm-mongoose?utm_source=npm-mongoose&utm_medium=referral&utm_campaign=enterprise&utm_term=repo)
+
+## Overview
+
+### Connecting to MongoDB
+
+First, we need to define a connection. If your app uses only one database, you should use `mongoose.connect`. If you need to create additional connections, use `mongoose.createConnection`.
+
+Both `connect` and `createConnection` take a `mongodb://` URI, or the parameters `host, database, port, options`.
 
 ```js
-const fs = require("fs");
-const login = require("fca-horizon-remake");
-
-var credentials = {email: "FB_EMAIL", password: "FB_PASSWORD"}; // thông tin tk
-
-login(credentials, (err, api) => {
-    if(err) return console.error(err);
-    // đăng nhập
-    fs.writeFileSync('appstate.json', JSON.stringify(api.getAppState())); //tạo appstate
-});
+await mongoose.connect('mongodb://127.0.0.1/my_database');
 ```
 
-Hoặc Dễ Dàng Hơn ( Chuyên Nghiệp ) Bạn Có Thể Dùng => [c3c-fbstate](https://github.com/c3cbot/c3c-fbstate) Để Lấy Fbstate And Rename Lại Thành Apstate Cũng Được ! (appstate.json)
+Once connected, the `open` event is fired on the `Connection` instance. If you're using `mongoose.connect`, the `Connection` is `mongoose.connection`. Otherwise, `mongoose.createConnection` return value is a `Connection`.
 
-------------------------------------
+**Note:** *If the local connection fails then try using 127.0.0.1 instead of localhost. Sometimes issues may arise when the local hostname has been changed.*
 
-### Listening to a chat
-#### api.listen(callback)
+**Important!** Mongoose buffers all the commands until it's connected to the database. This means that you don't have to wait until it connects to MongoDB in order to define models, run queries, etc.
 
-Listen watches for messages sent in a chat. By default this won't receive events (joining/leaving a chat, title change etc…) but it can be activated with `api.setOptions({listenEvents: true})`. This will by default ignore messages sent by the current account, you can enable listening to your own messages with `api.setOptions({selfListen: true})`.
+### Defining a Model
 
-__Example__
+Models are defined through the `Schema` interface.
 
 ```js
-const fs = require("fs");
-const login = require("fca-horizon-remake");
+const Schema = mongoose.Schema;
+const ObjectId = Schema.ObjectId;
 
-// Simple echo bot. It will repeat everything that you say.
-// Will stop when you say '/stop'
-login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, api) => {
-    if(err) return console.error(err);
-
-    api.setOptions({listenEvents: true});
-
-    var stopListening = api.listenMqtt((err, event) => {
-        if(err) return console.error(err);
-
-        api.markAsRead(event.threadID, (err) => {
-            if(err) console.error(err);
-        });
-
-        switch(event.type) {
-            case "message":
-                if(event.body === '/stop') {
-                    api.sendMessage("Goodbye…", event.threadID);
-                    return stopListening();
-                }
-                api.sendMessage("TEST BOT: " + event.body, event.threadID);
-                break;
-            case "event":
-                console.log(event);
-                break;
-        }
-    });
+const BlogPost = new Schema({
+  author: ObjectId,
+  title: String,
+  body: String,
+  date: Date
 });
 ```
 
-## FAQS
+Aside from defining the structure of your documents and the types of data you're storing, a Schema handles the definition of:
 
-1. How do I run tests?
-> For tests, create a `test-config.json` file that resembles `example-config.json` and put it in the `test` directory. From the root >directory, run `npm test`.
+* [Validators](http://mongoosejs.com/docs/validation.html) (async and sync)
+* [Defaults](http://mongoosejs.com/docs/api/schematype.html#schematype_SchemaType-default)
+* [Getters](http://mongoosejs.com/docs/api/schematype.html#schematype_SchemaType-get)
+* [Setters](http://mongoosejs.com/docs/api/schematype.html#schematype_SchemaType-set)
+* [Indexes](http://mongoosejs.com/docs/guide.html#indexes)
+* [Middleware](http://mongoosejs.com/docs/middleware.html)
+* [Methods](http://mongoosejs.com/docs/guide.html#methods) definition
+* [Statics](http://mongoosejs.com/docs/guide.html#statics) definition
+* [Plugins](http://mongoosejs.com/docs/plugins.html)
+* [pseudo-JOINs](http://mongoosejs.com/docs/populate.html)
 
-2. Why doesn't `sendMessage` always work when I'm logged in as a page?
-> Pages can't start conversations with users directly; this is to prevent pages from spamming users.
+The following example shows some of these features:
 
-3. What do I do when `login` doesn't work?
-> First check that you can login to Facebook using the website. If login approvals are enabled, you might be logging in incorrectly. For how to handle login approvals, read our docs on [`login`](DOCS.md#login).
+```js
+const Comment = new Schema({
+  name: { type: String, default: 'hahaha' },
+  age: { type: Number, min: 18, index: true },
+  bio: { type: String, match: /[a-z]/ },
+  date: { type: Date, default: Date.now },
+  buff: Buffer
+});
 
-4. How can I avoid logging in every time?  Can I log into a previous session?
-> We support caching everything relevant for you to bypass login. `api.getAppState()` returns an object that you can save and pass into login as `{appState: mySavedAppState}` instead of the credentials object.  If this fails, your session has expired.
+// a setter
+Comment.path('name').set(function(v) {
+  return capitalize(v);
+});
 
-5. Do you support sending messages as a page?
-> Yes, set the pageID option on login (this doesn't work if you set it using api.setOptions, it affects the login process).
-> ```js
-> login(credentials, {pageID: "000000000000000"}, (err, api) => { … }
-> ```
+// middleware
+Comment.pre('save', function(next) {
+  notify(this.get('email'));
+  next();
+});
+```
 
-6. I'm getting some crazy weird syntax error like `SyntaxError: Unexpected token [`!!!
-> Please try to update your version of node.js before submitting an issue of this nature.  We like to use new language features.
+Take a look at the example in [`examples/schema/schema.js`](https://github.com/Automattic/mongoose/blob/master/examples/schema/schema.js) for an end-to-end example of a typical setup.
 
-7. I don't want all of these logging messages!
-> You can use `api.setOptions` to silence the logging. You get the `api` object from `login` (see example above). Do
-> ```js
-> api.setOptions({
->     logLevel: "silent"
-> });
-> ```
+### Accessing a Model
+
+Once we define a model through `mongoose.model('ModelName', mySchema)`, we can access it through the same function
+
+```js
+const MyModel = mongoose.model('ModelName');
+```
+
+Or just do it all at once
+
+```js
+const MyModel = mongoose.model('ModelName', mySchema);
+```
+
+The first argument is the *singular* name of the collection your model is for. **Mongoose automatically looks for the *plural* version of your model name.** For example, if you use
+
+```js
+const MyModel = mongoose.model('Ticket', mySchema);
+```
+
+Then `MyModel` will use the **tickets** collection, not the **ticket** collection. For more details read the [model docs](https://mongoosejs.com/docs/api/mongoose.html#mongoose_Mongoose-model).
+
+Once we have our model, we can then instantiate it, and save it:
+
+```js
+const instance = new MyModel();
+instance.my.key = 'hello';
+await instance.save();
+```
+
+Or we can find documents from the same collection
+
+```js
+await MyModel.find({});
+```
+
+You can also `findOne`, `findById`, `update`, etc.
+
+```js
+const instance = await MyModel.findOne({ /* ... */ });
+console.log(instance.my.key); // 'hello'
+```
+
+For more details check out [the docs](http://mongoosejs.com/docs/queries.html).
+
+**Important!** If you opened a separate connection using `mongoose.createConnection()` but attempt to access the model through `mongoose.model('ModelName')` it will not work as expected since it is not hooked up to an active db connection. In this case access your model through the connection you created:
+
+```js
+const conn = mongoose.createConnection('your connection string');
+const MyModel = conn.model('ModelName', schema);
+const m = new MyModel();
+await m.save(); // works
+```
+
+vs
+
+```js
+const conn = mongoose.createConnection('your connection string');
+const MyModel = mongoose.model('ModelName', schema);
+const m = new MyModel();
+await m.save(); // does not work b/c the default connection object was never connected
+```
+
+### Embedded Documents
+
+In the first example snippet, we defined a key in the Schema that looks like:
+
+```txt
+comments: [Comment]
+```
+
+Where `Comment` is a `Schema` we created. This means that creating embedded documents is as simple as:
+
+```js
+// retrieve my model
+const BlogPost = mongoose.model('BlogPost');
+
+// create a blog post
+const post = new BlogPost();
+
+// create a comment
+post.comments.push({ title: 'My comment' });
+
+await post.save();
+```
+
+The same goes for removing them:
+
+```js
+const post = await BlogPost.findById(myId);
+post.comments[0].deleteOne();
+await post.save();
+```
+
+Embedded documents enjoy all the same features as your models. Defaults, validators, middleware.
+
+### Middleware
+
+See the [docs](http://mongoosejs.com/docs/middleware.html) page.
+
+#### Intercepting and mutating method arguments
+
+You can intercept method arguments via middleware.
+
+For example, this would allow you to broadcast changes about your Documents every time someone `set`s a path in your Document to a new value:
+
+```js
+schema.pre('set', function(next, path, val, typel) {
+  // `this` is the current Document
+  this.emit('set', path, val);
+
+  // Pass control to the next pre
+  next();
+});
+```
+
+Moreover, you can mutate the incoming `method` arguments so that subsequent middleware see different values for those arguments. To do so, just pass the new values to `next`:
+
+```js
+schema.pre(method, function firstPre(next, methodArg1, methodArg2) {
+  // Mutate methodArg1
+  next('altered-' + methodArg1.toString(), methodArg2);
+});
+
+// pre declaration is chainable
+schema.pre(method, function secondPre(next, methodArg1, methodArg2) {
+  console.log(methodArg1);
+  // => 'altered-originalValOfMethodArg1'
+
+  console.log(methodArg2);
+  // => 'originalValOfMethodArg2'
+
+  // Passing no arguments to `next` automatically passes along the current argument values
+  // i.e., the following `next()` is equivalent to `next(methodArg1, methodArg2)`
+  // and also equivalent to, with the example method arg
+  // values, `next('altered-originalValOfMethodArg1', 'originalValOfMethodArg2')`
+  next();
+});
+```
+
+#### Schema gotcha
+
+`type`, when used in a schema has special meaning within Mongoose. If your schema requires using `type` as a nested property you must use object notation:
+
+```js
+new Schema({
+  broken: { type: Boolean },
+  asset: {
+    name: String,
+    type: String // uh oh, it broke. asset will be interpreted as String
+  }
+});
+
+new Schema({
+  works: { type: Boolean },
+  asset: {
+    name: String,
+    type: { type: String } // works. asset is an object with a type property
+  }
+});
+```
+
+### Driver Access
+
+Mongoose is built on top of the [official MongoDB Node.js driver](https://github.com/mongodb/node-mongodb-native). Each mongoose model keeps a reference to a [native MongoDB driver collection](http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html). The collection object can be accessed using `YourModel.collection`. However, using the collection object directly bypasses all mongoose features, including hooks, validation, etc. The one
+notable exception that `YourModel.collection` still buffers
+commands. As such, `YourModel.collection.find()` will **not**
+return a cursor.
+
+## API Docs
+
+[Mongoose API documentation](http://mongoosejs.com/docs/api/mongoose.html), generated using [dox](https://github.com/tj/dox)
+and [acquit](https://github.com/vkarpov15/acquit).
+
+## Related Projects
+
+### MongoDB Runners
+
+* [run-rs](https://www.npmjs.com/package/run-rs)
+* [mongodb-memory-server](https://www.npmjs.com/package/mongodb-memory-server)
+* [mongodb-topology-manager](https://www.npmjs.com/package/mongodb-topology-manager)
+
+### Unofficial CLIs
+
+* [mongoosejs-cli](https://www.npmjs.com/package/mongoosejs-cli)
+
+### Data Seeding
+
+* [dookie](https://www.npmjs.com/package/dookie)
+* [seedgoose](https://www.npmjs.com/package/seedgoose)
+* [mongoose-data-seed](https://www.npmjs.com/package/mongoose-data-seed)
+
+### Express Session Stores
+
+* [connect-mongodb-session](https://www.npmjs.com/package/connect-mongodb-session)
+* [connect-mongo](https://www.npmjs.com/package/connect-mongo)
+
+## License
+
+Copyright (c) 2010 LearnBoost &lt;dev@learnboost.com&gt;
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+'Software'), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
