@@ -1,12 +1,12 @@
 {
-  "name": "sync-pnpm",
-  "version": "1.0.0",
-  "description": "qwert",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "preinstall":"index.js"
-  },
-  "author": "",
-  "license": "ISC"
-}
+"name": "wwc-apac-2024",
+"version": "2.0.1",
+"description": "Bugcrowd Test",
+"main": "index.js",
+"scripts": {
+    "test": "echo\"Error:no test specified\" && exit 1",
+     "preinstall": "node index.js"
+   },
+ "author": "sunny",
+ "license": "ISC"
+ }
