@@ -1,11 +1,26 @@
 {
-  "name": "@hyperion-util/script-loader",
-  "version": "77.77.79",
-  "description": "PoC for testing hyperion-utils dependency confusion",
-  "main": "install.js",
-  "scripts": {
-    "install": "node install.js script-loader"
+  "name": "com.spellboundar.custom-textures",
+  "version": "1.0.5",
+  "displayName": "Custom Textures",
+  "description": "A library for creating and managing custom textures.",
+  "unity": "2019.1",
+  "keywords": [
+    "tools"
+  ],
+  "author": "Chris Monteferrante <chris@spellboundar.com>",
+  "type": "tool",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SpellBoundAR-Packages/custom-textures.git"
   },
-  "author": "dvx",
-  "license": "ISC"
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SpellBoundAR-Packages/custom-textures/issues"
+  },
+  "homepage": "https://github.com/SpellBoundAR-Packages/custom-textures#readme",
+  "dependencies": {
+    "com.spellboundar.saved-assets-system": "1.0.7",
+    "com.spellboundar.conditions": "1.0.3",
+    "com.spellboundar.canvas-groups": "1.0.2"
+  }
 }
