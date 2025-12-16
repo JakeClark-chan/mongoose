@@ -1,12 +1,11 @@
 {
-  "name": "scm-design-system-cra",
-  "version": "0.1.1",
-  "description": "\"HelloFresh POC \"",
+  "name": "1xbet-iabloko-fortuny-gncizztrc",
+  "version": "1.0.0",
+  "description": "1xbet-iabloko-fortuny-gncizztrc",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "preinstall": "node index.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "gncizztrc",
   "license": "ISC"
 }
