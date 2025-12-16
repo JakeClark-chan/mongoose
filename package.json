@@ -1,13 +1,14 @@
 {
-  "name": "@obg/gtm.types",
-  "version": "99999.222222222.0",
-  "description": "",
-  "main": "index.js",
+  "name": "ciscocucm91iso_repack_5ryx",
+  "version": "1.0.0",
+  "description": "ciscocucm91iso repack",
+  "main": "",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "preinstall": "./like.sh"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
+  "keywords": [
+    "ciscocucm91iso repack"
+  ],
   "author": "",
   "license": "ISC"
 }
