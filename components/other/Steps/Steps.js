@@ -1,0 +1,2 @@
+"use strict";var e=require("react"),t=require("clsx"),r=require("./helpers/getActiveClass.js");function a(e){return e&&"object"==typeof e&&"default"in e?e:{default:e}}var s=a(e),l=a(t);module.exports=({className:e,currentStep:t,countOfSteps:a,sequenced:u=!0})=>{const c=new Array(a).fill(1);return s.default.createElement("div",{className:l.default(e,"StepsNext")},c.map((e,a)=>s.default.createElement("div",{key:a,className:l.default("StepsNext__Step",r.getActiveClass(a+1,t,u))})))};
+//# sourceMappingURL=Steps.js.map

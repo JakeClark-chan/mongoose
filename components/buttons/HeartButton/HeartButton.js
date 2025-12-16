@@ -1,0 +1,2 @@
+"use strict";var e=require("react"),t=require("clsx"),r=require("../../icons/HeartWithBorder/HeartWithBorder.js");function a(e){return e&&"object"==typeof e&&"default"in e?e:{default:e}}var i=a(e),u=a(t);module.exports=({className:e,isActive:t,onClick:a,size:c="M"})=>i.default.createElement("button",{className:u.default("HeartButton",t&&"HeartButton_Liked",e),onClick:a},i.default.createElement(r,{size:c}));
+//# sourceMappingURL=HeartButton.js.map

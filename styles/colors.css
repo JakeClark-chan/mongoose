@@ -1,0 +1,68 @@
+:root {
+  /* Brand Colors */
+  --brand-light-orange: #fdad95;
+  --brand-orange: #fc6b3f;
+  --brand-orange-110: #e55e39;
+  --brand-deep-orange: #af3f08;
+
+  --brand-yellow: #ffc107;
+  --brand-deep-yellow: #e4b12e;
+
+  --brand-wheat: #fdf8e2;
+  --brand-deep-wheat: #f9efc3;
+  /* Brand Colors */
+
+  /* UI Colors */
+  --ui-light-red: #fcbabe;
+  --ui-red-70: #f88c93;
+  --ui-red-60: #ffe2e4;
+  --ui-red-80: #f6666f;
+  --ui-red: #df0613;
+  --ui-red-100: #b1040e;
+  --ui-red-110: #84040c;
+  --ui-deep-red: #9c3e3e;
+
+  --ui-light-blue: #6fb5ec;
+  --ui-blue: #2196f3;
+  --ui-blue-110: #0288d1;
+  --ui-blue-120: #0e4269;
+  --ui-deep-blue: #1f82b3;
+
+  --ui-light-green: #e4fbea;
+  --ui-green: #4caf50;
+  --ui-deep-green: #00805f;
+  --ui-green-60: #f1fff5;
+  --ui-green-70: #caf1d5;
+  --ui-green-80: #a2dab2;
+  --ui-green-100: #38873b;
+  --ui-green-110: #266528;
+
+  --ui-new-good: #6fbebc;
+
+  --ui-yellow-55: #fff9e7;
+  --ui-yellow-60: #ffefbd;
+  --ui-yellow-70: #ffe69b;
+  --ui-yellow-80: #ffdc72;
+  --ui-yellow-90: #ffc107;
+  --ui-yellow-100: #e7a600;
+  --ui-yellow-110: #de9302;
+  /* UI Colors */
+
+  /* Black Colors */
+  --gray-90: #212427;
+  --gray-75: #33383d;
+  --gray-65: #464c53; 
+  --gray-55: #606971;
+  --gray-30: #8e979f;
+  --gray-20: #c0c5c9;
+  --gray-11: #f1f2f3;
+  --gray-10: #d9dcde;
+  --gray-03: #f0f1f2;
+  --gray-01: #f4f4f4;
+  --white: #ffffff;
+  /* Black Colors */
+
+  /* Overlay Colors */
+  --overlay-black: rgba(0, 0, 0, 0.25);
+  /* Overlay Colors */
+}

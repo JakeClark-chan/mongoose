@@ -1,0 +1,2 @@
+"use strict";var e=require("react"),t=require("clsx"),r=require("../Typography/Typography.js"),a=require("../../icons/ArrowRight/ArrowRight.js");function l(e){return e&&"object"==typeof e&&"default"in e?e:{default:e}}var o=l(e),u=l(t);module.exports=({className:e="",text:t,type:l="Body1"})=>o.default.createElement("div",{className:"arrow-link"},o.default.createElement(r,{className:u.default(e,"arrow-link-text"),text:t,type:l}),o.default.createElement(a,{color:"#2196F3"}));
+//# sourceMappingURL=ArrowLink.js.map

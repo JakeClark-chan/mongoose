@@ -1,0 +1,2 @@
+"use strict";var e=require("react"),t=require("clsx"),a=require("../../../Typography/Typography.js");function r(e){return e&&"object"==typeof e&&"default"in e?e:{default:e}}var i=r(e),l=r(t);module.exports=({isActive:e=!1,onClick:t=(()=>{}),text:r="",icon:c=null,className:u})=>i.default.createElement("div",{className:l.default({"Paginator__List-Number":!c},{"Paginator__List-Icon":c},u),onClick:t},c,!c&&i.default.createElement(a,{className:l.default("Paginator__List-Item",{"--active":e,"--default":!e}),text:r,type:"Body1B"}));
+//# sourceMappingURL=PaginatorItem.js.map

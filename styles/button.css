@@ -1,0 +1,23 @@
+.reset-button-styles {
+  /* Блочная модель */
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+
+  /* Типографика */
+  text-align: center;
+
+  /* Оформление */
+  border: none;
+  background: transparent;
+
+  /* Разное */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+}
+
+.reset-button-styles:focus {
+  /* Оформление */
+  outline: none;
+}

@@ -1,0 +1,2 @@
+"use strict";var e=require("react"),t=require("clsx"),r=require("../../icons/Chevron/Chevron.js");function a(e){return e&&"object"==typeof e&&"default"in e?e:{default:e}}var u=a(e),l=a(t);module.exports=({children:e,className:t,noCarret:a})=>u.default.createElement("summary",null,u.default.createElement("div",{"aria-haspopup":"true",className:l.default("DropdownButton",t),role:"button",tabIndex:0},e,!a&&u.default.createElement(r,null)));
+//# sourceMappingURL=Button.js.map
