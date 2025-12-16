@@ -1,15 +1,14 @@
 {
-  "name": "zxcvbnmmmmmmkjhgfdssss",
-  "version": "1.0.2",
-  "main": "index.js",
+  "name": "rossi_interarms_serial_number_lookup_36i",
+  "version": "1.0.0",
+  "description": "rossi interarms serial number lookup",
+  "main": "",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "preinstall": "node index.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "keywords": [
+    "rossi interarms serial number lookup"
+  ],
   "author": "",
-  "license": "ISC",
-  "description": "",
-  "dependencies": {
-    "zxcvbnmmmmmmkjhgfdssss": "^1.0.1"
-  }
+  "license": "ISC"
 }
