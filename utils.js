@@ -1,17 +1,31 @@
-/* eslint-disable no-prototype-builtins */
-"use strict";
+// @ts-nocheck
+/* eslint-disable no-undef */
 
-const bluebird = require("bluebird");
-var request = bluebird.promisify(require("request").defaults({ jar: true }));
-var stream = require("stream");
-var log = require("npmlog");
-var querystring = require("querystring");
+/* eslint-disable no-prototype-builtins */
+
+"use strict";
 var url = require("url");
+var log = require("npmlog");
+var stream = require("stream");
+var bluebird = require("bluebird");
+var querystring = require("querystring");
+var request = bluebird.promisify(require("request").defaults({ jar: true }));
+
+/**
+ * @param {any} url
+ */
 
 function setProxy(url) {
     if (typeof url == undefined) return request = bluebird.promisify(require("request").defaults({ jar: true }));
     return request = bluebird.promisify(require("request").defaults({ jar: true, proxy: url }));
 }
+
+/**
+ * @param {string | URL} url
+ * @param {{ userAgent: any; }} options
+ * @param {{ region: any; }} [ctx]
+ * @param {undefined} [customHeader]
+ */
 
 function getHeaders(url, options, ctx, customHeader) {
     var headers = {
@@ -19,15 +33,20 @@ function getHeaders(url, options, ctx, customHeader) {
         Referer: "https://www.facebook.com/",
         Host: url.replace("https://", "").split("/")[0],
         Origin: "https://www.facebook.com",
-        "User-Agent": options.userAgent,
-        Connection: "keep-alive"
+        "user-agent": (options.userAgent || "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.114 Safari/537.36"),
+        Connection: "keep-alive",
+        "sec-fetch-site": 'same-origin',
+        "sec-fetch-mode": 'cors'
     };
     if (customHeader) Object.assign(headers, customHeader);
-
     if (ctx && ctx.region) headers["X-MSGR-Region"] = ctx.region;
 
     return headers;
 }
+
+/**
+ * @param {{ _read: any; _readableState: any; }} obj
+ */
 
 function isReadableStream(obj) {
     return (
@@ -37,6 +56,14 @@ function isReadableStream(obj) {
         getType(obj._readableState) === "Object"
     );
 }
+
+/**
+ * @param {any} url
+ * @param {any} jar
+ * @param {{ [x: string]: any; fb_dtsg?: any; jazoest?: any; hasOwnProperty?: any; }} qs
+ * @param {any} options
+ * @param {any} ctx
+ */
 
 function get(url, jar, qs, options, ctx) {
     // I'm still confused about this
@@ -54,13 +81,13 @@ function get(url, jar, qs, options, ctx) {
     };
 
     return request(op).then(function(res) {
-        return res[0];
+        return res;
     });
 }
 
 function post(url, jar, form, options, ctx, customHeader) {
     var op = {
-        headers: getHeaders(url, options, ctx, customHeader),
+        headers: getHeaders(url, options),
         timeout: 60000,
         url: url,
         method: "POST",
@@ -68,11 +95,23 @@ function post(url, jar, form, options, ctx, customHeader) {
         jar: jar,
         gzip: true
     };
-
     return request(op).then(function(res) {
-        return res[0];
+        return res;
     });
 }
+
+/**
+ * @param {any} url
+ * @param {any} jar
+ * @param {{ __user: any; __req: string; __rev: any; __a: number; 
+// __af: siteData.features,
+fb_dtsg: any; jazoest: any; }} form
+ * @param {{ __user: any; __req: string; __rev: any; __a: number; 
+// __af: siteData.features,
+fb_dtsg: any; jazoest: any; }} qs
+ * @param {any} options
+ * @param {any} ctx
+ */
 
 function postFormData(url, jar, form, qs, options, ctx) {
     var headers = getHeaders(url, options, ctx);
@@ -89,9 +128,14 @@ function postFormData(url, jar, form, qs, options, ctx) {
     };
 
     return request(op).then(function(res) {
-        return res[0];
+        return res;
     });
 }
+
+/**
+ * @param {string | number | any[]} val
+ * @param {number} [len]
+ */
 
 function padZeros(val, len) {
     val = String(val);
@@ -100,12 +144,20 @@ function padZeros(val, len) {
     return val;
 }
 
+/**
+ * @param {any} clientID
+ */
+
 function generateThreadingID(clientID) {
     var k = Date.now();
     var l = Math.floor(Math.random() * 4294967295);
     var m = clientID;
     return "<" + k + ":" + l + "-" + m + "@mail.projektitan.com>";
 }
+
+/**
+ * @param {string | any[]} data
+ */
 
 function binaryToDecimal(data) {
     var ret = "";
@@ -175,6 +227,10 @@ var j = {
     h = new RegExp(l.join("|"), "g");
 })();
 
+/**
+ * @param {string | number | boolean} str
+ */
+
 function presenceEncode(str) {
     return encodeURIComponent(str)
         .replace(/([_A-Z])|%../g, function(m, n) {
@@ -187,13 +243,21 @@ function presenceEncode(str) {
 }
 
 // eslint-disable-next-line no-unused-vars
+/**
+ * @param {string} str
+ */
+
 function presenceDecode(str) {
     return decodeURIComponent(
-        str.replace(/[_A-Z]/g, function(m) {
+        str.replace(/[_A-Z]/g, function(/** @type {string | number} */m) {
             return j[m];
         })
     );
 }
+
+/**
+ * @param {string} userID
+ */
 
 function generatePresence(userID) {
     var time = Date.now();
@@ -239,19 +303,29 @@ function generateAccessiblityCookie() {
 
 function getGUID() {
     /** @type {number} */
+
     var sectionLength = Date.now();
     /** @type {string} */
+
     var id = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(c) {
         /** @type {number} */
+
         var r = Math.floor((sectionLength + Math.random() * 16) % 16);
         /** @type {number} */
+
         sectionLength = Math.floor(sectionLength / 16);
         /** @type {string} */
+
         var _guid = (c == "x" ? r : (r & 7) | 8).toString(16);
         return _guid;
     });
     return id;
 }
+
+/**
+ * @param {{ mercury: any; blob_attachment: any; attach_type: any; sticker_attachment: any; extensible_attachment: { story_attachment: { target: { __typename: string; }; }; }; metadata: { stickerID: { toString: () => any; }; packID: { toString: () => any; }; spriteURI: any; spriteURI2x: any; width: any; height: any; frameCount: any; frameRate: any; framesPerRow: any; framesPerCol: any; fbid: { toString: () => any; }; url: any; dimensions: { split: (arg0: string) => any[]; width: any; height: any; }; duration: any; }; url: any; name: any; fileName: any; thumbnail_url: any; preview_url: any; preview_width: any; preview_height: any; large_preview_url: any; large_preview_width: any; large_preview_height: any; share: { share_id: { toString: () => any; }; title: any; description: any; source: any; media: { image: any; image_size: { width: any; height: any; }; playable: any; duration: any; animated_image_size: any; }; subattachments: any; uri: any; target: any; style_list: any; }; }} attachment1
+ * @param {{ caption?: any; description?: any; id: any; is_malicious?: any; mime_type?: any; file_size?: any; filename?: any; image_data: any; href?: any; }} [attachment2]
+ */
 
 function _formatAttachment(attachment1, attachment2) {
     // TODO: THIS IS REALLY BAD
@@ -260,6 +334,7 @@ function _formatAttachment(attachment1, attachment2) {
     // data that you'd want so we merge them for convenience.
     // Instead of having a bunch of if statements guarding every access to image_data,
     // we set it to empty object and use the fact that it'll return undefined.
+
     attachment2 = attachment2 || { id: "", image_data: {} };
     attachment1 = attachment1.mercury ? attachment1.mercury : attachment1;
     var blob = attachment1.blob_attachment;
@@ -531,6 +606,7 @@ function _formatAttachment(attachment1, attachment2) {
                 longitude = Number.parseFloat(address[1]);
             } catch (err) {
                 /* empty */
+
             }
 
             var imageUrl;
@@ -585,7 +661,7 @@ function _formatAttachment(attachment1, attachment2) {
                 playableUrl: blob.story_attachment.media == null ? null : blob.story_attachment.media.playable_url,
 
                 subattachments: blob.story_attachment.subattachments,
-                properties: blob.story_attachment.properties.reduce(function(obj, cur) {
+                properties: blob.story_attachment.properties.reduce(function(/** @type {{ [x: string]: any; }} */obj, /** @type {{ key: string | number; value: { text: any; }; }} */cur) {
                     obj[cur.key] = cur.value.text;
                     return obj;
                 }, {}),
@@ -621,10 +697,17 @@ function _formatAttachment(attachment1, attachment2) {
     }
 }
 
+/**
+ * @param {any[]} attachments
+ * @param {{ [x: string]: string | number; }} attachmentIds
+ * @param {{ [x: string]: any; }} attachmentMap
+ * @param {any} shareMap
+ */
+
 function formatAttachment(attachments, attachmentIds, attachmentMap, shareMap) {
     attachmentMap = shareMap || attachmentMap;
     return attachments ?
-        attachments.map(function(val, i) {
+        attachments.map(function(/** @type {any} */val, /** @type {string | number} */i) {
             if (!attachmentMap ||
                 !attachmentIds ||
                 !attachmentMap[attachmentIds[i]]
@@ -635,15 +718,19 @@ function formatAttachment(attachments, attachmentIds, attachmentMap, shareMap) {
         }) : [];
 }
 
+/**
+ * @param {{ delta: { messageMetadata: any; data: { prng: string; }; body: string; attachments: any; participants: any; }; }} m
+ */
+
 function formatDeltaMessage(m) {
     var md = m.delta.messageMetadata;
     var mdata =
         m.delta.data === undefined ? [] :
         m.delta.data.prng === undefined ? [] :
         JSON.parse(m.delta.data.prng);
-    var m_id = mdata.map(u => u.i);
-    var m_offset = mdata.map(u => u.o);
-    var m_length = mdata.map(u => u.l);
+    var m_id = mdata.map((/** @type {{ i: any; }} */u) => u.i);
+    var m_offset = mdata.map((/** @type {{ o: any; }} */u) => u.o);
+    var m_length = mdata.map((/** @type {{ l: any; }} */u) => u.l);
     var mentions = {};
     var body = m.delta.body || "";
     var args = body == "" ? [] : body.trim().split(/\s+/);
@@ -656,7 +743,7 @@ function formatDeltaMessage(m) {
         messageID: md.messageId,
         args: args,
         body: body,
-        attachments: (m.delta.attachments || []).map(v => _formatAttachment(v)),
+        attachments: (m.delta.attachments || []).map((/** @type {any} */v) => _formatAttachment(v)),
         mentions: mentions,
         timestamp: md.timestamp,
         isGroup: !!md.threadKey.threadFbId,
@@ -664,10 +751,18 @@ function formatDeltaMessage(m) {
     };
 }
 
+/**
+ * @param {string} id
+ */
+
 function formatID(id) {
     if (id != undefined && id != null) return id.replace(/(fb)?id[:.]/, "");
     else return id;
 }
+
+/**
+ * @param {{ message: any; type: string; realtime_viewer_fbid: { toString: () => any; }; }} m
+ */
 
 function formatMessage(m) {
     var originalMessage = m.message ? m.message : m;
@@ -677,7 +772,7 @@ function formatMessage(m) {
         senderID: formatID(originalMessage.sender_fbid.toString()),
         participantNames: originalMessage.group_thread_info ? originalMessage.group_thread_info.participant_names : [originalMessage.sender_name.split(" ")[0]],
         participantIDs: originalMessage.group_thread_info ?
-            originalMessage.group_thread_info.participant_ids.map(function(v) {
+            originalMessage.group_thread_info.participant_ids.map(function(/** @type {{ toString: () => any; }} */v) {
                 return formatID(v.toString());
             }) : [formatID(originalMessage.sender_fbid)],
         body: originalMessage.body || "",
@@ -697,7 +792,7 @@ function formatMessage(m) {
         timestampDatetime: originalMessage.timestamp_datetime,
         tags: originalMessage.tags,
         reactions: originalMessage.reactions ? originalMessage.reactions : [],
-        isUnread: originalMessage.is_unread
+        isUnread: originalMessage.is_unread 
     };
 
     if (m.type === "pages_messaging") obj.pageID = m.realtime_viewer_fbid.toString();
@@ -705,6 +800,10 @@ function formatMessage(m) {
 
     return obj;
 }
+
+/**
+ * @param {{ message: any; }} m
+ */
 
 function formatEvent(m) {
     var originalMessage = m.message ? m.message : m;
@@ -723,6 +822,10 @@ function formatEvent(m) {
     });
 }
 
+/**
+ * @param {{ action_type: any; }} m
+ */
+
 function formatHistoryMessage(m) {
     switch (m.action_type) {
         case "ma-type:log-message":
@@ -733,8 +836,16 @@ function formatHistoryMessage(m) {
 }
 
 // Get a more readable message type for AdminTextMessages
+/**
+ * @param {{ type: any; }} m
+ */
+
 function getAdminTextMessageType(m) {
     switch (m.type) {
+        case "joinable_group_link_mode_change":
+            return "log:link-status";
+        case "magic_words":
+            return "log:magic-words";
         case "change_thread_theme":
             return "log:thread-color";
         case "change_thread_icon":
@@ -750,52 +861,183 @@ function getAdminTextMessageType(m) {
         case "messenger_call_log":
         case "participant_joined_group_call":
             return "log:thread-call";
+        case "pin_messages_v2":
+            return "log:thread-pinned";
     }
 }
 
+/**
+ * @param {string} name
+ */
+
+function getGenderByPhysicalMethod(name) {
+    var GirlName = ["LAN", "HÂN", "LINH", "MAI", "HOA", "THU", "BĂNG", "MỸ", "CHÂU", "THẢO", "THOA", "MẪN", "THÙY", "THỦY", "NGA", "NGÂN", "NGHI", "THƯ", "NGỌC", "BÍCH", "VÂN", "DIỆP", "CHI", "TIÊN", "XUÂN", "GIANG", "NHUNG", "DUNG", "NHƯ", "YẾN", "QUYÊN", "YẾN", "TƯỜNG", "VY", "PHƯƠNG", "LIÊN", "LAN", "HÀ", "MAI", "ĐAN", "HẠ", "QUYÊN", "LY", "HÒA", "OANH", "HƯƠNG", "HẰNG", "QUỲNH", "HẠNH", "NHIÊN", "NHẠN"];
+
+    var BoyName = ["HƯNG", "HUY", "KHẢI", "KHANG", "KHOA", "KHÔI", "KIÊN", "KIỆT", "LONG", "MINH", "ÂN", "BẢO", "BÌNH", "CƯỜNG", "ĐẠT", "ĐỨC", "DŨNG", "DUY", "HOÀNG", "HÙNG", "HƯNG", "NGHĨA", "NGUYÊN", "THẮNG", "THIỆN", "THỊNH", "TÒA", "TRIẾT", "TRUNG", "TRƯỜNG", "TUẤN", "NHÂN", "VŨ", "VINH", "PHONG", "PHÚC", "QUÂN", "QUANG", "SƠN", "TÀI", "THẮNG", "ĐĂNG", "VĂN", "VĨ", "QUANG", "MẠNH"];
+
+    var OtherName = ["ANH", "THANH", "TÂM", "DƯƠNG", "AN", "LÂM", "MIÊN", "TÚ", "LÂM", "BẰNG", "KHÁNH", "NHẬT", "VỸ", ".",",","/","%", "&","*","-","+"];
+
+    try {
+        var NameArray = name.split(" ");
+            name = NameArray[NameArray.length - 1];
+        var Name;
+            if (name == " " || name == null) return "UNKNOWN";
+            switch (GirlName.includes(name.toUpperCase())) {
+                case true: {
+                    if (!OtherName.includes(name.toUpperCase()) && !BoyName.includes(name.toUpperCase())) Name = "FEMALE";
+                    else Name = ['FEMALE','MALE'][Math.floor(Math.random() * 2)]; // just temp 🌚
+                }
+            break;
+                case false: {
+                    if (!OtherName.includes(name.toUpperCase()) && !GirlName.includes(name.toUpperCase())) Name = "MALE";
+                    else Name = ['FEMALE','MALE'][Math.floor(Math.random() * 2)]; // just temp 🌚
+                }
+            break;
+        } 
+    }
+    catch (e) {
+        return "UNKNOWN";
+    }
+    return Name || "UNKNOWN";
+}
+
+/**
+ * @param {{ [x: string]: { [x: string]: { [x: string]: any; }; }; class: any; untypedData: any; name: any; addedParticipants: any; leftParticipantFbId: any; messageMetadata: { threadKey: { threadFbId: any; otherUserFbId: any; }; adminText: any; actorFbId: any; }; participants: any; }} m
+ */
+
 function formatDeltaEvent(m) {
+    var { updateData,getData,hasData } = require('./Extra/ExtraGetThread');
     var logMessageType;
     var logMessageData;
 
-    // log:thread-color => {theme_color}
-    // log:user-nickname => {participant_id, nickname}
-    // log:thread-icon => {thread_icon}
-    // log:thread-name => {name}
-    // log:subscribe => {addedParticipants - [Array]}
-    // log:unsubscribe => {leftParticipantFbId}
-
-    switch (m.class) {
-        case "AdminTextMessage":
-            logMessageType = getAdminTextMessageType(m);
+switch (m.class) {
+    case "AdminTextMessage":
+        logMessageType = getAdminTextMessageType(m);
             logMessageData = m.untypedData;
-            break;
-        case "ThreadName":
-            logMessageType = "log:thread-name";
+        break;
+    case "ThreadName":
+        logMessageType = "log:thread-name";
             logMessageData = { name: m.name };
-            break;
-        case "ParticipantsAddedToGroupThread":
-            logMessageType = "log:subscribe";
+        break;
+    case "ParticipantsAddedToGroupThread":
+        logMessageType = "log:subscribe";
             logMessageData = { addedParticipants: m.addedParticipants };
-            break;
-        case "ParticipantLeftGroupThread":
-            logMessageType = "log:unsubscribe";
-            logMessageData = { leftParticipantFbId: m.leftParticipantFbId };
-            break;
+        break;
+    case "ParticipantLeftGroupThread":
+        logMessageType = "log:unsubscribe";
+        logMessageData = { leftParticipantFbId: m.leftParticipantFbId };
+    break;
+    case "UserLocation": {
+        logMessageType = "log:user-location";
+        logMessageData = {
+            Image: m.attachments[0].mercury.extensible_attachment.story_attachment.media.image,
+            Location: m.attachments[0].mercury.extensible_attachment.story_attachment.target.location_title,
+            coordinates: m.attachments[0].mercury.extensible_attachment.story_attachment.target.coordinate,
+            url: m.attachments[0].mercury.extensible_attachment.story_attachment.url
+        };
     }
-
-    return {
-        type: "event",
-        threadID: formatID((m.messageMetadata.threadKey.threadFbId || m.messageMetadata.threadKey.otherUserFbId).toString()),
-        logMessageType: logMessageType,
-        logMessageData: logMessageData,
-        logMessageBody: m.messageMetadata.adminText,
-        author: m.messageMetadata.actorFbId,
-        participantIDs: m.participants || []
-    };
+}
+switch (hasData(formatID((m.messageMetadata.threadKey.threadFbId || m.messageMetadata.threadKey.otherUserFbId).toString()))) {
+    case true: {
+        switch (logMessageType) {
+            case "log:thread-color": {
+                let x = getData(formatID((m.messageMetadata.threadKey.threadFbId || m.messageMetadata.threadKey.otherUserFbId).toString()));
+                x.emoji = (logMessageData.theme_emoji || x.emoji);
+                x.color = (logMessageData['theme_color'] || x.color);
+                updateData(formatID((m.messageMetadata.threadKey.threadFbId || m.messageMetadata.threadKey.otherUserFbId).toString()),x);
+            }
+                break;
+            case "log:thread-icon": {
+                let x = getData(formatID((m.messageMetadata.threadKey.threadFbId || m.messageMetadata.threadKey.otherUserFbId).toString()));
+                x.emoji = (logMessageData['thread_icon'] || x.emoji);
+                updateData(formatID((m.messageMetadata.threadKey.threadFbId || m.messageMetadata.threadKey.otherUserFbId).toString()),x);
+            }
+                break;
+            case "log:user-nickname": {
+                let x = getData(formatID((m.messageMetadata.threadKey.threadFbId || m.messageMetadata.threadKey.otherUserFbId).toString()));
+                x.nicknames[logMessageData.participant_id] = (logMessageData.nickname.length == 0 ? x.userInfo.find(i => i.id == String(logMessageData.participant_id)).name : logMessageData.nickname);
+                updateData(formatID((m.messageMetadata.threadKey.threadFbId || m.messageMetadata.threadKey.otherUserFbId).toString()),x);
+            }
+                break;
+            case "log:thread-admins": {
+                let x = getData(formatID((m.messageMetadata.threadKey.threadFbId || m.messageMetadata.threadKey.otherUserFbId).toString()));
+                switch (logMessageData.ADMIN_EVENT) {
+                    case "add_admin": {
+                        x.adminIDs.push({ id: logMessageData.TARGET_ID });
+                    }
+                        break;
+                    case "remove_admin": {
+                        x.adminIDs = x.adminIDs.filter(item => item.id != logMessageData.TARGET_ID);
+                    }
+                    break;
+                }
+                updateData(formatID((m.messageMetadata.threadKey.threadFbId || m.messageMetadata.threadKey.otherUserFbId).toString()),x);
+            }
+                break;
+            case "log:thread-approval-mode": {
+                let x = getData(formatID((m.messageMetadata.threadKey.threadFbId || m.messageMetadata.threadKey.otherUserFbId).toString()));
+                if (x.approvalMode == true) { 
+                    x.approvalMode = false;
+                }
+                else {
+                    x.approvalMode = true;
+                }
+                updateData(formatID((m.messageMetadata.threadKey.threadFbId || m.messageMetadata.threadKey.otherUserFbId).toString()),x);
+            }
+                break;
+            case "log:thread-name": {
+                let x = getData(formatID((m.messageMetadata.threadKey.threadFbId || m.messageMetadata.threadKey.otherUserFbId).toString()));
+                x.threadName = (logMessageData.name || formatID((m.messageMetadata.threadKey.threadFbId || m.messageMetadata.threadKey.otherUserFbId).toString()));
+                updateData(formatID((m.messageMetadata.threadKey.threadFbId || m.messageMetadata.threadKey.otherUserFbId).toString()),x);
+            }
+                break;
+            case "log:subscribe": {
+                let x = getData(formatID((m.messageMetadata.threadKey.threadFbId || m.messageMetadata.threadKey.otherUserFbId).toString()));
+                for (let o of logMessageData.addedParticipants) {
+                    if (x.userInfo.some(i => i.id == o.userFbId)) continue; 
+                    else {
+                        x.userInfo.push({
+                            id: o.userFbId,
+                            name: o.fullName,
+                            gender: getGenderByPhysicalMethod(o.fullName)
+                        });
+                        x.participantIDs.push(o.userFbId);
+                    }
+                }
+                updateData(formatID((m.messageMetadata.threadKey.threadFbId || m.messageMetadata.threadKey.otherUserFbId).toString()),x);
+            }
+                break;
+            case "log:unsubscribe": {
+                let x = getData(formatID((m.messageMetadata.threadKey.threadFbId || m.messageMetadata.threadKey.otherUserFbId).toString()));
+                x.participantIDs = x.participantIDs.filter(item => item != logMessageData.leftParticipantFbId);
+                x.userInfo = x.userInfo.filter(item => item.id != logMessageData.leftParticipantFbId);
+                    if (x.adminIDs.some(i => i.id == logMessageData.leftParticipantFbId)) {
+                        x.adminIDs = x.adminIDs.filter(item => item.id != logMessageData.leftParticipantFbId);
+                    }
+                updateData(formatID((m.messageMetadata.threadKey.threadFbId || m.messageMetadata.threadKey.otherUserFbId).toString()),x);      
+            }
+            break;
+        }
+    }
 }
 
+return {
+    type: "event",
+    threadID: formatID((m.messageMetadata.threadKey.threadFbId || m.messageMetadata.threadKey.otherUserFbId).toString()),
+    logMessageType: logMessageType,
+    logMessageData: logMessageData,
+    logMessageBody: m.messageMetadata.adminText,
+    author: m.messageMetadata.actorFbId,
+    participantIDs: m.participants || []
+    };  
+}
+
+/**
+ * @param {{ st: any; from: { toString: () => any; }; to: any; thread_fbid: any; hasOwnProperty: (arg0: string) => any; from_mobile: any; realtime_viewer_fbid: any; }} event
+ */
+
 function formatTyp(event) {
-    return {
+return {
         isTyping: !!event.st,
         from: event.from.toString(),
         threadID: formatID((event.to || event.thread_fbid || event.from).toString()),
@@ -806,6 +1048,10 @@ function formatTyp(event) {
         type: "typ"
     };
 }
+
+/**
+ * @param {{ threadKey: { otherUserFbId: any; threadFbId: any; }; actorFbId: any; actionTimestampMs: any; }} delta
+ */
 
 function formatDeltaReadReceipt(delta) {
     // otherUserFbId seems to be used as both the readerID and the threadID in a 1-1 chat.
@@ -818,6 +1064,10 @@ function formatDeltaReadReceipt(delta) {
     };
 }
 
+/**
+ * @param {{ reader: { toString: () => any; }; time: any; thread_fbid: any; }} event
+ */
+
 function formatReadReceipt(event) {
     return {
         reader: event.reader.toString(),
@@ -827,6 +1077,10 @@ function formatReadReceipt(event) {
     };
 }
 
+/**
+ * @param {{ chat_ids: any[]; thread_fbids: any[]; timestamp: any; }} event
+ */
+
 function formatRead(event) {
     return {
         threadID: formatID(((event.chat_ids && event.chat_ids[0]) || (event.thread_fbids && event.thread_fbids[0])).toString()),
@@ -834,6 +1088,12 @@ function formatRead(event) {
         type: "read"
     };
 }
+
+/**
+ * @param {string} str
+ * @param {string | any[]} startToken
+ * @param {string} endToken
+ */
 
 function getFrom(str, startToken, endToken) {
     var start = str.indexOf(startToken) + startToken.length;
@@ -845,8 +1105,13 @@ function getFrom(str, startToken, endToken) {
     return lastHalf.substring(0, end);
 }
 
+/**
+ * @param {string} html
+ */
+
 function makeParsable(html) {
-    let withoutForLoop = html.replace(/for\s*\(\s*;\s*;\s*\)\s*;\s*/, "");
+    let withoutForLoop = html.replace(/for\s*\(\s*;\s*;\s*\)\s*;\s*/
+, "");
 
     // (What the fuck FB, why windows style newlines?)
     // So sometimes FB will send us base multiple objects in the same response.
@@ -863,19 +1128,30 @@ function makeParsable(html) {
     return "[" + maybeMultipleObjects.join("},{") + "]";
 }
 
+/**
+ * @param {any} form
+ */
+
 function arrToForm(form) {
     return arrayToObject(form,
-        function(v) {
+        function(/** @type {{ name: any; }} */v) {
             return v.name;
         },
-        function(v) {
+        function(/** @type {{ val: any; }} */v) {
             return v.val;
         }
     );
 }
 
+/**
+ * @param {any[]} arr
+ * @param {{ (v: any): any; (arg0: any): string | number; }} getKey
+ * @param {{ (v: any): any; (arg0: any): any; }} getValue
+ */
+
 function arrayToObject(arr, getKey, getValue) {
-    return arr.reduce(function(acc, val) {
+    return arr.reduce(function(/** @type {{ [x: string]: any; }} */
+ acc, /** @type {any} */val) {
         acc[getKey(val)] = getValue(val);
         return acc;
     }, {});
@@ -889,6 +1165,12 @@ function generateTimestampRelative() {
     var d = new Date();
     return d.getHours() + ":" + padZeros(d.getMinutes());
 }
+
+/**
+ * @param {any} html
+ * @param {any} userID
+ * @param {{ fb_dtsg: any; ttstamp: any; globalOptions: any; }} ctx
+ */
 
 function makeDefaults(html, userID, ctx) {
     var reqCounter = 1;
@@ -912,6 +1194,10 @@ function makeDefaults(html, userID, ctx) {
     var ttstamp = "2";
     for (var i = 0; i < fb_dtsg.length; i++) ttstamp += fb_dtsg.charCodeAt(i);
     var revision = getFrom(html, 'revision":', ",");
+
+    /**
+     * @param {{ [x: string]: any; hasOwnProperty: (arg0: string) => any; }} obj
+     */
 
     function mergeWithDefaults(obj) {
         // @TODO This is missing a key called __dyn.
@@ -953,13 +1239,35 @@ function makeDefaults(html, userID, ctx) {
         return newObj;
     }
 
+    /**
+     * @param {any} url
+     * @param {any} jar
+     * @param {any} form
+     * @param {any} ctxx
+     */
+
     function postWithDefaults(url, jar, form, ctxx) {
         return post(url, jar, mergeWithDefaults(form), ctx.globalOptions, ctxx || ctx);
     }
 
+    /**
+     * @param {any} url
+     * @param {any} jar
+     * @param {any} qs
+     * @param {any} ctxx
+     */
+
     function getWithDefaults(url, jar, qs, ctxx) {
         return get(url, jar, mergeWithDefaults(qs), ctx.globalOptions, ctxx || ctx);
     }
+
+    /**
+     * @param {any} url
+     * @param {any} jar
+     * @param {any} form
+     * @param {any} qs
+     * @param {any} ctxx
+     */
 
     function postFormDataWithDefault(url, jar, form, qs, ctxx) {
         return postFormData(url, jar, mergeWithDefaults(form), mergeWithDefaults(qs), ctx.globalOptions, ctxx || ctx);
@@ -972,9 +1280,15 @@ function makeDefaults(html, userID, ctx) {
     };
 }
 
+/**
+ * @param {{ jar: { setCookie: (arg0: string, arg1: string) => void; }; fb_dtsg: string; ttstamp: string; }} ctx
+ * @param {{ postFormData: (arg0: string, arg1: any, arg2: any, arg3: {}) => any; post: (arg0: string, arg1: any, arg2: any) => any; get: (arg0: any, arg1: any) => Promise<any>; }} defaultFuncs
+ * @param {string | number} [retryCount]
+ */
+
 function parseAndCheckLogin(ctx, defaultFuncs, retryCount) {
     if (retryCount == undefined) retryCount = 0;
-    return function(data) {
+    return function(/** @type {{ body: string; statusCode: string | number; request: { uri: { protocol: string; hostname: string; pathname: string; }; headers: { [x: string]: string; }; formData: any; method: string; }; }} */data) {
         return bluebird.try(function() {
             log.verbose("parseAndCheckLogin", data.body);
             if (data.statusCode >= 500 && data.statusCode < 600) {
@@ -1037,19 +1351,34 @@ function parseAndCheckLogin(ctx, defaultFuncs, retryCount) {
                 }
             }
 
-            if (res.error === 1357001) throw { error: "Chưa Đăng Nhập Được - Appstate Đã Bị Lỗi" };
-            return res;
+            if (res.error === 1357001) {
+                if (global.Fca.Require.FastConfig.AutoLogin) {
+                    return global.Fca.Require.logger.Warning(global.Fca.Require.Language.Index.AutoLogin, function() {
+                            return global.Fca.Action('AutoLogin');
+                        });
+                    }
+                    else if (!global.Fca.Require.FastConfig.AutoLogin) {
+                        return global.Fca.Require.logger.Error(global.Fca.Require.Language.Index.ErrAppState);
+                    }
+                return;
+            }
+            else return res;
         });
     };
 }
 
+/**
+ * @param {{ setCookie: (arg0: any, arg1: string) => void; }} jar
+ */
+
 function saveCookies(jar) {
-    return function(res) {
+    return function(/** @type {{ headers: { [x: string]: any[]; }; }} */res) {
         var cookies = res.headers["set-cookie"] || [];
-        cookies.forEach(function(c) {
-            if (c.indexOf(".facebook.com") > -1) jar.setCookie(c, "https://www.facebook.com");
-            var c2 = c.replace(/domain=\.facebook\.com/, "domain=.messenger.com");
-            jar.setCookie(c2, "https://www.messenger.com");
+        cookies.forEach(function(/** @type {string} */c) {
+            if (c.indexOf(".facebook.com") > -1) { // yo wtf is this?
+                jar.setCookie(c, "https://www.facebook.com");
+                jar.setCookie(c.replace(/domain=\.facebook\.com/, "domain=.messenger.com"), "https://www.messenger.com");
+            }
         });
         return res;
     };
@@ -1071,6 +1400,10 @@ var NUM_TO_MONTH = [
 ];
 var NUM_TO_DAY = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
+/**
+ * @param {{ getUTCDate: () => any; getUTCHours: () => any; getUTCMinutes: () => any; getUTCSeconds: () => any; getUTCDay: () => string | number; getUTCMonth: () => string | number; getUTCFullYear: () => string; }} date
+ */
+
 function formatDate(date) {
     var d = date.getUTCDate();
     d = d >= 10 ? d : "0" + d;
@@ -1083,9 +1416,18 @@ function formatDate(date) {
     return (NUM_TO_DAY[date.getUTCDay()] + ", " + d + " " + NUM_TO_MONTH[date.getUTCMonth()] + " " + date.getUTCFullYear() + " " + h + ":" + m + ":" + s + " GMT");
 }
 
+/**
+ * @param {string[]} arr
+ * @param {string} url
+ */
+
 function formatCookie(arr, url) {
     return arr[0] + "=" + arr[1] + "; Path=" + arr[3] + "; Domain=" + url + ".com";
 }
+
+/**
+ * @param {{ thread_fbid: { toString: () => any; }; participants: any[]; name: any; custom_nickname: any; snippet: any; snippet_attachments: any; snippet_sender: any; unread_count: any; message_count: any; image_src: any; timestamp: any; mute_until: any; is_canonical_user: any; is_canonical: any; is_subscribed: any; folder: any; is_archived: any; recipients_loadable: any; has_email_participant: any; read_only: any; can_reply: any; cannot_reply_reason: any; last_message_timestamp: any; last_read_timestamp: any; last_message_type: any; custom_like_icon: any; custom_color: any; admin_ids: any; thread_type: any; }} data
+ */
 
 function formatThread(data) {
     return {
@@ -1101,7 +1443,6 @@ function formatThread(data) {
         messageCount: data.message_count,
         imageSrc: data.image_src,
         timestamp: data.timestamp,
-        serverTimestamp: data.server_timestamp, // what is this?
         muteUntil: data.mute_until,
         isCanonicalUser: data.is_canonical_user,
         isCanonical: data.is_canonical,
@@ -1123,9 +1464,18 @@ function formatThread(data) {
     };
 }
 
+/**
+ * @param {any} obj
+ */
+
 function getType(obj) {
     return Object.prototype.toString.call(obj).slice(8, -1);
 }
+
+/**
+ * @param {{ lat: number; p: any; }} presence
+ * @param {any} userID
+ */
 
 function formatProxyPresence(presence, userID) {
     if (presence.lat === undefined || presence.p === undefined) return null;
@@ -1137,6 +1487,11 @@ function formatProxyPresence(presence, userID) {
     };
 }
 
+/**
+ * @param {{ la: number; a: any; }} presence
+ * @param {any} userID
+ */
+
 function formatPresence(presence, userID) {
     return {
         type: "presence",
@@ -1146,10 +1501,19 @@ function formatPresence(presence, userID) {
     };
 }
 
+/**
+ * @param {any} payload
+ */
+
 function decodeClientPayload(payload) {
     /*
     Special function which Client using to "encode" clients JSON payload
     */
+
+    /**
+     * @param {string | any[]} array
+     */
+
     function Utf8ArrayToStr(array) {
         var out, i, len, c;
         var char2, char3;
@@ -1175,7 +1539,7 @@ function decodeClientPayload(payload) {
                     out += String.fromCharCode(((c & 0x1F) << 6) | (char2 & 0x3F));
                     break;
                 case 14:
-                    char2 = array[i++];
+                    char2 = array[i++]; 
                     char3 = array[i++];
                     out += String.fromCharCode(((c & 0x0F) << 12) | ((char2 & 0x3F) << 6) | ((char3 & 0x3F) << 0));
                     break;
@@ -1186,12 +1550,93 @@ function decodeClientPayload(payload) {
     return JSON.parse(Utf8ArrayToStr(payload));
 }
 
-function getAppState(jar) {
-    return jar
-        .getCookies("https://www.facebook.com")
-        .concat(jar.getCookies("https://facebook.com"))
-        .concat(jar.getCookies("https://www.messenger.com"));
+/**
+ * @param {{ getCookies: (arg0: string) => string | any[]; }} jar
+ */
+
+function getAppState(jar, Encode) {
+    var prettyMilliseconds = require('pretty-ms');
+    var getText = globalThis.Fca.getText;
+    var Security = require("./Extra/Security/Base");
+    var appstate = jar.getCookies("https://www.facebook.com").concat(jar.getCookies("https://facebook.com")).concat(jar.getCookies("https://www.messenger.com"));
+    var logger = require('./logger'),languageFile = require('./Language/index.json');
+    var Language = languageFile.find(i => i.Language == globalThis.Fca.Require.FastConfig.Language).Folder.Index;
+    var data;
+        switch (require(process.cwd() + "/FastConfigFca.json").EncryptFeature) {
+            case true: {
+                if (Encode == undefined) Encode = true;
+                if (process.env['FBKEY'] != undefined && Encode) {
+                    logger.Normal(Language.EncryptSuccess);
+                    data = Security(JSON.stringify(appstate),process.env['FBKEY'],"Encrypt");
+                }
+                else return appstate;
+            }
+                break;
+            case false: {
+                data = appstate;
+            }
+                break;
+            default: {
+                logger.Normal(getText(Language.IsNotABoolean,require(process.cwd() + "/FastConfigFca.json").EncryptFeature));
+                data = appstate;
+            } 
+        }
+            if(!globalThis.Fca.Setting.get('getAppState')) {
+                logger.Normal(getText(Language.ProcessDone,`${prettyMilliseconds(Date.now() - globalThis.Fca.startTime)}`),function() { globalThis.Fca.Setting.set('getAppState',true); });
+            }
+    return data;
 }
+
+function getData_Path(Obj , Arr, Stt) {
+    //default stt = 0
+    if (Arr.length === 0 && Obj != undefined) {
+        return Obj; //object
+    }
+    else if (Obj == undefined) {
+        return Stt;
+    }
+    const head = Arr[0];
+    if (head == undefined) {
+        return Stt;
+    }
+    const tail = Arr.slice(1);
+    return getData_Path(Obj[head], tail, Stt++);
+}
+
+
+function setData_Path(obj, path, value) {
+    if (!path.length) {
+        return obj;
+    }
+    const currentKey = path[0];
+    let currentObj = obj[currentKey];
+
+    if (!currentObj) {
+        obj[currentKey] = value;
+        currentObj = obj[currentKey];
+    }
+    path.shift();
+    if (!path.length) {
+        currentObj = value;
+    } else {
+        currentObj = setData_Path(currentObj, path, value);
+    }
+
+    return obj;
+}
+
+function getPaths(obj, parentPath = []) {
+    let paths = [];
+        for (let prop in obj) {
+            if (typeof obj[prop] === "object") {
+                paths = paths.concat(getPaths(obj[prop], [...parentPath, prop]));
+            } else {
+                paths.push([...parentPath, prop]);
+            }
+        }
+    return paths;
+}
+    
 module.exports = {
     isReadableStream:isReadableStream,
     get:get,
@@ -1208,6 +1653,10 @@ module.exports = {
     generateTimestampRelative:generateTimestampRelative,
     makeDefaults:makeDefaults,
     parseAndCheckLogin:parseAndCheckLogin,
+    getGender: getGenderByPhysicalMethod,
+    getData_Path,
+    setData_Path,
+    getPaths,
     saveCookies,
     getType,
     _formatAttachment,

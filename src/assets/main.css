@@ -1,6 +1,0 @@
-@import 'microtip/microtip.css';
-@import './form.css';
-
-[aria-label][role~='tooltip']::after {
-  white-space: pre-line;
-}
