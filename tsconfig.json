@@ -1,23 +1,9 @@
 {
-  "extends": "@tsconfig/recommended/tsconfig.json",
   "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
-    "jsx": "react-native",
-    "lib": ["dom", "esnext"],
-    "moduleResolution": "node",
-    "noEmit": true,
-    "skipLibCheck": true,
-    "resolveJsonModule": true,
     "strict": true,
-    "allowJs": true,
-    "rootDirs": ["./"],
-    "baseUrl": "./src",
+    "strictNullChecks": true,
     "paths": {
-      "@src/*": ["src/*"]
-    },
-  },
-  "types": [
-    "@types/styled-components-react-native"
-  ], 
-  "include": ["src/Icon", "src/custom.d.ts", "src/styled.d.ts"]
+      "mongoose" : ["./types/index.d.ts"]
+    }
+  }
 }
