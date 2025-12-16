@@ -1,69 +1,29 @@
 {
-  "name": "wizard-icon",
-  "version": "1.17.8",
-  "description": "Icon automation workflow with Figma (wizard-icon)",
-  "main": "dist/index.js",
-  "typings": "dist/icons.d.ts",
-  "files": [
-    "dist"
-  ],
-  "repository": "https://github.xsky.com/front-end/wizard-icon.git",
-  "author": "pangkaiguo",
+  "name": "jest-environment-ceramic",
+  "version": "0.17.0",
+  "description": "Ceramic environment for Jest",
+  "author": "3Box Labs",
+  "license": "(Apache-2.0 OR MIT)",
+  "homepage": "https://github.com/ceramicstudio/js-glaze#readme",
   "keywords": [
-    "react",
-    "icons",
-    "svg",
-    "inline",
-    "figma",
-    "juuust",
-    "design"
+    "jest",
+    "ceramic"
   ],
-  "bugs": {
-    "url": "https://github.xsky.com/front-end/wizard-icon/issues"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ceramicstudio/js-glaze",
+    "directory": "packages/jest-environment-ceramic"
   },
-  "homepage": "https://github.xsky.com/front-end/wizard-icon#readme",
-  "scripts": {
-    "fetch": "node bin/fetchSVG.js",
-    "generate": "rm -rf src/icons && node bin/build.js",
-    "build:bundle": "rm -rf dist && node_modules/.bin/rollup --c ./build/rollup.config.bundle.js",
-    "dev": "rollup -w -c ./build/rollup.config.dev.js",
-    "build": "rollup -c ./build/rollup.config.prod.js"
-  },
-  "config": {
-    "style": "fill"
-  },
-  "license": "MIT",
+  "type": "module",
+  "main": "index.js",
+  "files": [],
   "dependencies": {
-    "normalize.css": "^8.0.1",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "styled-components": "^5.1.1"
+    "@ceramicnetwork/core": "^2.25.0",
+    "ipfs-core": "^0.17.0",
+    "jest-environment-node": "^29.4.3",
+    "tmp-promise": "^3.0.3"
   },
-  "devDependencies": {
-    "@babel/cli": "^7.5.5",
-    "@babel/core": "^7.5.5",
-    "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
-    "@babel/preset-env": "^7.5.5",
-    "@babel/preset-react": "^7.0.0",
-    "@rollup/plugin-babel": "^5.1.0",
-    "@rollup/plugin-commonjs": "^14.0.0",
-    "@rollup/plugin-node-resolve": "^8.4.0",
-    "@rollup/plugin-replace": "^2.3.3",
-    "cheerio": "^1.0.0-rc.3",
-    "concurrently": "^4.1.1",
-    "dotenv": "^8.2.0",
-    "figma-js": "^1.11.0",
-    "fs-extra": "^9.0.1",
-    "got": "^11.5.1",
-    "p-queue": "2.4.2",
-    "prettier-eslint": "^9.0.0",
-    "rollup": "^1.19.4",
-    "rollup-plugin-babel": "^4.3.3",
-    "rollup-plugin-copy": "^3.3.0",
-    "rollup-plugin-postcss": "^3.1.3",
-    "rollup-plugin-serve": "^1.0.3",
-    "rollup-plugin-uglify": "^6.0.4",
-    "svgo": "^1.3.0",
-    "uppercamelcase": "^3.0.0"
+  "scripts": {
+    "lint": "eslint index.js --fix"
   }
 }
