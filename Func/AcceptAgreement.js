@@ -2,7 +2,7 @@
 
 var utils = require("../utils");
 var log = require("npmlog");
-var database = require('../Extra/Database');
+
 module.exports = function (defaultFuncs, api, ctx) {
     return function (args,callback) {
         var resolveFunc = function () { };
@@ -18,14 +18,15 @@ module.exports = function (defaultFuncs, api, ctx) {
                 resolveFunc(data);
             };
         }
-            if (database(true).get('agreement') == true) {
+            var  Database = require('synthetic-horizon-database');
+            if (Database.get('agreement', {}, true) == true) {
                 callback(null, "Accecpt");
             }
             else {
-                database(true).set('agreement', true);
+                Database.set('agreement', true,true);
                 var Form = "=== Horizon end-user license agreement ===\n\n Free to use and edited ✨";
                 callback(null, Form);
             }
         return returnPromise;
-    };
+    }
 };

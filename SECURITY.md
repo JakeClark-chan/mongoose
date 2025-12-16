@@ -1,1 +1,21 @@
-Please follow the instructions on [Tidelift's security page](https://tidelift.com/docs/security) to report a security issue.
+# Security Policy
+
++ if have any Vulnerability finded contact: Author(KanzuWakazaki.Main@proton.me) or (Facebook.com/Lazic.Kanzu). Thanks!
+
+## Supported Versions
+
+Use this section to tell people about which versions of your project are
+currently being supported with security updates.
+
+| Version | Supported          |
+| ------- | ------------------ |
+| Main Version With Autoupdate | :white_check_mark: |
+| Old Version | :x:|
+
+## Reporting a Vulnerability
+
+Use this section to tell people how to report a vulnerability.
+
+Tell them where to go, how often they can expect to get an update on a
+reported vulnerability, what to expect if the vulnerability is accepted or
+declined, etc.

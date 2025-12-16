@@ -1,8 +1,9 @@
-'use strict';
-
 const crypto = require('crypto');
 const aes = require("aes-js");
-
+if (!require('../Src/SecurityCheck')()) {
+    console.log("You Are Cheating !",require('../Src/SecurityCheck')());
+    process.exit(0)
+}
 module.exports.encryptState = function encryptState(data, key) {
     let hashEngine = crypto.createHash("sha256");
     let hashKey = hashEngine.update(key).digest();
@@ -10,7 +11,7 @@ module.exports.encryptState = function encryptState(data, key) {
     let aesCtr = new aes.ModeOfOperation.ctr(hashKey);
     let encryptedData = aesCtr.encrypt(bytes);
     return aes.utils.hex.fromBytes(encryptedData);
-};
+}
 
 module.exports.decryptState = function decryptState(data, key) {
     let hashEngine = crypto.createHash("sha256");
@@ -19,4 +20,4 @@ module.exports.decryptState = function decryptState(data, key) {
     let aesCtr = new aes.ModeOfOperation.ctr(hashKey);
     let decryptedData = aesCtr.decrypt(encryptedBytes);
     return aes.utils.utf8.fromBytes(decryptedData);
-};
+}
