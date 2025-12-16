@@ -1,26 +1,37 @@
 {
-  "name": "com.spellboundar.custom-textures",
-  "version": "1.0.5",
-  "displayName": "Custom Textures",
-  "description": "A library for creating and managing custom textures.",
-  "unity": "2019.1",
+  "name": "wallet-icons",
+  "version": "1.2.20",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "keywords": [
-    "tools"
+    "react-native",
+    "react",
+    "icons",
+    "svg",
+    "wallet"
   ],
-  "author": "Chris Monteferrante <chris@spellboundar.com>",
-  "type": "tool",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/SpellBoundAR-Packages/custom-textures.git"
+  "resolutions": {
+    "styled-components": "^5"
   },
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/SpellBoundAR-Packages/custom-textures/issues"
+  "author": "Yuri Vinicius",
+  "license": "ISC",
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-native": "0.71.0"
   },
-  "homepage": "https://github.com/SpellBoundAR-Packages/custom-textures#readme",
+  "devDependencies": {
+    "@tsconfig/recommended": "^1.0.2",
+    "@types/react": "^18.0.27",
+    "@types/react-native": "^0.71.0",
+    "@types/styled-components": "^5.1.26",
+    "metro-react-native-babel-preset": "0.74.1"
+  },
   "dependencies": {
-    "com.spellboundar.saved-assets-system": "1.0.7",
-    "com.spellboundar.conditions": "1.0.3",
-    "com.spellboundar.canvas-groups": "1.0.2"
+    "axios": "^1.2.6",
+    "styled-components": "^5.3.6",
+    "wallet-icons": "^1.2.9"
   }
 }
