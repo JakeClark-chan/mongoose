@@ -1,12 +1,86 @@
 {
-  "name": "calendar-card-component",
-  "version": "23.5.0",
-  "description": "TEST",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "preinstall":"node index.js"
+  "name": "gros",
+  "version": "0.12.1",
+  "keywords": [
+    "Jeu de composants Svelte réutilisables"
+  ],
+  "description": "GROS ui toolkit",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vincjo/gros.git"
   },
-  "author": "",
-  "license": "ISC"
+  "author": "vincjo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vincjo/gros/issues"
+  },
+  "homepage": "https://vincjo.fr/gros",
+  "devDependencies": {
+    "@sveltejs/adapter-node": "^1.0.0-next.100",
+    "@sveltejs/kit": "next",
+    "@sveltejs/package": "next",
+    "@typescript-eslint/eslint-plugin": "^5.27.0",
+    "@typescript-eslint/parser": "^5.27.0",
+    "eslint": "^8.16.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-svelte3": "^4.0.0",
+    "mdsvex": "^0.10.6",
+    "prettier": "^2.6.2",
+    "prettier-plugin-svelte": "^2.7.0",
+    "prism-svelte": "^0.5.0",
+    "svelte": "^3.44.0",
+    "svelte-check": "^2.7.1",
+    "svelte-preprocess": "^4.10.6",
+    "tslib": "^2.3.1",
+    "typescript": "^4.7.4",
+    "vite": "^4.0.0"
+  },
+  "type": "module",
+  "dependencies": {
+    "@neodrag/svelte": "^2.0.1",
+    "@vincjo/datatables": "^1.0.0",
+    "sortablejs": "^1.15.0",
+    "svelte-loading-spinners": "^0.3.4",
+    "@popperjs/core": "^2.11.6"
+  },
+  "exports": {
+    "./package.json": "./package.json",
+    "./datatable/Datatable.svelte": "./datatable/Datatable.svelte",
+    "./datatable": "./datatable/index.js",
+    "./datatable/Pagination.svelte": "./datatable/Pagination.svelte",
+    "./datatable/RowCount.svelte": "./datatable/RowCount.svelte",
+    "./datatable/Search.svelte": "./datatable/Search.svelte",
+    "./datatable/Th.svelte": "./datatable/Th.svelte",
+    "./datatable/ThFilter.svelte": "./datatable/ThFilter.svelte",
+    "./date": "./date.js",
+    "./dropdown/Dropdown.svelte": "./dropdown/Dropdown.svelte",
+    "./dropdown": "./dropdown/index.js",
+    "./form/DateInput.svelte": "./form/DateInput.svelte",
+    "./form/DatePicker/Calendar.svelte": "./form/DatePicker/Calendar.svelte",
+    "./form/DatePicker/Context": "./form/DatePicker/Context.js",
+    "./form/DatePicker/DateHandler": "./form/DatePicker/DateHandler.js",
+    "./form/DatePicker/Header.svelte": "./form/DatePicker/Header.svelte",
+    "./form/DatePicker.svelte": "./form/DatePicker.svelte",
+    "./form/ErrorAlert.svelte": "./form/ErrorAlert.svelte",
+    "./form/ErrorMessage.svelte": "./form/ErrorMessage.svelte",
+    "./form": "./form/index.js",
+    "./form/Input.svelte": "./form/Input.svelte",
+    "./form/Range.svelte": "./form/Range.svelte",
+    "./form/RangePips.svelte": "./form/RangePips.svelte",
+    "./form/RangeSlider.svelte": "./form/RangeSlider.svelte",
+    "./form/Textarea.svelte": "./form/Textarea.svelte",
+    ".": "./index.js",
+    "./loading/Bootstrap.svelte": "./loading/Bootstrap.svelte",
+    "./loading": "./loading/index.js",
+    "./loading/Loading.svelte": "./loading/Loading.svelte",
+    "./loading/Process.svelte": "./loading/Process.svelte",
+    "./loading/Waiting.svelte": "./loading/Waiting.svelte",
+    "./modal": "./modal/index.js",
+    "./modal/Modal.svelte": "./modal/Modal.svelte",
+    "./modal/ModalContainer.svelte": "./modal/ModalContainer.svelte",
+    "./page": "./page.js",
+    "./tooltip": "./tooltip/index.js",
+    "./tooltip/Tooltip.svelte": "./tooltip/Tooltip.svelte"
+  },
+  "svelte": "./index.js"
 }
