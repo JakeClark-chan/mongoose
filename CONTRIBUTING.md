@@ -1,96 +1,54 @@
-# Contributing to Mongoose
+# Contribution Guidelines
 
-If you have a question about Mongoose (not a bug report) please post it to either [StackOverflow](http://stackoverflow.com/questions/tagged/mongoose), or on [Gitter](https://gitter.im/Automattic/mongoose?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+Please note that this project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms. Please also review our [Contributor License Agreement ("CLA")](INDIVIDUAL_CONTRIBUTOR_LICENSE.md) prior to submitting changes to the project.  You will need to attest to this agreement following the instructions in the [Paperwork for Pull Requests](#paperwork-for-pull-requests) section below.
 
-## Reporting bugs
+---
 
-* Before opening a new issue, look for existing [issues](https://github.com/Automattic/mongoose/issues) to avoid duplication. If the issue does not yet exist, [create one](https://github.com/Automattic/mongoose/issues/new).
-  * Please post any relevant code samples, preferably a standalone script that
-  reproduces your issue. Do **not** describe your issue in prose. **Show your code.**
-  * If the bug involves an error, please post the stack trace.
-  * Please post the version of Mongoose and MongoDB that you're using.
-  * Please write bug reports in JavaScript (ES5, ES6, etc) that runs in Node.js, **not** CoffeeScript, TypeScript, JSX, etc.
+# How to Contribute
 
-## Requesting new features
+Now that we have the disclaimer out of the way, let's get into how you can be a part of our project. There are many different ways to contribute.
 
-* Before opening a new issue, look for existing [issues](https://github.com/learnboost/mongoose/issues) to avoid duplication. If the issue does not yet exist, [create one](https://github.com/learnboost/mongoose/issues/new).
-* Please describe a use case for it
-* Please include test cases if possible
+## Issues
 
-## Fixing bugs / Adding features
+We track our work using Issues in GitHub. Feel free to open up your own issue to point out areas for improvement or to suggest your own new experiment. If you are comfortable with signing the waiver linked above and contributing code or documentation, grab your own issue and start working.
 
-* Before starting to write code, look for existing [issues](https://github.com/learnboost/mongoose/issues). That way you avoid working on something that might not be of interest or that has been addressed already in a different branch. [You can create a new issue on GitHub](https://github.com/learnboost/mongoose/issues/new).
-  * *The source of this project is written in JavaScript, not CoffeeScript or TypeScript. Please write your bug reports in JavaScript that can run in vanilla Node.js*.
-* Fork the [repo](https://github.com/Automattic/mongoose) *or* for small documentation changes, navigate to the source on github and click the [Edit](https://github.com/blog/844-forking-with-the-edit-button) button.
-* Follow the general coding style of the rest of the project:
-  * 2 space tabs
-  * no trailing whitespace
-  * inline documentation for new methods, class members, etc.
-  * 1 space between conditionals, no space before function parenthesis
-    * `if (..) {`
-    * `for (..) {`
-    * `while (..) {`
-    * `function(err) {`
-* Write tests and make sure they pass (tests are in the [test](https://github.com/Automattic/mongoose/tree/master/test) directory).
-* Write typings-tests if you modify the typescript-typings. (tests are in the [test/types](https://github.com/Automattic/mongoose/tree/master/test/types) directory).
+## Coding Standards
 
-## Running the tests
+We have some general guidelines towards contributing to this project.
 
-* Open a terminal and navigate to the root of the project
-* execute `npm install` to install the necessary dependencies
-* execute `npm run mongo` to start a MongoDB instance on port 27017. This step is optional, if you have already a database running on port 27017. To spin up a specific mongo version, you can do it by executing `npm run mongo -- {version}`. E.g. you want to spin up a mongo 4.2.2 server, you execute `npm run mongo -- 4.2.2`
-* execute `npm test` to run the tests (we're using [mocha](http://mochajs.org/))
-  * or to execute a single test `npm test -- -g 'some regexp that matches the test description'`
-  * any mocha flags can be specified with `-- <mocha flags here>`
-  * For example, you can use `npm test -- -R spec` to use the spec reporter, rather than the dot reporter (by default, the test output looks like a bunch of dots)
-  * execute `npm run test-tsd` to run the typescript tests
-  * execute `npm run ts-benchmark` to run the typescript benchmark "performance test" for a single time.
-  * execute `npm run ts-benchmark-watch` to run the typescript benchmark "performance test" while watching changes on types folder. Note: Make sure to commit all changes before executing this command.
-* in order to run tests that require an cluster with encryption locally, run `npm run setup-test-encryption` followed by `npm run test-encryption`. Alternatively, you can start an encrypted cluster using the `scripts/configure-cluster-with-encryption.sh` file.
-  * These scripts can take a few minutes to run.
-  * To change an encryption configuration, it is recommended to follow these steps:
-    * Edit the variables in `scripts/configure-cluster-with-encryption.sh` with your desired configuration.
-    * Restart your shell.
-    * Delete the `data/` directory if it exists.
-    * Finally, run the configuration script.
+### Languages
 
-## Documentation
+*Lua*
 
-To contribute to the [API documentation](http://mongoosejs.com/docs/api/mongoose.html) just make your changes to the inline documentation of the appropriate [source code](https://github.com/Automattic/mongoose/tree/master/lib) in the master branch and submit a [pull request](https://help.github.com/articles/using-pull-requests/). You might also use the github [Edit](https://github.com/blog/844-forking-with-the-edit-button) button.
+## Pull Requests
 
-To contribute to the [guide](http://mongoosejs.com/docs/guide.html) or [quick start](http://mongoosejs.com/docs/index.html) docs, make your changes to the appropriate `.pug` / `.md` files in the [docs](https://github.com/Automattic/mongoose/tree/master/docs) directory of the master branch and submit a pull request. Again, the [Edit](https://github.com/blog/844-forking-with-the-edit-button) button might work for you here.
+If you've gotten as far as reading this section, then thank you for your suggestions.
 
-If you'd like to preview your documentation changes, first commit your changes to your local master branch, then execute:
+## Paperwork for Pull Requests
 
-* `npm install`
-* `npm run docs:view`
+* Please read this guide and make sure you agree with our [Contributor License Agreement ("CLA")](INDIVIDUAL_CONTRIBUTOR_LICENSE.md).
+* Make sure git knows your name and email address:
+   ```
+   $ git config user.name "J. Random User"
+   $ git config user.email "j.random.user@example.com"
+   ```
+>The name and email address must be valid as we cannot accept anonymous contributions.
+* Write good commit messages.
+> Concise commit messages that describe your changes help us better understand your contributions.
+* The first time you open a pull request in this repository, you will see a comment on your PR with a link that will allow you to sign our Contributor License Agreement (CLA) if necessary.
+> The link will take you to a page that allows you to view our CLA.  You will need to click the `Sign in with GitHub to agree button` and authorize the cla-assistant application to access the email addresses associated with your GitHub account.  Agreeing to the CLA is also considered to be an attestation that you either wrote or have the rights to contribute the code.  All committers to the PR branch will be required to sign the CLA, but you will only need to sign once.  This CLA applies to all repositories in the Optum org.
 
-Visit `http://127.0.0.1:8089` and you should see the docs with your local changes. Make sure you `npm run docs:clean` before committing, because automated generated files to `docs/*` should **not** be in PRs.
+## General Guidelines
 
-### Documentation Style Guidelines
+Ensure your pull request (PR) adheres to the following guidelines:
 
-There are some guidelines to keep the style for the documentation consistent:
+* Try to make the name concise and descriptive.
+* Give a good description of the change being made. Since this is very subjective, see the [Updating Your Pull Request (PR)](#updating-your-pull-request-pr) section below for further details.
+* Every pull request should be associated with one or more issues. If no issue exists yet, please create your own.
+* Make sure that all applicable issues are mentioned somewhere in the PR description. This can be done by typing # to bring up a list of issues.
 
-* All links that refer to some other file in the mongoose documentation needs to be relative without a prefix unless required (use `guide.html` over `./guide.html` or `/docs/guide.html`)
+### Updating Your Pull Request (PR)
 
-## Plugins website
+A lot of times, making a PR adhere to the standards above can be difficult. If the maintainers notice anything that we'd like changed, we'll ask you to edit your PR before we merge it. This applies to both the content documented in the PR and the changed contained within the branch being merged. There's no need to open a new PR. Just edit the existing one.
 
-The [plugins](http://plugins.mongoosejs.io/) site is also an [open source project](https://github.com/vkarpov15/mongooseplugins) that you can get involved with. Feel free to fork and improve it as well!
-
-## Financial contributions
-
-We also welcome financial contributions in full transparency on our [open collective](https://opencollective.com/mongoose).
-Anyone can file an expense. If the expense makes sense for the development of the community, it will be "merged" in the ledger of our open collective by the core contributors and the person who filed the expense will be reimbursed.
-
-## Credits
-
-### Contributors
-
-Thank you to all the people who have already contributed to mongoose!
-<a href="https://github.com/Automattic/mongoose/graphs/contributors"><img src="https://opencollective.com/mongoose/contributors.svg?width=890" alt="Mongoose contributors" /></a>
-
-### Backers
-
-Thank you to all our backers! [[Become a backer](https://opencollective.com/mongoose#backer)]
-
-<a href="https://opencollective.com/mongoose#backers" target="_blank"><img src="https://opencollective.com/mongoose/backers.svg?width=890" alt="Mongoose backers"></a>
+[email]: mailto:opensource@optum.com
