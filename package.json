@@ -1,11 +1,12 @@
 {
-  "name": "p2p-music-ne-rabotaet-mrgn",
+  "name": "sotn",
   "version": "1.0.0",
-  "description": "p2p-music-ne-rabotaet-mrgn",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "P2Pshnik",
+  "keywords": [],
+  "author": "",
   "license": "ISC"
 }
