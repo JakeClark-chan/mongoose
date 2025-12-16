@@ -1,15 +1,11 @@
 {
-  "name": "near-linkdrop-contract",
-  "version": "2.2.0",
-  "description": "Internal package",
+  "name": "1xbet-ofitsialnyi-mobilnyi-vkhod-prilozhenie-ikbz",
+  "version": "1.0.0",
+  "description": "1xbet-ofitsialnyi-mobilnyi-vkhod-prilozhenie-ikbz",
   "main": "index.js",
   "scripts": {
-    "test": "ls",
-	"preinstall": "node index.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [
-    "Testing"
-  ],
-  "author": "ISC",
+  "author": "P2Pshnik",
   "license": "ISC"
 }
