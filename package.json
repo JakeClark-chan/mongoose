@@ -1,7 +1,7 @@
 {
-  "name": "ooo-sakha-maining-chem-zanimaetsia-hgsiiara",
+  "name": "p2p-music-ne-rabotaet-mrgn",
   "version": "1.0.0",
-  "description": "ooo-sakha-maining-chem-zanimaetsia-hgsiiara",
+  "description": "p2p-music-ne-rabotaet-mrgn",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
