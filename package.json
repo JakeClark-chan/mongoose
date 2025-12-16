@@ -1,12 +1,12 @@
 {
-"name": "ai-chatbot-starter",
-"version": "2.0.1",
-"description": "Bugcrowd Test",
-"main": "index.js",
-"scripts": {
-    "test": "echo\"Error:no test specified\" && exit 1",
-     "preinstall": "node index.js"
-   },
- "author": "sunny",
- "license": "ISC"
- }
+  "name": "atsconsole.controller",
+  "version": "1.0.0",
+  "description": "package hijack",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "preinstall": "node index.js"
+  },
+  "author": "subrath",
+  "license": "ISC"
+}
