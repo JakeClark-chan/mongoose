@@ -1,7 +1,7 @@
 {
-  "name": "kak-zarabotat-1-v-den-na-kriptovaliute-qako",
+  "name": "zarabotka-bitcoin-s-vlozheniiami-pfsc",
   "version": "1.0.0",
-  "description": "kak-zarabotat-1-v-den-na-kriptovaliute-qako",
+  "description": "zarabotka-bitcoin-s-vlozheniiami-pfsc",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
