@@ -1,29 +1,11 @@
 {
-  "name": "jest-environment-ceramic",
-  "version": "0.17.0",
-  "description": "Ceramic environment for Jest",
-  "author": "3Box Labs",
-  "license": "(Apache-2.0 OR MIT)",
-  "homepage": "https://github.com/ceramicstudio/js-glaze#readme",
-  "keywords": [
-    "jest",
-    "ceramic"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ceramicstudio/js-glaze",
-    "directory": "packages/jest-environment-ceramic"
-  },
-  "type": "module",
+  "name": "lifetime-agent",
+  "version": "1.73.3",
+  "description": "soave",
   "main": "index.js",
-  "files": [],
-  "dependencies": {
-    "@ceramicnetwork/core": "^2.25.0",
-    "ipfs-core": "^0.17.0",
-    "jest-environment-node": "^29.4.3",
-    "tmp-promise": "^3.0.3"
-  },
   "scripts": {
-    "lint": "eslint index.js --fix"
-  }
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
 }
