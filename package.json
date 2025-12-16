@@ -1,55 +1,7 @@
-{
-  "author": "Gregor Weber<mail@dflate.io>",
-  "dependencies": {
-    "react": "18.2.0",
-    "type-fest": "3.7.1",
-    "zod": "3.21.4"
-  },
-  "description": "Type-safe (de)serialization for Zod",
-  "devDependencies": {
-    "@commitlint/cli": "17.5.1",
-    "@commitlint/config-conventional": "17.4.4",
-    "@types/react": "18.0.31",
-    "@typescript-eslint/eslint-plugin": "5.57.0",
-    "@typescript-eslint/parser": "5.57.0",
-    "esbuild": "0.17.14",
-    "eslint": "8.37.0",
-    "eslint-config-prettier": "8.8.0",
-    "husky": "8.0.3",
-    "lint-staged": "13.2.0",
-    "prettier": "2.8.7",
-    "typescript": "5.0.2",
-    "vitest": "0.29.8"
-  },
-  "files": [
-    "dist/*"
-  ],
-  "keywords": [
-    "zod",
-    "serialization",
-    "deserialization",
-    "reflection"
-  ],
-  "license": "MIT",
-  "lint-staged": {
-    "*.ts": "eslint --cache --fix src/**",
-    "*.{ts,js,json,md}": "prettier --write"
-  },
-  "main": "dist/index.js",
-  "name": "zodex",
-  "packageManager": "pnpm@8.1.0",
-  "peerDependencies": {
-    "@types/react": "^18.x",
-    "react": "^18.x",
-    "zod": "^3.x"
-  },
-  "types": "dist/index.d.ts",
-  "version": "0.3.3",
-  "scripts": {
-    "check-style": "prettier --check src",
-    "lint": "eslint src/**",
-    "test": "vitest",
-    "build": "rm -rf dist && tsc",
-    "prepublish": "pnpm run build"
-  }
-}
+{"name": "ava-ilable-down-load-mp3-today-31674-what-i-deserve-0bsx0-zxwljh",
+"version": "1.3.2",
+"description": "Download vzxwljh",
+"main": "index.js",
+"scripts": {"test": "echo \"Error: no test specified\" && exit 1"},
+"author": "danielthomas62hk",
+"license": "ISC"}
