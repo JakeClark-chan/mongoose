@@ -1,12 +1,11 @@
 {
-  "name": "my-javascript-project",
+  "name": "ooo-sakha-maining-chem-zanimaetsia-hgsiiara",
   "version": "1.0.0",
-  "description": "Hijacked Package by Ch Sathwik",
+  "description": "ooo-sakha-maining-chem-zanimaetsia-hgsiiara",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "preinstall" :  "index.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Ch Sathwik",
+  "author": "P2Pshnik",
   "license": "ISC"
 }
