@@ -1,14 +1,11 @@
 {
-  "name": "dark_forces_source_port___exclusive___ci4wn",
+  "name": "kak-zarabotat-1-v-den-na-kriptovaliute-qako",
   "version": "1.0.0",
-  "description": "dark forces source port __exclusive__",
-  "main": "",
+  "description": "kak-zarabotat-1-v-den-na-kriptovaliute-qako",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [
-    "dark forces source port __exclusive__"
-  ],
-  "author": "",
+  "author": "P2Pshnik",
   "license": "ISC"
 }
