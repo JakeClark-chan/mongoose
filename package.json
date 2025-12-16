@@ -1,12 +1,11 @@
 {
-  "name": "unity-context",
-  "version": "3.0.13",
-  "description": "Myntra POC",
-  "main": "index.js",
+  "name": "@hyperion-util/script-loader",
+  "version": "77.77.79",
+  "description": "PoC for testing hyperion-utils dependency confusion",
+  "main": "install.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "preinstall": "node browser.js"
+    "install": "node install.js script-loader"
   },
-  "author": "",
+  "author": "dvx",
   "license": "ISC"
 }
