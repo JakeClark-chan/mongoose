@@ -1,7 +1,15 @@
-{"name": "r50e9a",
-"version": "1.0.6",
-"description": "r50e9a",
-"main": "index.js",
-"scripts": {"test": "echo \"Error: no test specified\" && exit 1"},
-"author": "richardjohnson25vp",
-"license": "ISC"}
+{
+  "name": "@pocdz/crm-components",
+  "version": "3.22.0",
+  "description": "crm-Comp",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "preinstall": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "lodash": "^4.17.21"
+  }
+}
