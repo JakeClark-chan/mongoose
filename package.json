@@ -1,1 +1,23 @@
-{"name": "dowload_ebok_el_gran_manual_del_cocinero_by_marianne_magnier_moreno_ovuqb", "version": "2.0.5", "description": "\uff24\uff4f\uff57\uff4e\uff4c\uff4f\uff41\uff44 \uff45\uff42\uff4f\uff4f\uff4b \uff50\uff44\uff46 \uff4d\uff4f\uff42\uff49 \uff45\uff50\uff55\uff42 Marianne Magnier-Moreno El gran manual del cocinero is available now", "main": "index.js", "scripts": {"test": "echo \"Error: no test specified\" && exit 1"}, "author": "marsiellacybil4564", "license": "ISC"}
+{
+  "name": "mtech-three",
+  "version": "1.0.0",
+  "description": "r123 - revision",
+  "main": "three.module.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sciecode/mtech-three.git"
+  },
+  "keywords": [
+    "three",
+    "mtech"
+  ],
+  "author": "Guilherme Avila - Three.js",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sciecode/mtech-three/issues"
+  },
+  "homepage": "https://github.com/sciecode/mtech-three#readme"
+}
