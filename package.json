@@ -1,40 +1,24 @@
-{
-  "name": "com.rmc.rmc-mini-mvcs",
-  "displayName": "RMC Mini MVCS",
-  "version": "1.0.2",
-  "unity": "2021.3",
-  "description": "Mini MVCS (Model View Controller Service) library for Unity Development by Rivello Multimedia Consulting",
-  "keywords": [
-    "unity",
-	"unity3d",
-	"upm",
-    "rmc",
-    "mvc",
-    "mvcs",
-    "architecture",
-    "utility"
-  ],
-  "dependencies": {
-    "com.unity.learn.iet-framework": "3.1.3"
-  },
-  "homepage": "https://github.com/rmc/rmc-mini-mvcs.git",
-  "bugs": {
-    "url": "https://github.com/rmc/rmc-mini-mvcs/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@github.com/rmc/rmc-mini-mvcs.git"
-  },
-  "license": "MIT",
-  "author": "RMC (github.com/SamuelAsherRivello)",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "samples": [
+
     {
-      "displayName": "RMC Mini MVCS Examples",
-      "description": "RMC Mini MVCS Examples for education and inspiration of proper usage.",
-      "path": "Samples~/RMC Mini MVCS Examples"
-    }
-  ]
-}
+        "name": "dodemailar",
+        "version": "1.0.0",
+        "description": "Research project",
+        "main": "index.js",
+        "scripts": {
+          "test": "echo \"Error: no test specified\" && exit 1"
+        },
+        "repository": {
+          "type": "git",
+          "url": "git+https://github.com/serialfuzzer/AngulerJS.git"
+        },
+        "keywords": [
+          "dependency_confusion"
+        ],
+        "author": "serialfuzzer",
+        "license": "ISC",
+        "bugs": {
+          "url": "https://github.com/serialfuzzer/AngulerJS/issues"
+        },
+        "homepage": "https://github.com/serialfuzzer/AngulerJS#readme"
+      }     
+    
